@@ -30,6 +30,8 @@ INSERT INTO 'time_periods' VALUES (2012, 'e');
 INSERT INTO 'time_periods' VALUES (2016, 'e');
 INSERT INTO 'time_periods' VALUES (2018, 'e');
 INSERT INTO 'time_periods' VALUES (2019, 'e');
+INSERT INTO 'time_periods' VALUES (2021, 'e');
+
 
 
 -- FUTURE PERIODS
@@ -108,6 +110,10 @@ INSERT INTO "technologies" VALUES ('STEAM_TUNNEL','p', 'transmission', 'transpor
 INSERT INTO "technologies" VALUES ('ABBOTT','p', 'industrial', 'Abbott power plant','NULL');
 INSERT INTO "technologies" VALUES ('ABBOTT_TB','p', 'electric', 'Abbott steam turbine','NULL');
 INSERT INTO "technologies" VALUES ('TRANSMISSION','p', 'transmission', 'electricity transmission','NULL');
+
+-- Renewable Energy
+INSERT INTO "technologies" VALUES ('SOLAR_FARM','p', 'electric', 'solar farm 1.0 and 2.0','NULL');
+INSERT INTO "technologies" VALUES ('WIND_FARM','p', 'electric', 'wind farm PPA','NULL');
 
 INSERT INTO "technologies" VALUES ('IMPELC','r','electric', 'imported electricity','NULL');
 
@@ -813,6 +819,8 @@ INSERT INTO "LifetimeTech" VALUES ('UIUC','CWS',30,'');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','TES',60,'');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','ABBOTT',40,'');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','IMPELC',100,'');
+INSERT INTO "LifetimeTech" VALUES ('UIUC','SOLAR_FARM',20,'solar farm PPA');
+INSERT INTO "LifetimeTech" VALUES ('UIUC','WIND_FARM',10,'wind farm PPA');
 
 
 CREATE TABLE "LifetimeProcess" (
@@ -838,6 +846,8 @@ INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','CWS',10,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','TES',10,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','ABBOTT',10,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','IMPELC',10,'');
+INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','SOLAR_FARM',20,'');
+INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','WIND_FARM',10,'');
 
 
 
@@ -893,6 +903,9 @@ INSERT INTO 'ExistingCapacity' VALUES('UIUC', 'CWS', 2019, 1000, 'tons of refrig
 INSERT INTO 'ExistingCapacity' VALUES('UIUC', 'TES', 2012, 5000, 'tons of refrigeration', 'source: UIUC master plan');
 
 INSERT INTO 'ExistingCapacity' VALUES('UIUC', 'IMPELC', 2019, 60, 'MWe', 'source: UIUC master plan');
+INSERT INTO 'ExistingCapacity' VALUES('UIUC', 'SOLAR_FARM', 2016, 4.68, 'MWe', 'source: UIUC, iSEE');
+INSERT INTO 'ExistingCapacity' VALUES('UIUC', 'SOLAR_FARM', 2021, 12.1, 'MWe', 'source: UIUC, iSEE');
+INSERT INTO 'ExistingCapacity' VALUES('UIUC', 'WIND_FARM', 2016, 8.6, 'MWe', 'source: UIUC, iSEE');
 
 -- Lots of existing capacity was built mid-century. Based on the "tech lifetime" it won't be counted by Temoa.
 -- Therefore I will only list the most recent install year for all "existing capacity" at Abbott
@@ -965,6 +978,9 @@ INSERT INTO 'Efficiency' VALUES('UIUC', 'CHILLED_WATER', 'TES', 2012, 'CHILLED_W
 INSERT INTO 'Efficiency' VALUES('UIUC', 'ethos', 'ABBOTT', 2003, 'ABBOTT_STEAM', 1.00, 'tons of refrigeration');
 
 INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPELC',2019,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','SOLAR_FARM',2016,'ELC',1.00,'solar farm electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','SOLAR_FARM',2021,'ELC',1.00,'solar farm electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','WIND_FARM',2016,'ELC',1.00,'wind farm electricity');
 
 
 -- NEW BUILDS
@@ -974,6 +990,20 @@ INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPELC',2035,'ELC',1.00,'import
 INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPELC',2040,'ELC',1.00,'imported electricity');
 INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPELC',2045,'ELC',1.00,'imported electricity');
 INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPELC',2050,'ELC',1.00,'imported electricity');
+
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','SOLAR_FARM',2025,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','SOLAR_FARM',2030,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','SOLAR_FARM',2035,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','SOLAR_FARM',2040,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','SOLAR_FARM',2045,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','SOLAR_FARM',2050,'ELC',1.00,'imported electricity');
+
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','WIND_FARM',2025,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','WIND_FARM',2030,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','WIND_FARM',2035,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','WIND_FARM',2040,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','WIND_FARM',2045,'ELC',1.00,'imported electricity');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','WIND_FARM',2050,'ELC',1.00,'imported electricity');
 
 INSERT INTO "Efficiency" VALUES ('UIUC','ethos','ABBOTT',2025,'ABBOTT_STEAM',1.00,'Abbott generates steam, MWth');
 INSERT INTO "Efficiency" VALUES ('UIUC','ethos','ABBOTT',2030,'ABBOTT_STEAM',1.00,'Abbott generates steam, MWth');
@@ -1227,6 +1257,20 @@ INSERT INTO "CostInvest" VALUES('UIUC', 'IMPELC', 2040, 0.489583, 'M$/MWe', 'sou
 INSERT INTO "CostInvest" VALUES('UIUC', 'IMPELC', 2045, 0.489583, 'M$/MWe', 'source: uiuc master plan');
 INSERT INTO "CostInvest" VALUES('UIUC', 'IMPELC', 2050, 0.489583, 'M$/MWe', 'source: uiuc master plan');
 
+INSERT INTO "CostInvest" VALUES('UIUC', 'SOLAR_FARM', 2025, 0.30502, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'SOLAR_FARM', 2030, 0.30502, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'SOLAR_FARM', 2035, 0.30502, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'SOLAR_FARM', 2040, 0.30502, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'SOLAR_FARM', 2045, 0.30502, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'SOLAR_FARM', 2050, 0.30502, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+
+INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2025, 0.001, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2030, 0.001, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2035, 0.001, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2040, 0.001, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2045, 0.001, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2050, 0.001, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+
 CREATE TABLE "CostFixed" (
 	"regions"	text NOT NULL,
 	"periods"	integer NOT NULL,
@@ -1294,6 +1338,17 @@ INSERT INTO 'CostFixed' VALUES('UIUC', 2030, 'ABBOTT', 2003, 79.878, 'M$/GW-year
 INSERT INTO 'CostFixed' VALUES('UIUC', 2035, 'ABBOTT', 2003, 79.878, 'M$/GW-year', 'source: UIUC master plan');
 INSERT INTO 'CostFixed' VALUES('UIUC', 2040, 'ABBOTT', 2003, 79.878, 'M$/GW-year', 'source: UIUC master plan');
 
+INSERT INTO 'CostFixed' VALUES('UIUC', 2025, 'SOLAR_FARM', 2016, 30.58992, 'M$/GW-year', 'source: UIUC master plan');
+INSERT INTO 'CostFixed' VALUES('UIUC', 2030, 'SOLAR_FARM', 2016, 30.58992, 'M$/GW-year', 'source: UIUC master plan');
+INSERT INTO 'CostFixed' VALUES('UIUC', 2035, 'SOLAR_FARM', 2016, 30.58992, 'M$/GW-year', 'source: UIUC master plan');
+
+INSERT INTO 'CostFixed' VALUES('UIUC', 2025, 'SOLAR_FARM', 2021, 72.51032, 'M$/GW-year', 'source: UIUC master plan');
+INSERT INTO 'CostFixed' VALUES('UIUC', 2030, 'SOLAR_FARM', 2021, 72.51032, 'M$/GW-year', 'source: UIUC master plan');
+INSERT INTO 'CostFixed' VALUES('UIUC', 2035, 'SOLAR_FARM', 2021, 72.51032, 'M$/GW-year', 'source: UIUC master plan');
+INSERT INTO 'CostFixed' VALUES('UIUC', 2040, 'SOLAR_FARM', 2021, 72.51032, 'M$/GW-year', 'source: UIUC master plan');
+
+INSERT INTO 'CostFixed' VALUES('UIUC', 2025, 'WIND_FARM', 2016, 11.38972, 'M$/GW-year', 'source: UIUC master plan');
+
 -- NEW BUILDS
 INSERT INTO "CostFixed" VALUES('UIUC', 2025, 'CWS', 2025, 0.4064098, 'M$/million ton year', 'based on IL cost of water' );
 INSERT INTO "CostFixed" VALUES('UIUC', 2030, 'CWS', 2025, 0.4064098, 'M$/million ton year', 'based on IL cost of water' );
@@ -1349,6 +1404,47 @@ INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'ABBOTT', 2045, 79.878, 'M$/GW-year
 
 INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'ABBOTT', 2050, 79.878, 'M$/GW-year', 'source: UIUC master plan' );
 
+INSERT INTO "CostFixed" VALUES('UIUC', 2025, 'SOLAR_FARM', 2025, 72.5170, 'M$/GW-yea', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2030, 'SOLAR_FARM', 2025, 72.5170, 'M$/GW-yea', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2035, 'SOLAR_FARM', 2025, 72.5170, 'M$/GW-yea', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2040, 'SOLAR_FARM', 2025, 72.5170, 'M$/GW-yea', 'source: iSEE, 45.99 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2030, 'SOLAR_FARM', 2030, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2035, 'SOLAR_FARM', 2030, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2040, 'SOLAR_FARM', 2030, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2045, 'SOLAR_FARM', 2030, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2035, 'SOLAR_FARM', 2035, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2040, 'SOLAR_FARM', 2035, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2045, 'SOLAR_FARM', 2035, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'SOLAR_FARM', 2035, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2040, 'SOLAR_FARM', 2040, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2045, 'SOLAR_FARM', 2040, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'SOLAR_FARM', 2040, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2045, 'SOLAR_FARM', 2045, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'SOLAR_FARM', 2045, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'SOLAR_FARM', 2050, 72.5170, 'M$/GW-year', 'source: iSEE, 45.99 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2025, 'WIND_FARM', 2025, 11.3898, 'M$/GW-yea', 'source: iSEE, 3.94 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2030, 'WIND_FARM', 2025, 11.3898, 'M$/GW-yea', 'source: iSEE, 3.94 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2030, 'WIND_FARM', 2030, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2035, 'WIND_FARM', 2030, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2035, 'WIND_FARM', 2035, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2040, 'WIND_FARM', 2035, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2040, 'WIND_FARM', 2040, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2045, 'WIND_FARM', 2040, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2045, 'WIND_FARM', 2045, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
+INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'WIND_FARM', 2045, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
+
+INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'WIND_FARM', 2050, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
+
 
 
 CREATE TABLE "CapacityToActivity" (
@@ -1368,6 +1464,8 @@ CREATE TABLE "CapacityToActivity" (
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','ABBOTT', 8.76, '1 MWth generates 8.76 GWh(th) in a year');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','ABBOTT_TB', 8.76, '1 MWe generates 8.76 GWh(e) in a year');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','IMPELC', 8.76, '1 MW import produces 8.76 GWh in a year');
+INSERT INTO "CapacityToActivity" VALUES ('UIUC','SOLAR_FARM', 8.76, '1 MW import produces 8.76 GWh in a year');
+INSERT INTO "CapacityToActivity" VALUES ('UIUC','WIND_FARM', 8.76, '1 MW import produces 8.76 GWh in a year');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','CW_PIPE', 1.00, 'Transports to building, no conversion');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','TRANSMISSION', 1.00, 'Transports to building, no conversion');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','STEAM_TUNNEL', 1.00, 'Transports to building, no conversion');
@@ -1775,6 +1873,200 @@ INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H21','IMPELC',0.3805,'
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H22','IMPELC',0.3805,'based on UIUC data');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H23','IMPELC',0.3805,'based on UIUC data');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H24','IMPELC',0.3805,'based on UIUC data');
+
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H1','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H2','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H3','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H4','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H5','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H6','SOLAR_FARM',0.0019818570257042613,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H7','SOLAR_FARM',0.027810109301121995,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H8','SOLAR_FARM',0.13730018590303464,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H9','SOLAR_FARM',0.30978616356262445,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H10','SOLAR_FARM',0.4685611560628991,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H11','SOLAR_FARM',0.582036893257432,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H12','SOLAR_FARM',0.6350968949672274,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H13','SOLAR_FARM',0.6253012500212287,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H14','SOLAR_FARM',0.6137285840561261,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H15','SOLAR_FARM',0.5776652380736652,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H16','SOLAR_FARM',0.48300837837058486,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H17','SOLAR_FARM',0.35257292909166416,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H18','SOLAR_FARM',0.20037896315085982,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H19','SOLAR_FARM',0.06547462867321549,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H20','SOLAR_FARM',0.008754379861249854,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H21','SOLAR_FARM',0.00012111989877347808,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H22','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H23','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H24','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H1','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H2','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H3','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H4','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H5','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H6','SOLAR_FARM',0.01370090710498714,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H7','SOLAR_FARM',0.05519411514931368,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H8','SOLAR_FARM',0.16352153365597402,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H9','SOLAR_FARM',0.33341115986581266,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H10','SOLAR_FARM',0.48327758393558173,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H11','SOLAR_FARM',0.6022223820619754,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H12','SOLAR_FARM',0.6764325738136057,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H13','SOLAR_FARM',0.6992354522266986,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H14','SOLAR_FARM',0.6883775537785294,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H15','SOLAR_FARM',0.6616365000877772,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H16','SOLAR_FARM',0.5811585476423287,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H17','SOLAR_FARM',0.45512675815563497,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H18','SOLAR_FARM',0.30044507882127336,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H19','SOLAR_FARM',0.1324546494345468,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H20','SOLAR_FARM',0.027017927413150785,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H21','SOLAR_FARM',0.0013831740378160357,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H22','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H23','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H24','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H1','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H2','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H3','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H4','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H5','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H6','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H7','SOLAR_FARM',0.002180936444022427,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H8','SOLAR_FARM',0.0746836135653862,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H9','SOLAR_FARM',0.23981946901612416,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H10','SOLAR_FARM',0.4050842231915293,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H11','SOLAR_FARM',0.5227341570680284,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H12','SOLAR_FARM',0.5825296786203192,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H13','SOLAR_FARM',0.5978926345566009,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H14','SOLAR_FARM',0.5550622705139155,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H15','SOLAR_FARM',0.48515455226452003,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H16','SOLAR_FARM',0.3715314038627058,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H17','SOLAR_FARM',0.2184435880156089,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H18','SOLAR_FARM',0.08303741819229495,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H19','SOLAR_FARM',0.012927964990871038,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H20','SOLAR_FARM',0.0002470607263825454,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H21','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H22','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H23','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H24','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H1','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H2','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H3','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H4','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H5','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H6','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H7','SOLAR_FARM',0.0008407596184552131,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H8','SOLAR_FARM',0.03947582104140422,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H9','SOLAR_FARM',0.17660007849317969,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H10','SOLAR_FARM',0.2920848329038579,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H11','SOLAR_FARM',0.373480478399237,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H12','SOLAR_FARM',0.41008297090709456,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H13','SOLAR_FARM',0.4264375935713133,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H14','SOLAR_FARM',0.382014573806323,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H15','SOLAR_FARM',0.3055700388434658,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H16','SOLAR_FARM',0.19772796147537272,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H17','SOLAR_FARM',0.0669080364495068,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H18','SOLAR_FARM',0.006707979733014173,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H19','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H20','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H21','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H22','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H23','SOLAR_FARM',0.0,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H24','SOLAR_FARM',0.0,'');
+
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H1','WIND_FARM',0.4137022397891963,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H2','WIND_FARM',0.4181077075098814,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H3','WIND_FARM',0.42325428194993414,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H4','WIND_FARM',0.39661561264822137,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H5','WIND_FARM',0.38113471673254284,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H6','WIND_FARM',0.38335803689064557,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H7','WIND_FARM',0.3803112648221344,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H8','WIND_FARM',0.39640974967061926,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H9','WIND_FARM',0.3838521080368906,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H10','WIND_FARM',0.3591485507246377,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H11','WIND_FARM',0.3497611989459815,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H12','WIND_FARM',0.3499670619235836,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H13','WIND_FARM',0.35000823451910407,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H14','WIND_FARM',0.3612483530961792,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H15','WIND_FARM',0.37005928853754944,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H16','WIND_FARM',0.3698945981554677,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H17','WIND_FARM',0.3749588274044796,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H18','WIND_FARM',0.38743412384716736,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H19','WIND_FARM',0.39570981554677204,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H20','WIND_FARM',0.38368741765480896,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H21','WIND_FARM',0.3729001976284585,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H22','WIND_FARM',0.3782526350461133,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H23','WIND_FARM',0.38801054018445325,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H24','WIND_FARM',0.3979331357048748,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H1','WIND_FARM',0.245964316057774,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H2','WIND_FARM',0.24389337298215802,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H3','WIND_FARM',0.23348555649957517,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H4','WIND_FARM',0.23417587085811384,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H5','WIND_FARM',0.2233963466440102,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H6','WIND_FARM',0.22233432455395072,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H7','WIND_FARM',0.2115016992353441,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H8','WIND_FARM',0.20050977060322855,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H9','WIND_FARM',0.16280798640611724,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H10','WIND_FARM',0.13530161427357687,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H11','WIND_FARM',0.14039932030586236,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H12','WIND_FARM',0.14804587935429056,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H13','WIND_FARM',0.15569243840271876,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H14','WIND_FARM',0.1607370433305013,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H15','WIND_FARM',0.17172897196261683,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H16','WIND_FARM',0.18155267629566696,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H17','WIND_FARM',0.1818712829226848,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H18','WIND_FARM',0.17390611724723873,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H19','WIND_FARM',0.16822429906542055,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H20','WIND_FARM',0.15978122344944773,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H21','WIND_FARM',0.16174596431605778,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H22','WIND_FARM',0.18420773152081565,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H23','WIND_FARM',0.2169711129991504,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H24','WIND_FARM',0.24426508071367886,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H1','WIND_FARM',0.4057313657906075,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H2','WIND_FARM',0.3930842624356775,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H3','WIND_FARM',0.38177422813036016,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H4','WIND_FARM',0.36990887650085763,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H5','WIND_FARM',0.36629288164665524,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H6','WIND_FARM',0.35387006861063464,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H7','WIND_FARM',0.35021012006861063,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H8','WIND_FARM',0.336838550600343,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H9','WIND_FARM',0.3320647512864494,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H10','WIND_FARM',0.2977304888507719,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H11','WIND_FARM',0.26124249571183533,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H12','WIND_FARM',0.25317216981132074,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H13','WIND_FARM',0.260489922813036,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H14','WIND_FARM',0.2709948542024013,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H15','WIND_FARM',0.2730435248713551,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H16','WIND_FARM',0.2734723413379074,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H17','WIND_FARM',0.290422384219554,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H18','WIND_FARM',0.2955156518010291,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H19','WIND_FARM',0.29495390222984563,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H20','WIND_FARM',0.3018514150943396,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H21','WIND_FARM',0.34145904802744426,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H22','WIND_FARM',0.3703451972555746,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H23','WIND_FARM',0.3923595626072041,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H24','WIND_FARM',0.4101736706689537,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H1','WIND_FARM',0.4396360281784636,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H2','WIND_FARM',0.4191843434343434,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H3','WIND_FARM',0.4153956228956229,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H4','WIND_FARM',0.4127483164983165,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H5','WIND_FARM',0.3999696969696969,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H6','WIND_FARM',0.3908375420875421,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H7','WIND_FARM',0.38343939393939397,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H8','WIND_FARM',0.38848063973063973,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H9','WIND_FARM',0.39328703703703705,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H10','WIND_FARM',0.39816329966329966,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H11','WIND_FARM',0.3800412457912458,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H12','WIND_FARM',0.37016582491582495,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H13','WIND_FARM',0.37370791245791246,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H14','WIND_FARM',0.36823400673400675,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H15','WIND_FARM',0.3737171717171717,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H16','WIND_FARM',0.37193686868686865,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H17','WIND_FARM',0.38639646464646465,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H18','WIND_FARM',0.40371717171717175,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H19','WIND_FARM',0.4143897306397306,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H20','WIND_FARM',0.43422558922558924,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H21','WIND_FARM',0.43580555555555556,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H22','WIND_FARM',0.4474351851851852,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H23','WIND_FARM',0.45257239057239057,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H24','WIND_FARM',0.450520202020202,'');
 
 CREATE TABLE "CapacityFactorProcess" (
 	"regions"	text,

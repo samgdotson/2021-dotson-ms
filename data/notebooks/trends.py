@@ -119,35 +119,38 @@ def plot_seasonal(seasonal_df,
     fig, ax = plt.subplots()
 
     for season in season_colors:
-        if feature is 'dist':
+        if feature == 'dist':
             feature_key = season+"_"+feature
             ax.plot(range(24),
-            seasonal_df[feature_key],
-            label=season.capitalize(),
-            color=season_colors[season],
-            marker='o',)
-        elif feature is 'cf':
-            feature_key = season+"_"+feature
-            ax.plot(range(24),
-            seasonal_df[season],
-            label=season.capitalize(),
-            color=season_colors[season],
-            marker='o',)
-            ax2 = ax.twinx()
-            ax2.plot(range(24),
                     seasonal_df[feature_key],
+                    label=season.capitalize(),
+                    color=season_colors[season],
+                    marker='o',)
+            ax.legend(loc=(1.02,0.5),fontsize=14)
+        elif feature == 'cf':
+            feature_key = season+"_"+feature
+            ax2 = ax.twinx()
+            ax.plot(range(24),
+                    seasonal_df[season],
+                    label=season.capitalize(),
+                    color=season_colors[season],
+                    marker='o',)
+            ax2.plot(range(24),
+                    seasonal_df[feature_key]*100,
                     color=season_colors[season],)
+            ax.legend(loc=(1.1,0.5),fontsize=14)
         else:
             ax.plot(range(24),
             seasonal_df[season],
             label=season.capitalize(),
             color=season_colors[season],
             marker='o',)
+            ax.legend(loc=(1.02,0.5),fontsize=14)
     ax.set_xlabel(xlabel,fontsize=16)
-    ax.legend(loc=(1.02,0.5),fontsize=14)
     ax.set_ylabel(ylabel,fontsize=16)
     ax.set_title(title,fontsize=16)
-    ax.grid(which='minor')
+    plt.minorticks_on()
+    ax.grid(which='major');ax.grid(which='minor')
     if save is not False:
         fig.savefig(save)
     if show:

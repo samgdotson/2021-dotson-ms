@@ -115,6 +115,10 @@ INSERT INTO "technologies" VALUES ('TRANSMISSION','p', 'transmission', 'electric
 INSERT INTO "technologies" VALUES ('SOLAR_FARM','p', 'electric', 'solar farm 1.0 and 2.0','NULL');
 INSERT INTO "technologies" VALUES ('WIND_FARM','p', 'electric', 'wind farm PPA','NULL');
 
+-- Nuclear
+INSERT INTO "technologies" VALUES ('NUCLEAR_NEW','p', 'industrial', 'nuclear reactor','NULL');
+INSERT INTO "technologies" VALUES ('NUCLEAR_TB','p', 'electric', 'nuclear steam turbine','NULL');
+
 INSERT INTO "technologies" VALUES ('IMPELC','r','electric', 'imported electricity','NULL');
 
 CREATE TABLE "tech_reserve" (
@@ -198,6 +202,7 @@ INSERT INTO "commodities" VALUES ('ethos','p','# dummy commodity to supply input
 INSERT INTO "commodities" VALUES ('ELC','p','# electricity');
 INSERT INTO "commodities" VALUES ('CHILLED_WATER','p','# chilled water');
 INSERT INTO "commodities" VALUES ('ABBOTT_STEAM','p','# Abbott Steam');
+INSERT INTO "commodities" VALUES ('NUCLEAR_STEAM','p','# Nuclear Steam');
 
 INSERT INTO "commodities" VALUES ('COOL','d','# university cooling');
 INSERT INTO "commodities" VALUES ('HEAT','d','# university heating');
@@ -712,6 +717,7 @@ CREATE TABLE RampDown(
 INSERT INTO "RampDown" VALUES ('UIUC', 'CWS', 0.1978);
 INSERT INTO "RampDown" VALUES ('UIUC', 'TES', 0.5830);
 INSERT INTO "RampDown" VALUES ('UIUC', 'ABBOTT', 0.3060);
+INSERT INTO "RampDown" VALUES ('UIUC', 'NUCLEAR_NEW', 0.25);
 
 
 CREATE TABLE RampUp(
@@ -724,6 +730,7 @@ CREATE TABLE RampUp(
 INSERT INTO "RampUp" VALUES ('UIUC', 'CWS', 0.1978);
 INSERT INTO "RampUp" VALUES ('UIUC', 'TES', 0.5830);
 INSERT INTO "RampUp" VALUES ('UIUC', 'ABBOTT', 0.3060);
+INSERT INTO "RampUp" VALUES ('UIUC', 'NUCLEAR_NEW', 0.25);
 
 
 CREATE TABLE tech_ramping (
@@ -735,6 +742,7 @@ CREATE TABLE tech_ramping (
 INSERT INTO "tech_ramping" VALUES ('CWS');
 INSERT INTO "tech_ramping" VALUES ('TES');
 INSERT INTO "tech_ramping" VALUES ('ABBOTT');
+INSERT INTO "tech_ramping" VALUES ('NUCLEAR_NEW');
 
 CREATE TABLE "MyopicBaseyear" (
 	"year"	real
@@ -818,6 +826,7 @@ CREATE TABLE "LifetimeTech" (
 INSERT INTO "LifetimeTech" VALUES ('UIUC','CWS',30,'');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','TES',60,'');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','ABBOTT',40,'');
+INSERT INTO "LifetimeTech" VALUES ('UIUC','NUCLEAR_NEW',60,'');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','IMPELC',100,'');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','SOLAR_FARM',20,'solar farm PPA');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','WIND_FARM',10,'wind farm PPA');
@@ -845,6 +854,7 @@ CREATE TABLE "LifetimeLoanTech" (
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','CWS',10,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','TES',10,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','ABBOTT',10,'');
+INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','NUCLEAR_NEW',10,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','IMPELC',10,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','SOLAR_FARM',20,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','WIND_FARM',10,'');
@@ -1019,6 +1029,20 @@ INSERT INTO "Efficiency" VALUES ('UIUC','ABBOTT_STEAM','ABBOTT_TB',2040,'ELC',0.
 INSERT INTO "Efficiency" VALUES ('UIUC','ABBOTT_STEAM','ABBOTT_TB',2045,'ELC',0.50316,'steam turbines, MWe');
 INSERT INTO "Efficiency" VALUES ('UIUC','ABBOTT_STEAM','ABBOTT_TB',2050,'ELC',0.50316,'steam turbines, MWe');
 
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','NUCLEAR_NEW',2025,'NUCLEAR_STEAM',1.00,'Nuclear plant generates steam, MWth');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','NUCLEAR_NEW',2030,'NUCLEAR_STEAM',1.00,'Nuclear plant generates steam, MWth');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','NUCLEAR_NEW',2035,'NUCLEAR_STEAM',1.00,'Nuclear plant generates steam, MWth');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','NUCLEAR_NEW',2040,'NUCLEAR_STEAM',1.00,'Nuclear plant generates steam, MWth');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','NUCLEAR_NEW',2045,'NUCLEAR_STEAM',1.00,'Nuclear plant generates steam, MWth');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','NUCLEAR_NEW',2050,'NUCLEAR_STEAM',1.00,'Nuclear plant generates steam, MWth');
+
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','NUCLEAR_TB',2025,'ELC',0.35,'nuclear steam turbines, MWe');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','NUCLEAR_TB',2030,'ELC',0.35,'nuclear steam turbines, MWe');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','NUCLEAR_TB',2035,'ELC',0.35,'nuclear steam turbines, MWe');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','NUCLEAR_TB',2040,'ELC',0.35,'nuclear steam turbines, MWe');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','NUCLEAR_TB',2045,'ELC',0.35,'nuclear steam turbines, MWe');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','NUCLEAR_TB',2050,'ELC',0.35,'nuclear steam turbines, MWe');
+
 INSERT INTO "Efficiency" VALUES ('UIUC','ELC','TRANSMISSION',2025,'LIGHT',1.00,'moves electricity');
 INSERT INTO "Efficiency" VALUES ('UIUC','ELC','TRANSMISSION',2030,'LIGHT',1.00,'moves electricity');
 INSERT INTO "Efficiency" VALUES ('UIUC','ELC','TRANSMISSION',2035,'LIGHT',1.00,'moves electricity');
@@ -1032,6 +1056,13 @@ INSERT INTO "Efficiency" VALUES ('UIUC','ABBOTT_STEAM','STEAM_TUNNEL',2035,'HEAT
 INSERT INTO "Efficiency" VALUES ('UIUC','ABBOTT_STEAM','STEAM_TUNNEL',2040,'HEAT',1.00,'moves low pressure steam to buildings');
 INSERT INTO "Efficiency" VALUES ('UIUC','ABBOTT_STEAM','STEAM_TUNNEL',2045,'HEAT',1.00,'moves low pressure steam to buildings');
 INSERT INTO "Efficiency" VALUES ('UIUC','ABBOTT_STEAM','STEAM_TUNNEL',2050,'HEAT',1.00,'moves low pressure steam to buildings');
+
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','STEAM_TUNNEL',2025,'HEAT',1.00,'moves low pressure steam to buildings');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','STEAM_TUNNEL',2030,'HEAT',1.00,'moves low pressure steam to buildings');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','STEAM_TUNNEL',2035,'HEAT',1.00,'moves low pressure steam to buildings');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','STEAM_TUNNEL',2040,'HEAT',1.00,'moves low pressure steam to buildings');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','STEAM_TUNNEL',2045,'HEAT',1.00,'moves low pressure steam to buildings');
+INSERT INTO "Efficiency" VALUES ('UIUC','NUCLEAR_STEAM','STEAM_TUNNEL',2050,'HEAT',1.00,'moves low pressure steam to buildings');
 
 INSERT INTO "Efficiency" VALUES ('UIUC','ELC','CWS',2025,'CHILLED_WATER',1.467,'GWh to million tons of Refrigeration');
 INSERT INTO "Efficiency" VALUES ('UIUC','ELC','CWS',2030,'CHILLED_WATER',1.467,'GWh to million tons of Refrigeration');
@@ -1160,6 +1191,33 @@ INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'CWS', 2045, 7.635054, 'M$/milli
 
 INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'CWS', 2050, 7.635054, 'M$/million ton-hour', 'based on IL cost of water' );
 
+INSERT INTO "CostVariable" VALUES ('UIUC', 2025, 'NUCLEAR_NEW', 2025, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2030, 'NUCLEAR_NEW', 2025, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2035, 'NUCLEAR_NEW', 2025, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2040, 'NUCLEAR_NEW', 2025, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2025, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2025, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+
+INSERT INTO "CostVariable" VALUES ('UIUC', 2030, 'NUCLEAR_NEW', 2030, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2035, 'NUCLEAR_NEW', 2030, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2040, 'NUCLEAR_NEW', 2030, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2030, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2030, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+
+INSERT INTO "CostVariable" VALUES ('UIUC', 2035, 'NUCLEAR_NEW', 2035, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2040, 'NUCLEAR_NEW', 2035, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2035, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2035, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+
+INSERT INTO "CostVariable" VALUES ('UIUC', 2040, 'NUCLEAR_NEW', 2040, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2040, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2040, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+
+INSERT INTO "CostVariable" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2045, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostVariable" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2045, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+
+INSERT INTO "CostVariable" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2050, 0.009158, 'M$/GW-year', 'source: NREL ATB');
+
 
 INSERT INTO "CostVariable" VALUES('UIUC', 2025, 'ABBOTT', 2025, 0.023009, 'M$/GWh(th)', 'source: UIUC master plan' );
 INSERT INTO "CostVariable" VALUES('UIUC', 2030, 'ABBOTT', 2025, 0.023009, 'M$/GWh(th)', 'source: UIUC master plan' );
@@ -1270,6 +1328,13 @@ INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2035, 0.001, 'M$/MWe', 'sou
 INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2040, 0.001, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
 INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2045, 0.001, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
 INSERT INTO "CostInvest" VALUES('UIUC', 'WIND_FARM', 2050, 0.001, 'M$/MWe', 'source: iSEE, cost of SF 1.0 contract');
+
+INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2025, 5.905853, 'M$/MW', 'advanced nuclear, source: NREL ATB');
+INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2030, 5.734473, 'M$/MW', 'advanced nuclear, source: NREL ATB');
+INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2035, 5.544668, 'M$/MW', 'advanced nuclear, source: NREL ATB');
+INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2040, 5.340865, 'M$/MW', 'advanced nuclear, source: NREL ATB');
+INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2045, 5.155078, 'M$/MW', 'advanced nuclear, source: NREL ATB');
+INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2050, 4.916458, 'M$/MW', 'advanced nuclear, source: NREL ATB');
 
 CREATE TABLE "CostFixed" (
 	"regions"	text NOT NULL,
@@ -1445,7 +1510,32 @@ INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'WIND_FARM', 2045, 11.3898, 'M$/GW-
 
 INSERT INTO "CostFixed" VALUES('UIUC', 2050, 'WIND_FARM', 2050, 11.3898, 'M$/GW-year', 'source: iSEE, 3.94 $/MWh' );
 
+INSERT INTO "CostFixed" VALUES ('UIUC', 2025, 'NUCLEAR_NEW', 2025, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2030, 'NUCLEAR_NEW', 2025, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2035, 'NUCLEAR_NEW', 2025, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'NUCLEAR_NEW', 2025, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2025, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2025, 121.09221, 'M$/GW-year', 'source: NREL ATB');
 
+INSERT INTO "CostFixed" VALUES ('UIUC', 2030, 'NUCLEAR_NEW', 2030, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2035, 'NUCLEAR_NEW', 2030, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'NUCLEAR_NEW', 2030, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2030, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2030, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2035, 'NUCLEAR_NEW', 2035, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'NUCLEAR_NEW', 2035, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2035, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2035, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'NUCLEAR_NEW', 2040, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2040, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2040, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'NUCLEAR_NEW', 2045, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2045, 121.09221, 'M$/GW-year', 'source: NREL ATB');
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2050, 121.09221, 'M$/GW-year', 'source: NREL ATB');
 
 CREATE TABLE "CapacityToActivity" (
 	"regions"	text,
@@ -1455,12 +1545,10 @@ CREATE TABLE "CapacityToActivity" (
 	FOREIGN KEY("tech") REFERENCES "technologies"("tech"),
 	PRIMARY KEY("regions","tech")
 );
--- INSERT INTO "CapacityToActivity" VALUES ('UIUC','NUCLEAR_NEW',8.76, '');
--- INSERT INTO "CapacityToActivity" VALUES ('UIUC','ABBOTT_PP',8.76, '');
--- INSERT INTO "CapacityToActivity" VALUES ('UIUC','SOLAR_FARM',8.76, '');
 -- INSERT INTO "CapacityToActivity" VALUES ('UIUC','SOLAR_RESIDENTIAL',8.76, '');
--- INSERT INTO "CapacityToActivity" VALUES ('UIUC','WIND_FARM',8.76, '');
 -- INSERT INTO "CapacityToActivity" VALUES ('UIUC','LI_BATTERY',8.76, '');
+INSERT INTO "CapacityToActivity" VALUES ('UIUC','NUCLEAR_NEW',8.76, '');
+INSERT INTO "CapacityToActivity" VALUES ('UIUC','NUCLEAR_TB', 8.76, '1 MWe generates 8.76 GWh(e) in a year');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','ABBOTT', 8.76, '1 MWth generates 8.76 GWh(th) in a year');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','ABBOTT_TB', 8.76, '1 MWe generates 8.76 GWh(e) in a year');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','IMPELC', 8.76, '1 MW import produces 8.76 GWh in a year');
@@ -1679,6 +1767,103 @@ INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H22','TES',0.50,'');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H23','TES',0.50,'');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H24','TES',0.50,'');
 
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H1','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H2','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H3','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H4','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H5','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H6','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H7','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H8','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H9','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H10','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H11','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H12','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H13','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H14','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H15','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H16','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H17','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H18','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H19','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H20','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H21','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H22','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H23','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H24','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H1','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H2','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H3','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H4','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H5','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H6','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H7','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H8','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H9','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H10','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H11','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H12','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H13','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H14','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H15','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H16','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H17','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H18','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H19','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H20','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H21','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H22','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H23','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H24','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H1','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H2','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H3','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H4','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H5','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H6','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H7','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H8','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H9','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H10','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H11','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H12','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H13','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H14','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H15','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H16','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H17','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H18','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H19','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H20','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H21','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H22','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H23','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H24','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H1','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H2','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H3','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H4','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H5','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H6','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H7','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H8','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H9','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H10','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H11','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H12','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H13','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H14','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H15','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H16','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H17','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H18','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H19','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H20','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H21','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H22','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H23','NUCLEAR_NEW',0.925,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H24','NUCLEAR_NEW',0.925,'');
+
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H1','ABBOTT',0.6053,'');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H2','ABBOTT',0.6053,'');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H3','ABBOTT',0.6053,'');
@@ -1775,7 +1960,6 @@ INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H21','ABBOTT',0.6053,'
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H22','ABBOTT',0.6053,'');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H23','ABBOTT',0.6053,'');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H24','ABBOTT',0.6053,'');
-
 
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H1','IMPELC',0.3805,'based on UIUC data');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H2','IMPELC',0.3805,'based on UIUC data');

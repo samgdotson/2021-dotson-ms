@@ -119,6 +119,12 @@ INSERT INTO "technologies" VALUES ('WIND_FARM','p', 'electric', 'wind farm PPA',
 INSERT INTO "technologies" VALUES ('NUCLEAR_NEW','p', 'industrial', 'nuclear reactor','NULL');
 INSERT INTO "technologies" VALUES ('NUCLEAR_TB','p', 'electric', 'nuclear steam turbine','NULL');
 
+--Transportation
+INSERT INTO "technologies" VALUES ('IMPGSL','p', 'transportation', 'imported fuel, gasoline, ','NULL');
+INSERT INTO "technologies" VALUES ('GSLVCL','p', 'transportation', 'gasoline vehicle','NULL');
+INSERT INTO "technologies" VALUES ('ELCVCL','p', 'transportation', 'electric vehicle','NULL');
+-- INSERT INTO "technologies" VALUES ('H2VCL','p', 'transportation', 'hydrogen vehicle','NULL');
+
 INSERT INTO "technologies" VALUES ('IMPELC','r','electric', 'imported electricity','NULL');
 
 CREATE TABLE "tech_reserve" (
@@ -154,6 +160,7 @@ CREATE TABLE "tech_annual" (
 	PRIMARY KEY("tech"),
 	FOREIGN KEY("tech") REFERENCES "technologies"("tech")
 );
+-- INSERT INTO 'tech_annual' VALUES ('GSLVCL', '');
 
 CREATE TABLE "sector_labels" (
 	"sector"	text,
@@ -164,8 +171,7 @@ INSERT INTO `sector_labels` VALUES ('electric');
 INSERT INTO `sector_labels` VALUES ('chilled water');
 INSERT INTO `sector_labels` VALUES ('industrial');
 INSERT INTO `sector_labels` VALUES ('transmission');
-
--- INSERT INTO `sector_labels` VALUES ('transport');
+INSERT INTO `sector_labels` VALUES ('transportation');
 -- INSERT INTO `sector_labels` VALUES ('commercial');
 -- INSERT INTO `sector_labels` VALUES ('residential');
 
@@ -203,13 +209,12 @@ INSERT INTO "commodities" VALUES ('ELC','p','# electricity');
 INSERT INTO "commodities" VALUES ('CHILLED_WATER','p','# chilled water');
 INSERT INTO "commodities" VALUES ('ABBOTT_STEAM','p','# Abbott Steam');
 INSERT INTO "commodities" VALUES ('NUCLEAR_STEAM','p','# Nuclear Steam');
+INSERT INTO "commodities" VALUES ('GSL','p','# fuel');
 
 INSERT INTO "commodities" VALUES ('COOL','d','# university cooling');
 INSERT INTO "commodities" VALUES ('HEAT','d','# university heating');
 INSERT INTO "commodities" VALUES ('LIGHT','d','# university lighting');
-
--- INSERT INTO "commodities" VALUES ('IL_DEMAND','d','# electricity');
--- INSERT INTO "commodities" VALUES ('EX_DEMAND','d','# electricity');
+INSERT INTO "commodities" VALUES ('TRANSPORT','d','# university transport');
 
 -- TO DO: add emissions commodities
 -- INSERT INTO "commodities" VALUES ('CO2eq','e','MT/MWh, lifecycle emissions');
@@ -667,6 +672,104 @@ INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H22','LIGHT',0
 INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H23','LIGHT',0.010313112820040818,'');
 INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H24','LIGHT',0.010141312169439769,'');
 
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H1','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H2','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H3','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H4','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H5','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H6','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H7','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H8','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H9','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H10','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H11','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H12','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H13','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H14','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H15','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H16','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H17','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H18','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H19','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H20','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H21','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H22','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H23','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','spring','H24','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H1','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H2','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H3','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H4','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H5','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H6','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H7','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H8','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H9','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H10','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H11','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H12','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H13','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H14','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H15','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H16','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H17','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H18','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H19','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H20','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H21','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H22','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H23','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','summer','H24','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H1','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H2','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H3','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H4','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H5','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H6','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H7','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H8','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H9','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H10','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H11','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H12','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H13','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H14','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H15','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H16','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H17','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H18','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H19','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H20','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H21','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H22','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H23','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','fall','H24','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H1','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H2','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H3','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H4','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H5','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H6','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H7','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H8','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H9','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H10','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H11','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H12','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H13','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H14','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H15','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H16','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H17','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H18','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H19','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H20','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H21','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H22','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H23','TRANSPORT',0.010416666666666666,'');
+INSERT INTO "DemandSpecificDistribution" VALUES ('UIUC','winter','H24','TRANSPORT',0.010416666666666666,'');
+
+
 CREATE TABLE "Demand" (
 	"regions"	text,
 	"periods"	integer,
@@ -698,6 +801,14 @@ INSERT INTO "Demand" VALUES ('UIUC',2035,'LIGHT',445.8688,'GWh(e), electricity d
 INSERT INTO "Demand" VALUES ('UIUC',2040,'LIGHT',445.8688,'GWh(e), electricity demand','based on UIUC data');
 INSERT INTO "Demand" VALUES ('UIUC',2045,'LIGHT',445.8688,'GWh(e), electricity demand','based on UIUC data');
 INSERT INTO "Demand" VALUES ('UIUC',2050,'LIGHT',445.8688,'GWh(e), electricity demand','based on UIUC data');
+
+INSERT INTO "Demand" VALUES ('UIUC',2025,'TRANSPORT',138.1118,'thousand gallon gasoline equivalent','based on UIUC data');
+INSERT INTO "Demand" VALUES ('UIUC',2030,'TRANSPORT',138.1118,'thousand gallon gasoline equivalent','based on UIUC data');
+INSERT INTO "Demand" VALUES ('UIUC',2035,'TRANSPORT',138.1118,'thousand gallon gasoline equivalent','based on UIUC data');
+INSERT INTO "Demand" VALUES ('UIUC',2040,'TRANSPORT',138.1118,'thousand gallon gasoline equivalent','based on UIUC data');
+INSERT INTO "Demand" VALUES ('UIUC',2045,'TRANSPORT',138.1118,'thousand gallon gasoline equivalent','based on UIUC data');
+INSERT INTO "Demand" VALUES ('UIUC',2050,'TRANSPORT',138.1118,'thousand gallon gasoline equivalent','based on UIUC data');
+
 
 CREATE TABLE "PlanningReserveMargin" (
 	`regions`	text,
@@ -775,6 +886,7 @@ CREATE TABLE "MinCapacity" (
 	FOREIGN KEY("tech") REFERENCES "technologies"("tech"),
 	PRIMARY KEY("regions","periods","tech")
 );
+INSERT INTO "MinCapacity" VALUES('UIUC', 2025, 'GSLVCL', 298, '# cars', '');
 
 
 CREATE TABLE "MinActivity" (
@@ -830,6 +942,8 @@ INSERT INTO "LifetimeTech" VALUES ('UIUC','NUCLEAR_NEW',60,'');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','IMPELC',100,'');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','SOLAR_FARM',20,'solar farm PPA');
 INSERT INTO "LifetimeTech" VALUES ('UIUC','WIND_FARM',10,'wind farm PPA');
+INSERT INTO "LifetimeTech" VALUES ('UIUC','GSLVCL',12,'vehicle lifetime');
+INSERT INTO "LifetimeTech" VALUES ('UIUC','ELCVCL',12,'vehicle lifetime');
 
 
 CREATE TABLE "LifetimeProcess" (
@@ -858,6 +972,9 @@ INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','NUCLEAR_NEW',10,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','IMPELC',10,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','SOLAR_FARM',20,'');
 INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','WIND_FARM',10,'');
+INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','GSLVCL',6,'vehicle lifetime');
+INSERT INTO "LifetimeLoanTech" VALUES ('UIUC','ELCVCL',6,'vehicle lifetime');
+
 
 
 
@@ -1085,6 +1202,30 @@ INSERT INTO "Efficiency" VALUES ('UIUC','CHILLED_WATER','CW_PIPE',2040,'COOL',1.
 INSERT INTO "Efficiency" VALUES ('UIUC','CHILLED_WATER','CW_PIPE',2045,'COOL',1.00,'moves chilled water to buildings');
 INSERT INTO "Efficiency" VALUES ('UIUC','CHILLED_WATER','CW_PIPE',2050,'COOL',1.00,'moves chilled water to buildings');
 
+INSERT INTO "Efficiency" VALUES ('UIUC','GSL','GSLVCL',2025,'TRANSPORT',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','GSL','GSLVCL',2030,'TRANSPORT',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','GSL','GSLVCL',2035,'TRANSPORT',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','GSL','GSLVCL',2040,'TRANSPORT',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','GSL','GSLVCL',2045,'TRANSPORT',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','GSL','GSLVCL',2050,'TRANSPORT',1.00,'1 gal gasoline = 1.00 gge');
+
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPGSL',2025,'GSL',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPGSL',2030,'GSL',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPGSL',2035,'GSL',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPGSL',2040,'GSL',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPGSL',2045,'GSL',1.00,'1 gal gasoline = 1.00 gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ethos','IMPGSL',2050,'GSL',1.00,'1 gal gasoline = 1.00 gge');
+
+INSERT INTO "Efficiency" VALUES ('UIUC','ELC','ELCVCL',2025,'TRANSPORT',3.0e-5,'1 GWh(e) = 3.0e-5 thousand gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ELC','ELCVCL',2030,'TRANSPORT',3.0e-5,'1 GWh(e) = 3.0e-5 thousand gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ELC','ELCVCL',2035,'TRANSPORT',3.0e-5,'1 GWh(e) = 3.0e-5 thousand gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ELC','ELCVCL',2040,'TRANSPORT',3.0e-5,'1 GWh(e) = 3.0e-5 thousand gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ELC','ELCVCL',2045,'TRANSPORT',3.0e-5,'1 GWh(e) = 3.0e-5 thousand gge');
+INSERT INTO "Efficiency" VALUES ('UIUC','ELC','ELCVCL',2050,'TRANSPORT',3.0e-5,'1 GWh(e) = 3.0e-5 thousand gge');
+
+--
+--
+
 CREATE TABLE "DiscountRate" (
 	"regions"	text,
 	"tech"	text,
@@ -1275,6 +1416,49 @@ INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'IMPELC', 2045, 0.1161, 'M$/GWh(
 INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'IMPELC', 2050, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost' );
 
 
+INSERT INTO "CostVariable" VALUES('UIUC', 2025, 'GSLVCL', 2025, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2030, 'GSLVCL', 2025, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2035, 'GSLVCL', 2025, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2030, 'GSLVCL', 2030, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2035, 'GSLVCL', 2030, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2040, 'GSLVCL', 2030, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2035, 'GSLVCL', 2035, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2040, 'GSLVCL', 2035, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2045, 'GSLVCL', 2035, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2040, 'GSLVCL', 2040, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2045, 'GSLVCL', 2040, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'GSLVCL', 2040, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2045, 'GSLVCL', 2045, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'GSLVCL', 2045, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'GSLVCL', 2050, 3.045e-3, 'M$/thousand gallons', 'based on average gasoline cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2025, 'ELCVCL', 2025, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2030, 'ELCVCL', 2025, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2035, 'ELCVCL', 2025, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2030, 'ELCVCL', 2030, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2035, 'ELCVCL', 2030, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2040, 'ELCVCL', 2030, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2035, 'ELCVCL', 2035, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2040, 'ELCVCL', 2035, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2045, 'ELCVCL', 2035, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2040, 'ELCVCL', 2040, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2045, 'ELCVCL', 2040, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'ELCVCL', 2040, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2045, 'ELCVCL', 2045, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'ELCVCL', 2045, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+
+INSERT INTO "CostVariable" VALUES('UIUC', 2050, 'ELCVCL', 2050, 0.1161, 'M$/GWh(e)', 'based on average IL electricity cost, May 17 2021' );
+
+
 CREATE TABLE "CostInvest" (
 	"regions"	text,
 	"tech"	text,
@@ -1335,6 +1519,23 @@ INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2035, 5.544668, 'M$/MW',
 INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2040, 5.340865, 'M$/MW', 'advanced nuclear, source: NREL ATB');
 INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2045, 5.155078, 'M$/MW', 'advanced nuclear, source: NREL ATB');
 INSERT INTO "CostInvest" VALUES ('UIUC', 'NUCLEAR_NEW', 2050, 4.916458, 'M$/MW', 'advanced nuclear, source: NREL ATB');
+
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2025, 0.0270408, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2030, 0.0270408, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2035, 0.0270408, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2040, 0.0270408, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2045, 0.0270408, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2050, 0.0270408, 'M$/car', 'fueleconomy.gov');
+
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2025, 0.0411100, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2030, 0.0411100, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2035, 0.0411100, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2040, 0.0411100, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2045, 0.0411100, 'M$/car', 'fueleconomy.gov');
+INSERT INTO "CostInvest" VALUES('UIUC', 'GSLVCL', 2050, 0.0411100, 'M$/car', 'fueleconomy.gov');
+
+
+
 
 CREATE TABLE "CostFixed" (
 	"regions"	text NOT NULL,
@@ -1537,6 +1738,61 @@ INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2045, 121.09221, 'M
 
 INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'NUCLEAR_NEW', 2050, 121.09221, 'M$/GW-year', 'source: NREL ATB');
 
+INSERT INTO "CostFixed" VALUES ('UIUC', 2025, 'GSLVCL', 2025, 1.280e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2030, 'GSLVCL', 2025, 1.280e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2035, 'GSLVCL', 2025, 1.280e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2030, 'GSLVCL', 2030, 1.280e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2035, 'GSLVCL', 2030, 1.280e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'GSLVCL', 2030, 1.280e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2035, 'GSLVCL', 2035, 1.280e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'GSLVCL', 2035, 1.280e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'GSLVCL', 2035, 1.280e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'GSLVCL', 2040, 1.280e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'GSLVCL', 2040, 1.280e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'GSLVCL', 2040, 1.280e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'GSLVCL', 2045, 1.280e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'GSLVCL', 2045, 1.280e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'GSLVCL', 2050, 1.280e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2025, 'ELCVCL', 2025, 0.949e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2030, 'ELCVCL', 2025, 0.949e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2035, 'ELCVCL', 2025, 0.949e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2030, 'ELCVCL', 2030, 0.949e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2035, 'ELCVCL', 2030, 0.949e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'ELCVCL', 2030, 0.949e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2035, 'ELCVCL', 2035, 0.949e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'ELCVCL', 2035, 0.949e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'ELCVCL', 2035, 0.949e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2040, 'ELCVCL', 2040, 0.949e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'ELCVCL', 2040, 0.949e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'ELCVCL', 2040, 0.949e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2045, 'ELCVCL', 2045, 0.949e-3, 'M$/car-year', 'source: AAA' );
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'ELCVCL', 2045, 0.949e-3, 'M$/car-year', 'source: AAA' );
+
+INSERT INTO "CostFixed" VALUES ('UIUC', 2050, 'ELCVCL', 2050, 0.949e-3, 'M$/car-year', 'source: AAA' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 CREATE TABLE "CapacityToActivity" (
 	"regions"	text,
 	"tech"	text,
@@ -1559,6 +1815,8 @@ INSERT INTO "CapacityToActivity" VALUES ('UIUC','TRANSMISSION', 1.00, 'Transport
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','STEAM_TUNNEL', 1.00, 'Transports to building, no conversion');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','CWS', 0.00876, '1 ton produces 0.008760 million ton hours in a year');
 INSERT INTO "CapacityToActivity" VALUES ('UIUC','TES', 0.00876, '1 ton produces 0.008760 million ton hours in a year');
+INSERT INTO "CapacityToActivity" VALUES ('UIUC','GSLVCL', 15.768, '1 gasoline car may consume 15768 gallons of gasoline per year');
+INSERT INTO "CapacityToActivity" VALUES ('UIUC','ELCVCL', 15.768, '1 electric car may consume 15768 gge per year, to match gslvcl');
 
 
 CREATE TABLE "CapacityFactorTech" (
@@ -2251,6 +2509,200 @@ INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H21','WIND_FARM',0.435
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H22','WIND_FARM',0.4474351851851852,'');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H23','WIND_FARM',0.45257239057239057,'');
 INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H24','WIND_FARM',0.450520202020202,'');
+
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H1','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H2','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H3','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H4','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H5','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H6','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H7','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H8','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H9','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H10','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H11','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H12','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H13','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H14','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H15','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H16','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H17','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H18','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H19','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H20','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H21','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H22','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H23','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H24','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H1','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H2','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H3','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H4','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H5','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H6','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H7','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H8','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H9','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H10','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H11','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H12','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H13','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H14','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H15','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H16','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H17','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H18','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H19','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H20','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H21','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H22','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H23','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H24','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H1','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H2','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H3','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H4','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H5','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H6','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H7','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H8','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H9','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H10','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H11','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H12','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H13','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H14','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H15','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H16','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H17','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H18','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H19','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H20','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H21','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H22','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H23','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H24','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H1','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H2','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H3','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H4','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H5','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H6','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H7','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H8','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H9','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H10','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H11','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H12','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H13','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H14','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H15','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H16','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H17','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H18','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H19','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H20','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H21','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H22','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H23','GSLVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H24','GSLVCL',0.025,'');
+
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H1','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H2','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H3','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H4','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H5','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H6','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H7','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H8','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H9','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H10','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H11','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H12','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H13','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H14','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H15','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H16','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H17','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H18','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H19','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H20','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H21','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H22','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H23','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','spring','H24','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H1','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H2','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H3','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H4','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H5','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H6','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H7','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H8','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H9','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H10','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H11','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H12','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H13','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H14','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H15','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H16','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H17','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H18','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H19','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H20','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H21','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H22','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H23','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','summer','H24','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H1','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H2','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H3','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H4','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H5','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H6','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H7','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H8','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H9','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H10','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H11','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H12','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H13','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H14','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H15','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H16','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H17','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H18','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H19','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H20','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H21','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H22','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H23','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','fall','H24','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H1','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H2','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H3','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H4','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H5','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H6','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H7','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H8','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H9','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H10','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H11','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H12','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H13','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H14','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H15','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H16','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H17','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H18','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H19','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H20','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H21','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H22','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H23','ELCVCL',0.025,'');
+INSERT INTO `CapacityFactorTech` VALUES ('UIUC','winter','H24','ELCVCL',0.025,'');
 
 CREATE TABLE "CapacityFactorProcess" (
 	"regions"	text,

@@ -1056,6 +1056,12 @@ CREATE TABLE "EmissionLimit" (
 	PRIMARY KEY("regions","periods","emis_comm")
 );
 
+INSERT INTO 'EmissionLimit' VALUES ('UIUC', 2025, 'CO2', 45.0, 'thousand tons of CO2', '');
+INSERT INTO 'EmissionLimit' VALUES ('UIUC', 2030, 'CO2', 40.0, 'thousand tons of CO2', '');
+INSERT INTO 'EmissionLimit' VALUES ('UIUC', 2035, 'CO2', 34.0, 'thousand tons of CO2', '');
+INSERT INTO 'EmissionLimit' VALUES ('UIUC', 2040, 'CO2', 25.0, 'thousand tons of CO2', '');
+INSERT INTO 'EmissionLimit' VALUES ('UIUC', 2045, 'CO2', 15.0, 'thousand tons of CO2', '');
+INSERT INTO 'EmissionLimit' VALUES ('UIUC', 2050, 'CO2', 0.0, 'thousand tons of CO2', '');
 
 CREATE TABLE "EmissionActivity" (
 	"regions"	text,

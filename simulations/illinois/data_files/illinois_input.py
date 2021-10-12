@@ -11,8 +11,8 @@ curr_dir = os.path.dirname(__file__)
 
 
 # Simulation metadata goes here
-database_filename = 'IL_BAU.sqlite'  # where the database will be written
-scenario_name = 'BAU'
+database_filename = 'IL_CAP50.sqlite'  # where the database will be written
+scenario_name = 'CAP50'
 start_year = 2025  # the first year optimized by the model
 end_year = 2050  # the last year optimized by the model
 N_years = 6  # the number of years optimized by the model
@@ -235,13 +235,13 @@ LI_BATTERY.add_regional_data(region='IL',
                              cost_fixed=25.102,
                              storage_duration=8)
 
-# CO2.add_regional_limit(region='IL',
-#                        limits={2025:0.344,
-#                                2030:0.30,
-#                                2035:0.25,
-#                                2040:0.2,
-#                                2035:0.1,
-#                                end_year:0.0})
+CO2.add_regional_limit(region='IL',
+                       limits={2025:52.34375,
+                               2030:41.875,
+                               2035:31.40625,
+                               2040:20.9375,
+                               2045:10.46875,
+                               end_year:0.0})
 
 demands_list = [ELC_DEMAND]
 resources_list = [electricity, ethos]
@@ -249,3 +249,26 @@ emissions_list = [co2eq, CO2]
 
 if __name__ == "__main__":
     import numpy as np
+
+
+    """
+    This data is based on data from EIA
+    """
+    y0 = 67.0
+    x0 = 2018
+    x1 = 2030
+    y1 = 0.0
+
+    m = (y1-y0)/(x1-x0)
+
+    y = lambda x, slope, start, b: slope*(x-start) + b
+    test_years = np.linspace(x0,x1,(x1-x0))
+    limit = y(years, m, x0, y0)
+    for i, l, in enumerate(limit):
+        print(i*5+2025, l)
+    import matplotlib.pyplot as plt
+    plt.style.use('ggplot')
+    plt.plot(years, limit, marker='o')
+    plt.ylim(0,70)
+    plt.minorticks_on()
+    plt.show()

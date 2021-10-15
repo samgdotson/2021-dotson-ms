@@ -11,7 +11,7 @@ curr_dir = os.path.dirname(__file__)
 
 
 # Simulation metadata goes here
-database_filename = 'IL_CAP50.sqlite'  # where the database will be written
+database_filename = 'IL_CAP50_PJM_4.sqlite'  # where the database will be written
 scenario_name = 'CAP50'
 start_year = 2025  # the first year optimized by the model
 end_year = 2050  # the last year optimized by the model
@@ -47,10 +47,13 @@ ELC_DEMAND.add_demand(region='IL',
 
 import numpy as np
 il_dds = np.loadtxt('/home/sdotson/research/2021-dotson-ms/data/il_elc_dds.txt')
+pjm_path = '/home/sdotson/research/2021-dotson-ms/data/pjm_hourly_demand.csv'
 
 ELC_DEMAND.set_distribution(region='IL',
-                            data=il_dds,
-                            normalize=False)
+                            data=pjm_path,
+                            n_seasons=N_seasons,
+                            n_hours=N_hours,
+                            normalize=True)
 
 
 
@@ -87,6 +90,17 @@ years = np.linspace(start_year, end_year, N_years).astype('int')
 
 
 # Add regional data
+import pandas as pd
+data_path = '/home/sdotson/research/2021-dotson-ms/data/fixed_cost_projections_bfill.csv'
+fixed_df = pd.read_csv(data_path, parse_dates=True, index_col='year')
+data_path = '/home/sdotson/research/2021-dotson-ms/data/capital_cost_projections_bfill.csv'
+capital_df = pd.read_csv(data_path, parse_dates=True, index_col='year')
+nrel_years = np.array(fixed_df.index.year).astype('int')
+
+solar_capital = np.array(capital_df['UtilityPV']).astype('float')
+solar_capital = dict(zip(nrel_years, solar_capital))
+solar_fixed = np.array(fixed_df['UtilityPV']).astype('float')
+solar_fixed = dict(zip(nrel_years, solar_fixed))
 
 # import technology data from EIA
 from pygenesys.data.eia_data import get_eia_generators, get_existing_capacity
@@ -102,10 +116,13 @@ SOLAR_FARM.add_regional_data(region='IL',
                                                             'IL',
                                                             'Solar Photovoltaic'),
                              emissions={co2eq:4.8e-5},
-                             cost_fixed=19.3341,
-                             cost_invest=1.593533
+                             cost_fixed=solar_fixed,
+                             cost_invest=solar_capital
                              )
-
+wind_capital = np.array(capital_df['LandbasedWind']).astype('float')
+wind_capital = dict(zip(nrel_years, wind_capital))
+wind_fixed = np.array(fixed_df['LandbasedWind']).astype('float')
+wind_fixed = dict(zip(nrel_years, wind_fixed))
 WIND_FARM.add_regional_data(region='IL',
                             input_comm=ethos,
                             output_comm=electricity,
@@ -117,8 +134,8 @@ WIND_FARM.add_regional_data(region='IL',
                                                            'IL',
                                                            'Onshore Wind Turbine'),
                             emissions={co2eq:1.1e-5},
-                            cost_fixed=40.723,
-                            cost_invest=1.8784,)
+                            cost_fixed=wind_fixed,
+                            cost_invest=wind_capital,)
 
 NUCLEAR_CONV.add_regional_data(region='IL',
                                input_comm=ethos,
@@ -135,6 +152,11 @@ NUCLEAR_CONV.add_regional_data(region='IL',
                                cost_invest=0.05,
                                cost_variable=0.005811
                                )
+
+nuclear_capital = np.array(capital_df['Nuclear']).astype('float')
+nuclear_capital = dict(zip(nrel_years, nuclear_capital))
+nuclear_fixed = np.array(fixed_df['Nuclear']).astype('float')
+nuclear_fixed = dict(zip(nrel_years, nuclear_fixed))
 NUCLEAR_ADV.add_regional_data(region='IL',
                                input_comm=ethos,
                                output_comm=electricity,
@@ -145,8 +167,8 @@ NUCLEAR_ADV.add_regional_data(region='IL',
                                emissions={co2eq:1.2e-5},
                                ramp_up=0.25,
                                ramp_down=0.25,
-                               cost_fixed=121.09221,
-                               cost_invest=5.90583,
+                               cost_fixed=nuclear_fixed,
+                               cost_invest=nuclear_capital,
                                cost_variable=0.009158
                                )
 
@@ -174,6 +196,10 @@ NATGAS_CONV.add_regional_data(region='IL',
                              cost_invest=0.95958,
                              cost_variable=0.022387
                              )
+ng_capital = np.array(capital_df['NaturalGas-CCS']).astype('float')
+ng_capital = dict(zip(nrel_years, ng_capital))
+ng_fixed = np.array(fixed_df['NaturalGas-CCS']).astype('float')
+ng_fixed = dict(zip(nrel_years, ng_fixed))
 NATGAS_ADV.add_regional_data(region='IL',
                              input_comm=ethos,
                              output_comm=electricity,
@@ -184,8 +210,8 @@ NATGAS_ADV.add_regional_data(region='IL',
                              emissions={co2eq:1.7e-4, CO2:1.81e-5},
                              ramp_up=1.0,
                              ramp_down=1.0,
-                             cost_fixed=27.4747,
-                             cost_invest=2.7128728,
+                             cost_fixed=ng_fixed,
+                             cost_invest=ng_capital,
                              cost_variable=0.027475
                              )
 COAL_CONV.add_regional_data(region='IL',
@@ -205,6 +231,10 @@ COAL_CONV.add_regional_data(region='IL',
                              cost_invest=1.000,
                              cost_variable=0.021369
                              )
+coal_capital = np.array(capital_df['Coal-CCS']).astype('float')
+coal_capital = dict(zip(nrel_years, coal_capital))
+coal_fixed = np.array(fixed_df['Coal-CCS']).astype('float')
+coal_fixed = dict(zip(nrel_years, coal_fixed))
 COAL_ADV.add_regional_data(region='IL',
                              input_comm=ethos,
                              output_comm=electricity,
@@ -215,11 +245,14 @@ COAL_ADV.add_regional_data(region='IL',
                              emissions={co2eq:2.2e-4, CO2:3.2595e-5},
                              ramp_up=0.5,
                              ramp_down=0.5,
-                             cost_fixed=59.017,
-                             cost_invest=6.0352770,
+                             cost_fixed=coal_fixed,
+                             cost_invest=coal_capital,
                              cost_variable=0.0366329
                              )
-
+libatt_capital = np.array(capital_df['Battery']).astype('float')
+libatt_capital = dict(zip(nrel_years, libatt_capital))
+libatt_fixed = np.array(fixed_df['Battery']).astype('float')
+libatt_fixed = dict(zip(nrel_years, libatt_fixed))
 LI_BATTERY.add_regional_data(region='IL',
                              input_comm=electricity,
                              output_comm=electricity,
@@ -231,8 +264,8 @@ LI_BATTERY.add_regional_data(region='IL',
                                                             'IL',
                                                             'Batteries'),
                              emissions={co2eq:2.32e-5},
-                             cost_invest=1.608,
-                             cost_fixed=25.102,
+                             cost_invest=libatt_capital,
+                             cost_fixed=libatt_fixed,
                              storage_duration=8)
 
 CO2.add_regional_limit(region='IL',
@@ -264,11 +297,13 @@ if __name__ == "__main__":
     y = lambda x, slope, start, b: slope*(x-start) + b
     test_years = np.linspace(x0,x1,(x1-x0))
     limit = y(years, m, x0, y0)
-    for i, l, in enumerate(limit):
-        print(i*5+2025, l)
-    import matplotlib.pyplot as plt
-    plt.style.use('ggplot')
-    plt.plot(years, limit, marker='o')
-    plt.ylim(0,70)
-    plt.minorticks_on()
-    plt.show()
+    # for i, l, in enumerate(limit):
+    #     print(i*5+2025, l)
+    # import matplotlib.pyplot as plt
+    # plt.style.use('ggplot')
+    # plt.plot(years, limit, marker='o')
+    # plt.ylim(0,70)
+    # plt.minorticks_on()
+    # plt.show()
+
+    print(solar_capital)

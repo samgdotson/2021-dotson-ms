@@ -11,13 +11,13 @@ curr_dir = os.path.dirname(__file__)
 
 
 # Simulation metadata goes here
-iteration = 5
-folder = 'RE_sensitivity'
+iteration = "base"
+folder = 'RE_sensitivity_30_2060'
 database_filename = f'{folder}/IL_RE_{iteration}.sqlite'  # where the database will be written
 scenario_name = 'CAP50'
 start_year = 2025  # the first year optimized by the model
-end_year = 2050  # the last year optimized by the model
-N_years = 6  # the number of years optimized by the model
+end_year = 2060  # the last year optimized by the model
+N_years = 8  # the number of years optimized by the model
 N_seasons = 52  # the number of "seasons" in the model
 N_hours = 24  # the number of hours in a day
 
@@ -83,21 +83,21 @@ from pygenesys.commodity.emissions import co2eq, CO2
 # Import capacity factor data
 from pygenesys.data.library import solarfarm_data, railsplitter_data
 
-wind_history = (f"/home/sdotson/research/2021-dotson-ms/data/"+
-                f"railsplitterHistories/"+
-                f"RailSplitterHistories_{iteration}_pd.csv")
-solar_history = (f"/home/sdotson/research/2021-dotson-ms/data/"+
-                 f"solarHistories/"+
-                 f"solarHistories_{iteration}_pd.csv")
+# wind_history = (f"/home/sdotson/research/2021-dotson-ms/data/"+
+#                 f"railsplitterHistories/"+
+#                 f"RailSplitterHistories_{iteration}_pd.csv")
+# solar_history = (f"/home/sdotson/research/2021-dotson-ms/data/"+
+#                  f"solarHistories/"+
+#                  f"solarHistories_{iteration}_pd.csv")
 
 from pygenesys.utils.tsprocess import choose_distribution_method
 
 # Calculate the capacity factor distributions
 method = choose_distribution_method(N_seasons, N_hours)
-# solar_cf = method(solarfarm_data, N_seasons, N_hours, kind='cf')
-# wind_cf = method(railsplitter_data, N_seasons, N_hours, kind='cf')
-solar_cf = method(solar_history, N_seasons, N_hours, kind='cf')
-wind_cf = method(wind_history, N_seasons, N_hours, kind='cf')
+solar_cf = method(solarfarm_data, N_seasons, N_hours, kind='cf')
+wind_cf = method(railsplitter_data, N_seasons, N_hours, kind='cf')
+# solar_cf = method(solar_history, N_seasons, N_hours, kind='cf')
+# wind_cf = method(wind_history, N_seasons, N_hours, kind='cf')
 
 years = np.linspace(start_year, end_year, N_years).astype('int')
 
@@ -297,6 +297,8 @@ CO2.add_regional_limit(region='IL',
                                2035:0.0,
                                2040:0.0,
                                2045:0.0,
+                               2050:0.0,
+                               2055:0.0,
                                end_year:0.0})
 
 demands_list = [ELC_DEMAND]
@@ -316,6 +318,7 @@ if __name__ == "__main__":
     y1 = 0.0
 
     m = (y1-y0)/(x1-x0)
+    print(ELC_DEMAND.demand['IL'])
 
     y = lambda x, slope, start, b: slope*(x-start) + b
     test_years = np.linspace(x0,x1,(x1-x0))

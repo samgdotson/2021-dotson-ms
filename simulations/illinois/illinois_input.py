@@ -12,14 +12,15 @@ curr_dir = os.path.dirname(__file__)
 
 # Simulation metadata goes here
 iteration = "base"
-folder = 'RE_sensitivity_30_2060'
-database_filename = f'{folder}/IL_RE_{iteration}.sqlite'  # where the database will be written
-scenario_name = 'CAP50'
+folder = 'data_files'
+# database_filename = f'{folder}/IL_RE_loan_lf_{iteration}.sqlite'  # where the database will be written
+scenario_name = 'CC30'
 start_year = 2025  # the first year optimized by the model
-end_year = 2060  # the last year optimized by the model
-N_years = 8  # the number of years optimized by the model
-N_seasons = 52  # the number of "seasons" in the model
+end_year = 2050  # the last year optimized by the model
+N_years = 6  # the number of years optimized by the model
+N_seasons = 4  # the number of "seasons" in the model
 N_hours = 24  # the number of hours in a day
+database_filename = f'{folder}/IL_CC30_{N_seasons}.sqlite'  # where the database will be written
 
 
 # Optional parameters
@@ -122,7 +123,7 @@ SOLAR_FARM.add_regional_data(region='IL',
                              input_comm=ethos,
                              output_comm=electricity,
                              efficiency=1.0,
-                             tech_lifetime=25,
+                             tech_lifetime=1,
                              loan_lifetime=10,
                              capacity_factor_tech=solar_cf,
                              existing=get_existing_capacity(curr_data,
@@ -155,13 +156,13 @@ NUCLEAR_CONV.add_regional_data(region='IL',
                                output_comm=electricity,
                                efficiency=1.0,
                                tech_lifetime=60,
-                               loan_lifetime=25,
+                               loan_lifetime=1,
                                capacity_factor_tech=0.93,
                                emissions={co2eq:1.2e-5},
                                existing=get_existing_capacity(curr_data,
                                                               'IL',
                                                               'Nuclear'),
-                               cost_fixed=177.73741,
+                               cost_fixed=0.17773741,
                                cost_invest=0.05,
                                cost_variable=0.005811
                                )
@@ -175,7 +176,7 @@ NUCLEAR_ADV.add_regional_data(region='IL',
                                output_comm=electricity,
                                efficiency=1.0,
                                tech_lifetime=60,
-                               loan_lifetime=25,
+                               loan_lifetime=10,
                                capacity_factor_tech=0.93,
                                emissions={co2eq:1.2e-5},
                                ramp_up=0.25,
@@ -269,9 +270,9 @@ libatt_fixed = dict(zip(nrel_years, libatt_fixed))
 LI_BATTERY.add_regional_data(region='IL',
                              input_comm=electricity,
                              output_comm=electricity,
-                             efficiency=0.80,
+                             efficiency=0.85,
                              capacity_factor_tech=0.2,
-                             tech_lifetime=12,
+                             tech_lifetime=15,
                              loan_lifetime=5,
                              existing=get_existing_capacity(curr_data,
                                                             'IL',
@@ -279,7 +280,7 @@ LI_BATTERY.add_regional_data(region='IL',
                              emissions={co2eq:2.32e-5},
                              cost_invest=libatt_capital,
                              cost_fixed=libatt_fixed,
-                             storage_duration=8)
+                             storage_duration=4)
 
 # 2050 carbon limits
 # CO2.add_regional_limit(region='IL',
@@ -288,7 +289,7 @@ LI_BATTERY.add_regional_data(region='IL',
 #                                2035:31.40625,
 #                                2040:20.9375,
 #                                2045:10.46875,
-#                                end_year:0.0})
+#                                2050:0.0})
 
 # 2030 carbon limits
 CO2.add_regional_limit(region='IL',
@@ -297,9 +298,7 @@ CO2.add_regional_limit(region='IL',
                                2035:0.0,
                                2040:0.0,
                                2045:0.0,
-                               2050:0.0,
-                               2055:0.0,
-                               end_year:0.0})
+                               2050:0.0,})
 
 demands_list = [ELC_DEMAND]
 resources_list = [electricity, ethos]

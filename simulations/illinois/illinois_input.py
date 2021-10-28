@@ -7,12 +7,13 @@ influence the energy system planning of UIUC.
 # So the database can be saved in the location from which
 # the command is called.
 import os
+import numpy as np
 curr_dir = os.path.dirname(__file__)
 
 
 # Simulation metadata goes here
 iteration = "base"
-folder = 'data_files'
+folder = 'zero_nuclear'
 # database_filename = f'{folder}/IL_RE_loan_lf_{iteration}.sqlite'  # where the database will be written
 scenario_name = 'CC30'
 start_year = 2025  # the first year optimized by the model
@@ -20,7 +21,7 @@ end_year = 2050  # the last year optimized by the model
 N_years = 6  # the number of years optimized by the model
 N_seasons = 4  # the number of "seasons" in the model
 N_hours = 24  # the number of hours in a day
-database_filename = f'{folder}/IL_CC30_{N_seasons}.sqlite'  # where the database will be written
+database_filename = f'{folder}/IL_ZN_{scenario_name}_{N_seasons}.sqlite'  # where the database will be written
 
 
 # Optional parameters
@@ -49,8 +50,6 @@ ELC_DEMAND.add_demand(region='IL',
                       growth_rate=0.01,
                       growth_method='linear')
 
-import numpy as np
-il_dds = np.loadtxt('/home/sdotson/research/2021-dotson-ms/data/il_elc_dds.txt')
 pjm_path = '/home/sdotson/research/2021-dotson-ms/data/pjm_hourly_demand.csv'
 
 ELC_DEMAND.set_distribution(region='IL',
@@ -73,7 +72,7 @@ TRANSMISSION.add_regional_data(region='IL',
 
 # Import technologies that generate electricity
 from pygenesys.technology.electric import SOLAR_FARM, WIND_FARM, NUCLEAR_CONV
-from pygenesys.technology.electric import COAL_CONV, NATGAS_CONV
+from pygenesys.technology.electric import COAL_CONV, NATGAS_CONV, BIOMASS
 from pygenesys.technology.electric import COAL_ADV, NATGAS_ADV, NUCLEAR_ADV
 from pygenesys.technology.storage import LI_BATTERY
 
@@ -123,7 +122,7 @@ SOLAR_FARM.add_regional_data(region='IL',
                              input_comm=ethos,
                              output_comm=electricity,
                              efficiency=1.0,
-                             tech_lifetime=1,
+                             tech_lifetime=25,
                              loan_lifetime=10,
                              capacity_factor_tech=solar_cf,
                              existing=get_existing_capacity(curr_data,
@@ -164,10 +163,18 @@ NUCLEAR_CONV.add_regional_data(region='IL',
                                                               'Nuclear'),
                                cost_fixed=0.17773741,
                                cost_invest=0.05,
-                               cost_variable=0.005811
+                               cost_variable=0.005811,
+                               max_capacity = {2025:12.42e3,
+                                               2030:12.42e3,
+                                               2035:12.42e3,
+                                               2040:12.42e3,
+                                               2045:12.42e3,
+                                               # 2050:12.42e3,},
+                                               2050:0.0,}, # zero nuclear scenario
                                )
 
-nuclear_capital = np.array(capital_df['Nuclear']).astype('float')
+# Multiply capital cost by 2 to simulate cost overruns.
+nuclear_capital = np.array(capital_df['Nuclear']).astype('float')*2
 nuclear_capital = dict(zip(nrel_years, nuclear_capital))
 nuclear_fixed = np.array(fixed_df['Nuclear']).astype('float')
 nuclear_fixed = dict(zip(nrel_years, nuclear_fixed))
@@ -183,7 +190,8 @@ NUCLEAR_ADV.add_regional_data(region='IL',
                                ramp_down=0.25,
                                cost_fixed=nuclear_fixed,
                                cost_invest=nuclear_capital,
-                               cost_variable=0.009158
+                               cost_variable=0.009158,
+                               max_capacity = {2050:0.0} # zero nuclear scenario
                                )
 
 ngcc_existing = get_existing_capacity(curr_data,
@@ -206,7 +214,7 @@ NATGAS_CONV.add_regional_data(region='IL',
                              existing=ng_existing,
                              ramp_up=1.0,
                              ramp_down=1.0,
-                             cost_fixed=11.1934,
+                             cost_fixed=0.0111934,
                              cost_invest=0.95958,
                              cost_variable=0.022387
                              )
@@ -241,7 +249,7 @@ COAL_CONV.add_regional_data(region='IL',
                                                             'Conventional Steam Coal'),
                              ramp_up=0.5,
                              ramp_down=0.5,
-                             cost_fixed=40.7033,
+                             cost_fixed=0.0407033,
                              cost_invest=1.000,
                              cost_variable=0.021369
                              )
@@ -263,6 +271,22 @@ COAL_ADV.add_regional_data(region='IL',
                              cost_invest=coal_capital,
                              cost_variable=0.0366329
                              )
+
+biomass_capital = np.array(capital_df['Biomass']).astype('float')
+biomass_capital = dict(zip(nrel_years, biomass_capital))
+BIOMASS.add_regional_data(region='IL',
+                          input_comm=ethos,
+                          output_comm=electricity,
+                          efficiency=1.0,
+                          tech_lifetime=60,
+                          loan_lifetime=25,
+                          capacity_factor_tech=0.61,
+                          emissions={co2eq:2.3e-4},
+                          cost_fixed=0.123,
+                          cost_invest=biomass_capital,
+                          cost_variable=0.047
+                          )
+
 libatt_capital = np.array(capital_df['Battery']).astype('float')
 libatt_capital = dict(zip(nrel_years, libatt_capital))
 libatt_fixed = np.array(fixed_df['Battery']).astype('float')
@@ -283,22 +307,30 @@ LI_BATTERY.add_regional_data(region='IL',
                              storage_duration=4)
 
 # 2050 carbon limits
-# CO2.add_regional_limit(region='IL',
-#                        limits={2025:52.34375,
-#                                2030:41.875,
-#                                2035:31.40625,
-#                                2040:20.9375,
-#                                2045:10.46875,
-#                                2050:0.0})
+
+if scenario_name == "CC50":
+    print('Applying constraints carbon neutral by 2050')
+    CO2.add_regional_limit(region='IL',
+                           limits={2025:52.34375,
+                                   2030:41.875,
+                                   2035:31.40625,
+                                   2040:20.9375,
+                                   2045:10.46875,
+                                   2050:0.0})
 
 # 2030 carbon limits
-CO2.add_regional_limit(region='IL',
-                       limits={2025:27.917,
-                               2030:0.0,
-                               2035:0.0,
-                               2040:0.0,
-                               2045:0.0,
-                               2050:0.0,})
+elif scenario_name == "CC30":
+    print('Applying constraints carbon neutral by 2030')
+    CO2.add_regional_limit(region='IL',
+                           limits={2025:27.917,
+                                   2030:0.0,
+                                   2035:0.0,
+                                   2040:0.0,
+                                   2045:0.0,
+                                   2050:0.0,})
+
+else:
+    print('No carbon limits -- Business as usual')
 
 demands_list = [ELC_DEMAND]
 resources_list = [electricity, ethos]
@@ -324,11 +356,19 @@ if __name__ == "__main__":
     limit = y(years, m, x0, y0)
     for i, l, in enumerate(limit):
         print(i*5+2025, l)
-    # import matplotlib.pyplot as plt
+    import matplotlib.pyplot as plt
     # plt.style.use('ggplot')
     # plt.plot(years, limit, marker='o')
     # plt.ylim(0,70)
     # plt.minorticks_on()
     # plt.show()
 
-    print(solar_capital)
+    plt.plot(solar_fixed.keys(), solar_fixed.values(), label='solar fc')
+    plt.plot(wind_fixed.keys(), wind_fixed.values(), label='wind fc', marker='^')
+    plt.legend()
+    plt.show()
+
+    plt.plot(solar_capital.keys(), solar_capital.values(), label='solar cc')
+    plt.plot(wind_capital.keys(), wind_capital.values(), label='wind cc', marker='^')
+    plt.show()
+    # print(solar_capital)

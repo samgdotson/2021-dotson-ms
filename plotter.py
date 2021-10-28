@@ -12,6 +12,7 @@ N_hours = 24
 
 elc_colors = {'ELC_EX':'tab:brown',
               'IMP_ELC':'tab:brown',
+              'BIOMASS':'tab:brown',
               'ABBOTT_TB':'tab:red',
               'ABBOTT':'tab:red',
               'NUCLEAR_THM':'tab:green',
@@ -23,7 +24,7 @@ elc_colors = {'ELC_EX':'tab:brown',
               'COAL_ADV':'firebrick',
               'NATGAS_ADV':'tab:orange',
               'NATGAS_CONV':'tan',
-              'NUCLEAR_ADV':'teal',
+              'NUCLEAR_ADV':'tab:green',
               'NUCLEAR_CONV':'lightblue',
               'CWS':'tab:purple',
               'CW_STORAGE':'tab:pink'}
@@ -185,7 +186,7 @@ def get_load_profile(db_conn, region, season, year, outcomm):
         tech_list = ['ABBOTT_TB','IMP_ELC', 'NUCLEAR_TB', 'WIND_FARM', 'SOLAR_FARM' , 'LI_BATTERY']
     elif (region == 'IL') and (outcomm=='ELC'):
         tech_list = ['COAL_CONV',  'NUCLEAR_CONV', 'NUCLEAR_ADV',
-                     'NATGAS_CONV','NATGAS_ADV',
+                     'BIOMASS','NATGAS_CONV','NATGAS_ADV',
                      'WIND_FARM', 'SOLAR_FARM', 'LI_BATTERY']
 
 

@@ -8,15 +8,15 @@
 # Input File (Mandatory)
 # Input can be a .sqlite or .dat file
 # Both relative path and absolute path are accepted
---input=data_files/IL_CAP50.sqlite
+--input=data_files/IL_CC50_52.sqlite
 
 # Output File (Mandatory)
 # The output file must be a existing .sqlite file
---output=data_files/IL_CAP50.sqlite
+--output=data_files/IL_CC50_52.sqlite
 
 # Scenario Name (Mandatory)
 # This scenario name is used to store results within the output .sqlite file
---scenario=no_curtail
+--scenario=CAP2050
 
 # Path to the “db_io” folder (Mandatory)
 # This is the location where database files reside

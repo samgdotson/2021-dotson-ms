@@ -8,15 +8,15 @@
 # Input File (Mandatory)
 # Input can be a .sqlite or .dat file
 # Both relative path and absolute path are accepted
---input=data_files/IL_BAU.sqlite
+--input=data_files/IL_BAU_52.sqlite
 
 # Output File (Mandatory)
 # The output file must be a existing .sqlite file
---output=data_files/IL_BAU.sqlite
+--output=data_files/IL_BAU_52.sqlite
 
 # Scenario Name (Mandatory)
 # This scenario name is used to store results within the output .sqlite file
---scenario=no_curtail
+--scenario=BAU
 
 # Path to the “db_io” folder (Mandatory)
 # This is the location where database files reside

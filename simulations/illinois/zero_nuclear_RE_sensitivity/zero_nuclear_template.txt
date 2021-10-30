@@ -30,12 +30,6 @@ emissions_list = []
 from pygenesys.commodity.demand import ELC_DEMAND
 
 # Add demand forecast
-"""
-Illinois' electricity should increase to encompass all parts of the economy
-if the State wishes to be truly carbon neutral. An aggressive climate policy
-would electrify everything. A limited climate policy would only decarbonize
-the electric grid.
-"""
 ELC_DEMAND.add_demand(region='IL',
                       init_demand=1.87e5,
                       start_year=start_year,

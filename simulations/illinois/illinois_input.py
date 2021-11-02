@@ -13,14 +13,14 @@ curr_dir = os.path.dirname(__file__)
 
 # Simulation metadata goes here
 iteration = "base"
-folder = ''
+folder = 'expensive_nuclear'
 scenario_name = 'CC30'
 start_year = 2025  # the first year optimized by the model
 end_year = 2050  # the last year optimized by the model
 N_years = 6  # the number of years optimized by the model
-N_seasons = 4  # the number of "seasons" in the model
+N_seasons = 52  # the number of "seasons" in the model
 N_hours = 24  # the number of hours in a day
-database_filename = f'{folder}/IL_{scenario_name}_{N_seasons}_TEST.sqlite'  # where the database will be written
+database_filename = f'{folder}/IL_XN_{scenario_name}_{N_seasons}.sqlite'  # where the database will be written
 
 
 # Optional parameters
@@ -173,7 +173,7 @@ NUCLEAR_CONV.add_regional_data(region='IL',
                                )
 
 # Multiply capital cost by 2 to simulate cost overruns.
-nuclear_capital = np.array(capital_df['Nuclear']).astype('float')
+nuclear_capital = np.array(capital_df['Nuclear']).astype('float')*2
 nuclear_capital = dict(zip(nrel_years, nuclear_capital))
 nuclear_fixed = np.array(fixed_df['Nuclear']).astype('float')
 nuclear_fixed = dict(zip(nrel_years, nuclear_fixed))

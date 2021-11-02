@@ -50,7 +50,8 @@ def render_input(input_path, input_fname, variable_dict,
 if __name__ == '__main__':
 
     # path = "./simulations/illinois/zero_nuclear_RE_sensitivity/"
-    path = "./simulations/illinois/zero_adv_nuclear_RE_sensitivity/"
+    # path = "./simulations/illinois/zero_adv_nuclear_RE_sensitivity/"
+    path = "./simulations/illinois/expensive_nuclear_RE_sensitivity/"
 
     # infile = "zero_nuclear_template.txt"
     # infile = "zero_adv_nuclear_template.txt"

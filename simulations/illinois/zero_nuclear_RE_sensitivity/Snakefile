@@ -1,0 +1,43 @@
+import glob
+import os
+
+FOLDER = 'data_files'
+PYGEN_FILES = glob.glob('*.py')
+PYGEN_FNAMES = [fname.strip(".py") for fname in PYGEN_FILES]
+scenarios = [s.split('_') for s in PYGEN_FNAMES]
+SCENARIOS = [f'{s[2]}_{s[3]}' for s in scenarios]
+
+rule all:
+    input:
+        # expand("{pygen_inp}.txt", pygen_inp=PYGEN_FNAMES),
+        expand("data_files/{pygen_inp}.sqlite", pygen_inp=PYGEN_FNAMES),
+        expand("data_files/{pygen_inp}_{s}_model/{s}_OutputLog.log",
+                zip, pygen_inp=PYGEN_FNAMES, s=SCENARIOS)
+
+rule make_temoa_inputs:
+    input:
+        expand("{pygen_inp}.py", pygen_inp=PYGEN_FNAMES)
+    output:
+        expand("run_{pygen_inp}.txt", pygen_inp=PYGEN_FNAMES),
+        expand("data_files/{pygen_inp}.sqlite", pygen_inp=PYGEN_FNAMES)
+    shell:
+        """
+        for FILE in {input}
+        do
+            genesys --infile $FILE
+        done
+        """
+
+rule run_temoa:
+    input:
+        expand("run_{pygen_inp}.txt", pygen_inp=PYGEN_FNAMES)
+    output:
+        expand("data_files/{pygen_inp}_{s}_model/{s}_OutputLog.log",
+                zip, pygen_inp=PYGEN_FNAMES, s=SCENARIOS)
+    shell:
+        """
+        for FILE in {input}
+        do
+            set +o pipefail; yes | python ~/research/temoa/temoa_model --config=$FILE
+        done
+        """

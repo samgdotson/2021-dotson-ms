@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 import pygenesys as pg
 plt.style.use('ggplot')
-plt.rcParams['figure.figsize'] = (12,12)
+plt.rcParams['figure.figsize'] = (12,9)
+plt.rcParams['font.family'] = 'serif'
+plt.rcParams['savefig.dpi'] = 400
+plt.rcParams['savefig.bbox'] = 'tight'
 
 N_hours = 24
 

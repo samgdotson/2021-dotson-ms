@@ -4,6 +4,8 @@
 simulations/illinois/**_RE_sensitivity/*.py
 simulations/illinois/**_RE_sensitivity/*_52.txt
 simulations/illinois/**_RE_sensitivity/data_files/*.sqlite
+simulations/illinois/**_RE_sensitivity/data_files/**/*.log
 run_*.txt
 .snakemake/
 __pycache__/
+

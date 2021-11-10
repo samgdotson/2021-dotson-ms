@@ -5,10 +5,14 @@
 \usepackage[acronym,toc]{glossaries}
 \include{acros}
 
+
+
 \usepackage{xspace}
 \usepackage{graphics}
+\usepackage[autosize]{dot2texi}
 \newcommand{\Cycamore}{\textsc{Cycamore}\xspace}
 \newcommand{\Cyclus}{\textsc{Cyclus}\xspace}
+
 
 
 \usepackage{placeins}
@@ -30,6 +34,7 @@
 \usepackage{fourier}
 \usepackage{booktabs}
 \newcommand\tab[1][1cm]{\hspace*{#1}}
+\newcommand{\pygen}{\texttt{PyGenesys}}
 
 \usepackage{threeparttable, tablefootnote}
 
@@ -74,14 +79,14 @@
 \tikzstyle{arrow} = [thick,->,>=stealth]
 
 
-\title{Example Template}
-\author{Charles Bae}
+\title{\pygen}
+\author{Samuel G. Dotson}
 \department{Nuclear, Plasma, Radiological Engineering}
 \schools{B.S., University of Illinois - Urbana Champaign, 2017}
 \msthesis
 \advisor{Kathryn D. Huff}
-\degreeyear{2018}
-\committee{Assistant Professor Kathryn D. Huff, Adviser \\ Professor Segundo Lector }
+\degreeyear{2021}
+\committee{Associate Professor Kathryn D. Huff, Adviser \\ Professor Rizwan Uddin \\ Dr. Madicken Munk}
 
 
 \begin{document}
@@ -128,12 +133,22 @@ Acks.
 \chapter{Introduction}
 \input{introduction}
 
+\chapter{Literature Review}
+\input{litrev}
+
+\chapter{Methods and Data}
+\input{methods/methods}
+
+\chapter{Case Study I: Carbon Zero Electricity in Illinois by 2030}
+
+\chapter{Case Study II: Emissions-Free Microgrid at UIUC}
+
 \chapter*{Appendix}
 \input{appendix}
 
 \backmatter
 
-\bibliographystyle{apalike}
+\bibliographystyle{abbrv}
 \bibliography{bibliography}
 
 \end{document}

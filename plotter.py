@@ -144,20 +144,28 @@ def get_regional_techs(db_conn, outcomm, region):
     return regional_techs
 
 
-def get_hourly_data(db_conn, region, season, year, technology):
+def get_hourly_data(db_conn, region, season, year, technology, scenario=None):
     """
     This function returns the hourly data for a particular
     year, season, and technology.
     """
-
-    command = (f"SELECT t_day, SUM(vflow_out), tech "
-               f"FROM Output_VFlow_Out "
-               f"WHERE tech IS '{technology}' "
-               f"AND t_season IS '{season}' "
-               f"AND t_periods IS {year} "
-               f"AND regions LIKE '%{region}' "
-               f"GROUP BY Output_VFlow_Out.t_day")
-
+    if scenario is None:
+        command = (f"SELECT t_day, SUM(vflow_out), tech "
+                   f"FROM Output_VFlow_Out "
+                   f"WHERE tech IS '{technology}' "
+                   f"AND t_season IS '{season}' "
+                   f"AND t_periods IS {year} "
+                   f"AND regions LIKE '%{region}' "
+                   f"GROUP BY Output_VFlow_Out.t_day")
+    else:
+        command = (f"SELECT t_day, SUM(vflow_out), tech "
+                   f"FROM Output_VFlow_Out "
+                   f"WHERE tech IS '{technology}' "
+                   f"AND t_season IS '{season}' "
+                   f"AND t_periods IS {year} "
+                   f"AND regions LIKE '%{region}' "
+                   f"AND scenario LIKE '%{scenario}' "
+                   f"GROUP BY Output_VFlow_Out.t_day")
     cur = db_conn.cursor()
     cur.execute(command)
 
@@ -182,7 +190,7 @@ def get_hourly_data(db_conn, region, season, year, technology):
 
 
 
-def get_load_profile(db_conn, region, season, year, outcomm):
+def get_load_profile(db_conn, region, season, year, outcomm, scenario=None):
 
     tech_list = get_regional_techs(db_conn, outcomm, region)
     if (region == 'UIUC') and (outcomm=='ELC'):
@@ -196,21 +204,28 @@ def get_load_profile(db_conn, region, season, year, outcomm):
     load_profile = {}
 
     for tech in tech_list:
-        data = get_hourly_data(db_conn, region, season, year, tech)
+        data = get_hourly_data(db_conn, region, season, year, tech, scenario)
         load_profile[tech] = data
 #     print(load_profile)
     return list(load_profile.keys()), list(load_profile.values())
 
 
-def get_demand_curve(db_conn, season, region, comm="ELC_DEMAND"):
+def get_demand_curve(db_conn, season, region, comm="ELC_DEMAND", scenario=None):
     """
     This function returns the demand curve for a particular season.
     """
 
-    command = (f"SELECT time_of_day_name, dds FROM DemandSpecificDistribution "
-              f"WHERE season_name IS '{season}' "
-              f"AND demand_name IS '{comm}' "
-              f"AND regions IS '{region}' ")
+    if scenario == None:
+        command = (f"SELECT time_of_day_name, dds FROM DemandSpecificDistribution "
+                  f"WHERE season_name IS '{season}' "
+                  f"AND demand_name IS '{comm}' "
+                  f"AND regions IS '{region}' ")
+    else:
+        command = (f"SELECT time_of_day_name, dds FROM DemandSpecificDistribution "
+                  f"WHERE season_name IS '{season}' "
+                  f"AND demand_name IS '{comm}' "
+                  f"AND regions IS '{region}' "
+                  f"AND scenario IS '{scenario}' ")
 
     cur = db_conn.cursor()
     data = cur.execute(command)
@@ -238,7 +253,7 @@ def get_demand_value(db_conn, region, period, comm="ELC_DEMAND"):
 
 
 
-def plot_electricity_profiles(db_conn, region, outcomm, colors=elc_colors, N_hours=24):
+def plot_electricity_profiles(db_conn, region, outcomm, colors=elc_colors, N_hours=24, scenario=None):
     """
     This function plots all of the load profiles
     for a particular sector.
@@ -275,7 +290,7 @@ def plot_electricity_profiles(db_conn, region, outcomm, colors=elc_colors, N_hou
     return
 
 
-def get_annual_capacity(db_conn, region, outcomm):
+def get_annual_capacity(db_conn, region, outcomm, scenario=None):
     """
     Retrieves the annual capacity of each technology.
     """
@@ -287,11 +302,19 @@ def get_annual_capacity(db_conn, region, outcomm):
 
     cap_dict = {}
     for tech in all_techs:
-        command = (f"SELECT t_periods, capacity "
-                   f"FROM Output_CapacityByPeriodAndTech "
-                   f"WHERE tech IS '{tech}' "
-                   f"AND regions LIKE '%{region}' "
-                   f"ORDER BY Output_CapacityByPeriodAndTech.t_periods")
+        if scenario == None:
+            command = (f"SELECT t_periods, capacity "
+                       f"FROM Output_CapacityByPeriodAndTech "
+                       f"WHERE tech IS '{tech}' "
+                       f"AND regions LIKE '%{region}' "
+                       f"ORDER BY Output_CapacityByPeriodAndTech.t_periods")
+        else:
+            command = (f"SELECT t_periods, capacity "
+                       f"FROM Output_CapacityByPeriodAndTech "
+                       f"WHERE tech IS '{tech}' "
+                       f"AND regions LIKE '%{region}' "
+                       f"AND scenario LIKE '%{scenario}' "
+                       f"ORDER BY Output_CapacityByPeriodAndTech.t_periods")
         cur.execute(command)
         cap_tech = cur.fetchall()
 
@@ -312,7 +335,7 @@ def get_annual_capacity(db_conn, region, outcomm):
     return cap_df
 
 
-def get_annual_generation(db_conn, region, outcomm):
+def get_annual_generation(db_conn, region, outcomm, scenario=None):
     """
     Retrieves the annual generation of each technology.
     """
@@ -324,11 +347,19 @@ def get_annual_generation(db_conn, region, outcomm):
 
     cap_dict = {}
     for tech in all_techs:
-        command = (f"SELECT t_periods, SUM(vflow_out), tech "
-                       f"FROM Output_VFlow_Out "
-                       f"WHERE tech IS '{tech}' "
-                       f"AND regions LIKE '%{region}' "
-                       f"GROUP BY Output_VFlow_Out.t_periods")
+        if scenario == None:
+            command = (f"SELECT t_periods, SUM(vflow_out), tech "
+                           f"FROM Output_VFlow_Out "
+                           f"WHERE tech IS '{tech}' "
+                           f"AND regions LIKE '%{region}' "
+                           f"GROUP BY Output_VFlow_Out.t_periods")
+        else:
+            command = (f"SELECT t_periods, SUM(vflow_out), tech "
+                           f"FROM Output_VFlow_Out "
+                           f"WHERE tech IS '{tech}' "
+                           f"AND regions LIKE '%{region}' "
+                           f"AND scenario LIKE '%{scenario}' "
+                           f"GROUP BY Output_VFlow_Out.t_periods")
         cur.execute(command)
         cap_tech = cur.fetchall()
 

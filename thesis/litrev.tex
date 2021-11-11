@@ -1,0 +1,206 @@
+This chapter reviews the state of energy system optimization modeling (ESOM) tools
+and tools for evaluating nuclear hybrid energy systems (NHES).
+
+Energy systems are spatially, temporally, and topologically complex ‘machines’
+that operate cohesively to supply energy where it is needed at the exact moment
+it is needed. Spatial complexity arises from various interconnections that enable
+the transmission of energy from one region to another. This includes transmission
+lines that move electricity from one part of the United States to another or
+pipelines moving natural gas. Regions can be large multistate entities like the
+PJM Interconnection, smaller communities, or even individual homes. Temporal
+complexity arises from the time dependence of energy demand and availability of
+variable and intermittent sources of energy. Energy demand and renewable energy
+production
+exhibit a variety of seasonalities from annual, monthly, even daily trends.
+There is also some stochasticity at the minute to hourly level caused either by
+human behavior or weather conditions.
+Examining energy systems at each of these temporal resolutions is vital for
+generating robust energy policy and guaranteeing reliable energy delivery. Finally,
+topological complexity refers to the number of interacting technologies that can
+produce and move energy. A community powered by a small solar farm and a diesel
+backup generator is topologically simpler than a state with many types of energy
+demands, various means of production, and dozens of individual generators. Beyond
+the physical and engineering aspects of energy systems is a social context that
+motivates choices at every layer of complexity. These choices reflect the priorities
+of a given society or community and manifest as energy policy.
+
+\section{Energy Policy and Climate Change Mitigation}
+
+Energy policies serve to coordinate the different aspects of energy systems.
+Essentially, energy policies need to ensure reliability, affordability, and
+sustainability \cite{fattahi_systemic_2020}. A reliable grid ensures an adequate
+energy supply when it is needed \cite{milligan_methods_2011, ramirez-meyers_how_2021,berkeley_iii_framework_2010}.
+An unreliable grid experiences an unacceptable frequency of outages or losses of
+load \cite{ramirez-meyers_how_2021} The North American Electric Reliability
+Corporation sets the desired loss-of-load frequency at 0.1 days/year and recommends
+a \gls{prm} of 15 percent \cite{milligan_methods_2011,reimers_impact_2019}. \gls{prm}
+is defined as,
+\begin{align}
+  \text{PRM} &= \frac{P_{\text{firm}} - P_{\text{peak}}}{P_{\text{peak}}},
+  \intertext{where}
+  P_{\text{firm}} &= \text{installed firm capacity}, \nonumber\\
+  P_{\text{peak}} &= \text{power demand at annual peak} \nonumber.
+\end{align}
+In other words, \gls{prm} is the fraction of capacity held in reserve during peak
+times. ‘Affordability’ is an ill-defined term and varies significantly. An ``affordable''
+energy system can be loosely understood as one with a low rate of energy poverty
+\cite{brown_high_2020}. High energy costs have cascading adverse effects on every
+aspect of life and significantly impact low-income households \cite{brown_high_2020}.
+Measures that lead to increased costs for energy producers, such as carbon taxes,
+almost always lead to higher consumer costs \cite{brown_high_2020,poelhekke_how_2019,khastar_how_2020}.
+Thus, policymakers often seek a least-cost solution when designing energy policy.
+Lastly, sustainability is defined as ``meeting the needs of the present without
+compromising the ability of future generations to meet their own needs'' \cite{brook_why_2014,
+the_united_nations_brundtland_commission_our_1987}. The twin problems of fossil
+fuel consumption and climate change will significantly diminish the ability of
+future generations to meet their basic needs. Droughts, forest fires, extreme
+weather events, and flooding have all increased due to climate change
+\cite{reidmiller_fourth_2018}. Additionally, human activities like deforestation,
+strip mining, and monocropping are causing a loss of essential ecosystem services
+that advanced technology cannot easily replace \cite{malhi_climate_2020,butler_climate_2018,
+costanza_value_1997}. These ecosystem services have an estimated total value between
+\$125 trillion/year and \$145 trillion/year and, therefore, failure to mitigate
+climate change will incur severe economic damage \cite{costanza_changes_2014, malhi_climate_2020}.
+Climate change will affect each of these policy goals, which means minimizing its
+effects is a moral and political imperative.
+
+\subsection{Survey of climate mitigation policies}
+
+There are three primary policy strategies for climate change mitigation \cite{fawzy_strategies_2020}:
+conventional mitigation efforts, which include all policies centered around
+reducing carbon emissions, negative emissions technologies, and the final option,
+geoengineering, which reduces warming by increasing the Earth’s reflectivity. This
+thesis focuses on the first set of energy policies, conventional mitigation strategies.
+These strategies include:
+\begin{itemize}
+  \item Investing in clean energy resources, such as renewable energy and nuclear power
+  \cite{fawzy_strategies_2020}. These strategies affect the topology of the energy
+  system by influencing the types of energy production technologies.
+  \item Demand response policies involve reducing grid load when there is insufficient
+  supply forecasted or flattening the load profile throughout the day. These policies
+  are critical for energy systems with high penetration of variable and intermittent
+  energy sources like wind and solar power \cite{bouckaert_expanding_2014,
+  kuzemko_policies_2017}. Demand response policies influence the temporal
+  complexity of the energy system.
+  \item Carbon capture and storage (CCS) reduces the carbon footprint of coal and
+  natural gas plants but are not considered negative emissions \cite{fawzy_strategies_2020}.
+  These strategies affect grid topology by enabling the continued use of previously
+  high carbon-emitting technologies.
+\end{itemize}
+
+\subsection{Climate change strategies in Illinois}
+In September of 2021, Illinois legislators passed a historic clean energy bill,
+\gls{ceja} \cite{harmon_climate_2021}. This bill does several notable things for
+both equity and energy policy. Naming just a few, \gls{ceja}:
+\begin{enumerate}
+  \item Sets Illinois on a path toward 100\% clean energy by 2050
+  \cite{office_of_governor_jb_pritzker_gov_2021}. Ambiguously,
+  the text of the bill refers to 100\% renewable energy by 2050 \cite{harmon_climate_2021}.
+  The former includes nuclear power, while the latter typically excludes nuclear power.
+  \item Pledges 40\% renewable energy (e.g., wind or solar) by 2030 and 50\% by 2040
+  \cite{office_of_governor_jb_pritzker_gov_2021}.
+  \item Phases out coal plants by 2045, unless those plants can operate 100\% emissions-free
+  \cite{office_of_governor_jb_pritzker_gov_2021}.
+  \item Establishes a carbon credit plan that supports “zero emissions facilities”
+  (i.e., nuclear power plants). Exelon reversed the imminent closure of Byron and
+  Dresden nuclear power plants based on the financial support from this bill \cite{brown_two_2021}.
+  \item Pledges Illinois to adopt one million electric vehicles by 2030 and
+  encourages consumer adoption with an electric vehicle rebate
+  \cite{office_of_governor_jb_pritzker_gov_2021}.
+  \item Workforce development programs focused on equity. Such as a
+  “Clean Jobs Workforce Network Hubs Program” that seeks to ensure “equity-focused”
+  populations have support to enter the clean energy workforce \cite{office_of_governor_jb_pritzker_gov_2021}.
+  \item Ensures all utility-scale wind and solar energy projects acquire labor
+  agreements and pay prevailing wages \cite{office_of_governor_jb_pritzker_gov_2021}
+\end{enumerate}
+This bill extends support for nuclear plants in the PJM Interconnect, where its
+predecessor, the 2016 Future Energy Jobs Act, gave financial support to nuclear
+plants in the MISO grid. The Solar Energy Industries Association (SEIA) and Illinois
+Clean Jobs Coalition estimate that Illinois will have to double its wind capacity
+to roughly 12.6 GW and add 9 GW of combined utility and residential solar energy
+to achieve its renewable energy goals \cite{goeller_new_2021, the_accelerate_group_clean_2019}.
+The Illinois Clean Jobs Coalition
+drove much of the content of the CEJA bill. The Coalition funded a report to
+evaluate the economic impact of the CEJA bill, finding that Illinois’ renewable
+energy goals could drive 39 billion dollars in private investment to the state
+\cite{the_accelerate_group_clean_2019}.
+However, the creators of this report did not consider the impacts of these targets
+on grid operations, electricity cost, and energy reliability. Although nuclear power
+plants (NPP) currently generate more than half of Illinois’ electricity, almost
+90 percent of its carbon-free energy, and the CEJA bill financially supports nuclear
+power, politicians and lobbyists fiercely debate the continued role of nuclear power
+in Illinois’ energy mix.
+
+\subsection{Illinois Climate Action Plan at the University of Illinois}
+
+The University of Illinois at Urbana-Champaign (UIUC) released the first iteration
+of the Illinois Climate Action Plan (iCAP) in 2010, and a new one is released every five years.
+The 2015 iCAP report detailed UIUC’s goal to achieve carbon neutrality by 2050
+\cite{institute_for_sustainability_energy_and_environment_illinois_2015}.
+This goal includes every scope of emissions from the energy produced on campus, to
+the emissions from vehicles faculty and staff use to drive to work
+\cite{institute_for_sustainability_energy_and_environment_illinois_2015,
+institute_for_sustainability_energy_and_environment_illinois_2020}. The
+iCAP reports established several themes and objectives for each. These themes are:
+\begin{itemize}
+  \item Energy
+  \item Transportation
+  \item Land and Water
+  \item Zero Waste
+  \item Resilience
+  \item Reporting Progress (accountability)
+  \item Engagement
+  \item Education
+  \item Research Opportunities
+  \item Funding
+\end{itemize}
+The greatest opportunity to reduce carbon emissions on the UIUC campus comes from
+the ``Energy” theme. \gls{uiuc}’s specific energy objectives include an energy
+efficiency target of 167,000 BTU/square foot by 2030, purchasing 140 GWh of clean
+electricity by 2025, and reducing building-level energy use
+\cite{institute_for_sustainability_energy_and_environment_illinois_2020}. The University
+heats virtually all of its buildings using steam produced by Abbott Power Plant
+(APP) which burns coal and natural gas. The iCAP objectives conspicuously lack a
+measurable target for clean thermal energy on campus.
+
+\section{Energy System Optimization Models}
+
+\glspl{esom} are a class of modeling tools designed to facilitate policy decisions before
+future uncertainties are resolved \cite{hunter_modeling_2013}. In particular, \glspl{esom} answer questions
+related to the planning and expansion of energy generating capacity \cite{de_queiroz_repurposing_2019}.
+In order to achieve this goal, \glspl{esom} have to balance spatial, temporal, and topological
+complexities while accounting for profound future uncertainties \cite{martinez-gordon_review_2021}.
+\glspl{esom} typically use a “time-slice” approach where temporal variability is captured in
+several representative time slices \cite{fattahi_systemic_2020}. Some frameworks
+handle spatial complexity by modeling different regions, the most detailed among
+them incorporate data from geographical information systems (GIS) \cite{fattahi_systemic_2020}.
+Lastly, most \glspl{esom} consider grid topology by grouping technology types (e.g. ‘coal power’
+or ‘nuclear power’) \cite{fattahi_systemic_2020} while some frameworks look at
+interactions among individual plants \cite{jenkins_enhanced_2017}. Handling
+future uncertainty is one of the most important features in an \gls{esom}.
+
+\subsection{Uncertainty Quantification}
+
+Since perfect foresight is impossible, and policymakers often act then learn, handling
+uncertainty is critical to developing robust insights
+\cite{yue_review_2018, decarolis_modelling_2016}.
+The two broad categories of uncertainties are parametric uncertainty and structural
+uncertainty. Parametric uncertainty deals with the influence of unknown quantities
+like future fuel prices, learning curves, and discount rates. Structural uncertainty
+relates to factors that are not captured in a model’s equations
+\cite{hunter_modeling_2013, yue_review_2018}.
+The latter uncertainty includes heterogeneity of decision-makers,
+social acceptance, and different priorities \cite{yue_review_2018}. Most ESOM
+studies handle uncertainties using a small ensemble of scenarios where a reference
+scenario is developed and policy impacts are analyzed with additional constraints
+and assumptions \cite{yue_review_2018}. There are several systematic methods to
+account for parametric uncertainty, including Monte Carlo, stochastic optimization,
+and global sensitivity analysis \cite{yue_review_2018}. Structural uncertainty
+is typically handled by either increasing model complexity to make it more
+``realistic'' or studied systematically using \gls{mga}
+\cite{hunter_modeling_2013,decarolis_modelling_2016, yue_review_2018}.
+The framework I used in this thesis,
+\gls{temoa}, developed at North Carolina State University,
+
+
+\section{Nuclear Energy and \glspl{esom}}

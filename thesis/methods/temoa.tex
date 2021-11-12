@@ -99,6 +99,7 @@ to offer alternatives that may capture unmodeled objectives, such as political
 expediency or social acceptance.
 
 \subsection{Na\"{i}ve Pathway to 100\% Clean Energy: Linear Programming Example}
+\label{section:naive-example}
 
 This example illustrates the influence of both structural and parametric uncertainties and
 how \gls{mga} probes decision space. As discussed in Section \ref{section:ceja},
@@ -116,7 +117,7 @@ Illinois Clean Jobs Coalition implicitly assumes the following:
 \end{enumerate}
 In 2019, the electricity demand of Illinois was 138 TWh, and 98.7 TWh generated from
 nuclear power \cite{energy_information_administration_eia_nodate}.
-Formulated as a linear programming problem,
+Formulated as a linear programming problem, Illinois must:
 \begin{align}
   \intertext{Minimize:}
   C_{total} &= C_s x_1 + C_w x_2
@@ -157,14 +158,19 @@ solution and one \gls{mga} iteration. As well as the \gls{ceja} goals, for refer
 Every point above the demand constraint represents a feasible solution, since
 those are all combinations of solar and wind that can meet annual electricity
 demand. The \gls{ceja} goals are well within the feasible region, but highly sub-optimal.
-This amount of capacity suggests the energy could be exported or curtailed, which are
+This amount of capacity suggests the energy could be exported, curtailed, or stored, which are
 unmodeled, structural uncertainties, in this formulation.
 The optimal solution minimizes the total cost and lies at the intersection
 of the objective function and the demand constraint. The objective function cannot
 be reduced any further because those solutions would not satisfy the electricity demand.
 The \gls{mga} ``objective function'' added a 10\% slack to the original objective function
 and becomes an additional upper bound constraint. The new objective function minimizes
-the sum of solar and wind capacity.
+the sum of solar and wind capacity. In this trivial case, the model will always build
+solar over wind, unless the cost of wind becomes cheaper than the cost of solar.
+However, the example illustrates \gls{mga} generally. Finally, although \gls{mga} scenarios
+may account for either structural uncertainties or parametric uncertainties
+\cite{decarolis_modelling_2016}, I use the former interpretation. This is because
+\gls{mga} cannot specify which uncertain parameters led to a particular scenario.
 \begin{figure}[H]
   \centering
   \resizebox{0.8\columnwidth}{!}{\input{figures/naive_mga.pgf}}
@@ -175,9 +181,45 @@ the sum of solar and wind capacity.
   \label{fig:mga-fig}
 \end{figure}
 
+While \gls{mga} helps modelers explore alternative energy futures and structural
+uncertainty, quantifying parametric uncertainty is essential for creating robust insights
+for policy decisions. Figure \ref{fig:param-fig} shows the same decision space for
+the na\"{i}ve capacity expansion problem as before with upper and lower bounds for
+the demand constraint and objective function with 10\% uncertainty applied to all
+parameters. The upper bound for the demand constraint represents a scenario where
+the capacity factors for wind and solar are both 10\% less than average and electricity
+demand is 10\% higher. The upper and lower bounds on the objective function represent
+futures where the cost of solar and wind energy is 10\% higher or lower than
+projected, respectively. The CEJA capacity goal is identified by the red dot in
+\ref{fig:param-fig}. There are several methods to explore this optimal space and
+\gls{temoa} has some functionality for two: \gls{mca} \cite{yue_review_2018} and
+stochastic optimization \cite{decarolis_multi-stage_2012, bennett_extending_2021}.
+\gls{mca} is useful for global sensitivity analysis since its computational
+cost increases with the number of iterations, but not the number of uncertain
+parameters. However, \gls{mca} depends strongly on the underlying data distribution
+and cannot give a likelihood for any given scenario \cite{yue_review_2018}.
+Stochastic optimization offers a likelihood and a possible ``hedging'' strategy,
+but computational cost limits the number of uncertain parameters that can be
+tested \cite{yue_review_2018}.
+
 \begin{figure}[H]
   \centering
   \resizebox{0.8\columnwidth}{!}{\input{figures/naive_parametric.pgf}}
-  \caption{Na\"{i}ve solution with Parametric Uncertainty}
-  \label{fig:mga-fig}
+  \caption{Decision space for the na\"{i}ve capacity expansion problem with
+  10\% uncertainty applied to all parameters. The optimal space lies within
+  overlapping blue and red regions. The red dot shows the \gls{ceja} goals for
+  renewable energy, for reference.}
+  \label{fig:param-fig}
 \end{figure}
+Considering the optimal mixture of wind and solar to achieve Illinois' clean
+energy goals, in this manner, and comparing it to current policy trivializes the
+problem. There are many features of energy systems no captured in this simple formulation,
+like availability of solar power, need for back up or energy storage when weather
+fails, and other clean technology options. Thus \glspl{esom} are necessary. However,
+this example illustrates the \gls{mga} method and shows how the optimal space
+expands under parametric uncertainties.
+
+In the following case studies I apply \gls{mga} to explore near-optimal solutions
+for the \gls{uiuc} energy system and a novel approach with \gls{raven} to study
+the sensitivity of Illinois' grid to wind and solar capacity factor profiles and
+time resolution.

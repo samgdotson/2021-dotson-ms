@@ -1,3 +1,11 @@
+This chapter introduces the software and tools used to conduct experiments in this
+thesis. As well as describing the case studies and experiments themselves.
+The three tools I used were:
+\begin{itemize}
+  \item Tools for Energy System Optimization and Analysis (Temoa).
+  \item Risk Analysis and Virtual Environment (\texttt{RAVEN})
+  \item Python for Generating Energy Systems (\pygen)
+\end{itemize}
 In this thesis, I demonstrate the role of advanced nuclear reactors to meet future
 energy demands with two case studies: Illinois’ electric grid and the microgrid
 at the University of Illinois at Urbana-Champaign. Both case studies use \gls{temoa}
@@ -5,8 +13,7 @@ to solve for the optimal least-cost solution. I developed \gls{pygen} to
 facilitate creation of \gls{temoa} input files and sensitivity analyses.
 
 \section{Tools for Energy System Optimization and Analysis (Temoa)}
-\subsection{Mathematics of Temoa}
-\subsection{Linear Programming Example}
+\input{methods/temoa}
 
 \section{Python for Generating Energy Systems (\texttt{PyGenesys})}
 
@@ -15,7 +22,8 @@ facilitate creation of \gls{temoa} input files and sensitivity analyses.
 
 \section{Carbon Zero Electricity in Illinois}
 \label{section:ilmodel}
-The State of Illinois generates over half of its electricity with nuclear reactors.
+The State of Illinois generates over half of its electricity with nuclear reactors
+\cite{energy_information_administration_eia_nodate}.
 Illinois also straddles two interconnections: \gls{miso} and PJM. The recent
 passage of the CEJA bill commits Illinois to a policy of carbon-free electricity
 by 2030 and 100\% renewable energy by 2050 \cite{harmon_climate_2021}.
@@ -96,6 +104,7 @@ from Abbott's activity.
   \caption{Summary of Technologies in the \gls{uiuc} model}
   \label{tab:uiuc-tech}
   \resizebox{\textwidth}{!}{
-  \input{/home/sdotson/research/2021-dotson-ms/thesis/methods/uiuc_tech.tex}
+  % \input{/home/sdotson/research/2021-dotson-ms/thesis/methods/uiuc_tech.tex}
+  \input{methods/uiuc_tech}
   } % end resize box
 \end{table}

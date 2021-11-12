@@ -1,0 +1,58 @@
+The needs for transparency, repeatability, and robust uncertainty quantification
+motivated \gls{temoa}'s development \cite{hunter_modeling_2013}.
+In particular, model interrogation by third parties is essential to this transparency
+goal. Yet, complex models can be tens to hundreds of thousands of lines long. The
+\texttt{US\_Regional.sql} database maintained by the \gls{temoa} team is greater
+than 150,000 lines long \cite{model_databases_2021}. Even with an open source
+database viewer like \texttt{DBeaver} checking the assumptions in a dataset that large
+\cite{noauthor_dbeaver_nodate}. On the flipside, developing new datasets for
+\gls{temoa} presents a steep learning curve for some new users or a time consuming
+endeavor for experienced ones. Updating model parameters or structure (e.g. number
+of time slices or time periods) is also difficult. Further, although \gls{temoa}
+is capable of sensitivity analysis with \gls{mga}, \gls{mca}, and stochastic
+optimization, only \gls{mga} is ``native'' to the framework. In fact, \gls{temoa}
+currently only offers \gls{mga} sensitivity analysis on its cloud platform.
+\gls{pygen} is a user-friendly wrapper for \gls{temoa}.
+I created \gls{pygen} to:
+\begin{enumerate}
+  \item Automatically generate \gls{temoa} \texttt{SQL} databases and configuration files,
+  \item Process time series.
+  \item Calculate future demand growth.
+  \item Facilitate senstivity analysis using a templated approach.
+  \item Be executable from the command line, anywhere
+\end{enumerate}
+A \texttt{SQL} database with tens of thousands of rows is condensed to merely
+a few hundred lines of python code, most of which is due to formatting for
+readability. Figure \ref{fig:pygen-flow} shows the flow of data through \gls{pygen}.
+A \gls{pygen} input file consists of three main components, simulation metadata,
+\texttt{Technology} objects, and \texttt{Commodity} objects. These objects
+contain all parameters, data, and units necessary to populate a \gls{temoa}
+database. Further, since \gls{pygen} input files are written in Python, users
+can directly interrogate model assumptions. \gls{pygen} adds clarity and usability
+while preserving \gls{temoa}'s flexibility.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\columnwidth]{figures/pygen-outline.png}
+  \caption{The flow of data through \gls{pygen}. \gls{pygen} reads a Python
+  input file and writes an \texttt{SQL} database and a configuration textfile.}
+  \label{fig:pygen-flow}
+\end{figure}
+A \gls{pygen} input file can be turned into a template with uncertain parameters
+specified using a liquid-text format and then hundreds of input files can be
+populated with the \texttt{Jinja2} Python library.
+
+\subsubsection{Time Series Processing}
+Automated conversion of continuous time series data into a \gls{temoa}-ready
+time slices is one \gls{pygen}' key features. By specifying the number of ``seasons''
+and the number of ``times of day,'' users can quickly rerun their model at different
+temporal resolutions. The only limit to this is computational tractability on \gls{temoa}'s
+end. Figure \ref{fig:solar-timeslice} shows some historical data from \gls{uiuc}'s
+first solar farm project, Solar Farm 1.0 \cite{white_solar_2017}, that \gls{pygen}
+sliced into four seasons with one representative day of 24 hours each.  
+\begin{figure}[H]
+  \resizebox{\textwidth}{!}{\input{figures/solar_timeslice.pgf}}
+  \caption{Historical solar data that is sliced into four seasons with one
+  representative day of 24 hours each.}
+  \label{fig:solar-timeslice}
+\end{figure}

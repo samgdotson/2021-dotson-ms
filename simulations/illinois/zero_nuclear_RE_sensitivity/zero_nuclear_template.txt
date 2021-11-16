@@ -15,7 +15,7 @@ end_year = 2050  # the last year optimized by the model
 N_years = 6  # the number of years optimized by the model
 N_seasons = 52  # the number of "seasons" in the model
 N_hours = 24  # the number of hours in a day
-database_filename = f'{folder}/IL_ZN_{scenario_name}_{N_seasons}.sqlite'  # where the database will be written
+database_filename = f'{folder}/IL_ZN_{scenario_name}_{N_seasons}_V2.sqlite'  # where the database will be written
 
 
 # Optional parameters
@@ -69,14 +69,12 @@ from pygenesys.commodity.emissions import co2eq, CO2
 
 
 # Import capacity factor data
-from pygenesys.data.library import solarfarm_data, railsplitter_data
-
 wind_history = (f"/home/sdotson/research/2021-dotson-ms/data/"+
-               f"railsplitterHistories/"+
-               f"RailSplitterHistories_{wind_iteration}_pd.csv")
+               f"nsrdb_data/"+
+               f"windHistory_{wind_iteration}.csv")
 solar_history = (f"/home/sdotson/research/2021-dotson-ms/data/"+
-                f"solarHistories/"+
-                f"solarHistories_{solar_iteration}_pd.csv")
+                f"nsrdb_data/"+
+                f"solarHistory_{solar_iteration}.csv")
 
 from pygenesys.utils.tsprocess import choose_distribution_method
 

@@ -1,0 +1,61 @@
+\begin{lstlisting}[style=sqlstyle,caption={Temoa tables that define the model horizon and time slices.}, label={code:sql}, floatplacement=H]
+CREATE TABLE "time_season" (
+  "t_season"	text,
+  PRIMARY KEY("t_season")
+  );
+  INSERT INTO "time_season" VALUES('S1');
+  INSERT INTO "time_season" VALUES('S2');
+  INSERT INTO "time_season" VALUES('S3');
+  INSERT INTO "time_season" VALUES('S4');
+
+CREATE TABLE "time_periods" (
+  "t_periods"	integer,
+  "flag"	text,
+  FOREIGN KEY("flag") REFERENCES "time_period_labels"("t_period_labels"),
+  PRIMARY KEY("t_periods")
+  );
+  INSERT INTO "time_periods" VALUES (2025,'f');
+  INSERT INTO "time_periods" VALUES (2030,'f');
+  INSERT INTO "time_periods" VALUES (2035,'f');
+  INSERT INTO "time_periods" VALUES (2040,'f');
+  INSERT INTO "time_periods" VALUES (2045,'f');
+  INSERT INTO "time_periods" VALUES (2050,'f');
+  INSERT INTO "time_periods" VALUES (2051,'f');
+
+CREATE TABLE "time_period_labels" (
+  "t_period_labels"	text,
+  "t_period_labels_desc"	text,
+  PRIMARY KEY("t_period_labels")
+  );
+  INSERT INTO "time_period_labels" VALUES ('e','existing vintages');
+  INSERT INTO "time_period_labels" VALUES ('f','future');
+
+CREATE TABLE "time_of_day" (
+  "t_day"	text,
+  PRIMARY KEY("t_day")
+  );
+  INSERT INTO "time_of_day" VALUES('H1');
+  INSERT INTO "time_of_day" VALUES('H2');
+  INSERT INTO "time_of_day" VALUES('H3');
+  INSERT INTO "time_of_day" VALUES('H4');
+  INSERT INTO "time_of_day" VALUES('H5');
+  INSERT INTO "time_of_day" VALUES('H6');
+  INSERT INTO "time_of_day" VALUES('H7');
+  INSERT INTO "time_of_day" VALUES('H8');
+  INSERT INTO "time_of_day" VALUES('H9');
+  INSERT INTO "time_of_day" VALUES('H10');
+  INSERT INTO "time_of_day" VALUES('H11');
+  INSERT INTO "time_of_day" VALUES('H12');
+  INSERT INTO "time_of_day" VALUES('H13');
+  INSERT INTO "time_of_day" VALUES('H14');
+  INSERT INTO "time_of_day" VALUES('H15');
+  INSERT INTO "time_of_day" VALUES('H16');
+  INSERT INTO "time_of_day" VALUES('H17');
+  INSERT INTO "time_of_day" VALUES('H18');
+  INSERT INTO "time_of_day" VALUES('H19');
+  INSERT INTO "time_of_day" VALUES('H20');
+  INSERT INTO "time_of_day" VALUES('H21');
+  INSERT INTO "time_of_day" VALUES('H22');
+  INSERT INTO "time_of_day" VALUES('H23');
+  INSERT INTO "time_of_day" VALUES('H24');
+\end{lstlisting}

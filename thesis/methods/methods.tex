@@ -20,32 +20,7 @@ facilitate creation of \gls{temoa} input files and sensitivity analyses.
 
 \section{Carbon Zero Electricity in Illinois}
 \label{section:ilmodel}
-The State of Illinois generates over half of its electricity with nuclear reactors
-\cite{energy_information_administration_eia_nodate}.
-Illinois also straddles two interconnections: \gls{miso} and PJM. The recent
-passage of the CEJA bill commits Illinois to a policy of carbon-free electricity
-by 2030 and 100\% renewable energy by 2050 \cite{harmon_climate_2021}.
-I modeled a simplified version of the Illinois electric grid using \gls{temoa}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.6\columnwidth]{IL_system.png}
-  \caption{The Illinois electricity grid modeled in \gls{temoa}.}
-  \label{fig:ilsys}
-\end{figure}
-
-Figure \ref{fig:ilsys} shows the model topology of the Illinois system. There
-are nine different electricity generating technologies and one storage option.
-All generated electricity passes through a \texttt{TRANSMISSION} technology
-to simulate electricity delivery. The Illinois model is spatially and topologically
-simple since there are only ten distinct technologies, one region, and one
-end-use commodity.
-
-\subsection{Scenarios}
-
-\subsection{Model and Data}
-
-\subsection{Sensitivity Analysis}
+\input{methods/illinois_case_desc}
 
 \section{The UIUC Microgrid}
 
@@ -62,7 +37,7 @@ Yet, UIUC adopted the goal of carbon neutrality by 2050 for all energy sectors.
 
 Figure \ref{fig:uiucsys} shows the topology of UIUC’s energy system, modeled in Temoa.
 The UIUC model is spatially simple, since there is only one region, but topologically
-more complex than the Illinois model in Section \ref{section:ilmodel} with
+more complex than the Illinois model from Section \ref{section:ilmodel} with
 three interconnected end-use demands.
 
 \subsection{Model and Data}

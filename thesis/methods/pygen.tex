@@ -21,8 +21,8 @@ I created \gls{pygen} to:
   \item Facilitate senstivity analysis using a templated approach.
   \item Be executable from the command line, anywhere
 \end{enumerate}
-A \texttt{SQL} database with tens of thousands of rows is condensed to merely
-a few hundred lines of python code, most of which is due to formatting for
+\gls{pygen} condenses an \texttt{SQL} database with tens of thousands of rows into
+a few hundred lines of Python code, most of which is due to formatting for
 readability. Figure \ref{fig:pygen-flow} shows the flow of data through \gls{pygen}.
 A \gls{pygen} input file consists of three main components, simulation metadata,
 \texttt{Technology} objects, and \texttt{Commodity} objects. These objects
@@ -40,19 +40,81 @@ while preserving \gls{temoa}'s flexibility.
 \end{figure}
 A \gls{pygen} input file can be turned into a template with uncertain parameters
 specified using a liquid-text format and then hundreds of input files can be
-populated with the \texttt{Jinja2} Python library.
+populated with the \texttt{Jinja2} Python library. Code listing \ref{code:sql} shows
+the code \gls{temoa} requires to specify the model time horizon and time slices.
+The \gls{pygen} equivalent is shown in code listing \ref{code:python}. Changing
+the number of modeled ``seasons'' or years in the model horizon is non-trivial with
+\gls{temoa} alone, especially since other tables, such as \texttt{CapacityFactorTech}
+which specifies the availability of each technology at each time slice, depend
+on the number of time slices and technologies (the product of ``number of seasons,''
+``times of day,'' and number of technologies).
+The example in code listing \ref{code:sql} has 96 time slices, thus \texttt{CapacityFactorTech}
+would have at least 96 rows for a single technology. With \gls{pygen}, users can
+update the number of time slices and all affected tables with no additional lines
+of code.
+
+\input{methods/temoa_time_tabs.tex}
+
+\begin{lstlisting}[style=pythonstyle, caption={Equivalent \gls{pygen} code to specify the model horizon and time slices.}, label={code:python}, floatplacement=H]
+start_year = 2025  # the first year optimized by the model
+end_year = 2050  # the last year optimized by the model
+N_years = 6  # the number of years optimized by the model
+N_seasons = 4 # the number of "seasons" in the model
+N_hours = 24  # the number of hours in a day
+\end{lstlisting}
+
+
+
 
 \subsubsection{Time Series Processing}
 Automated conversion of continuous time series data into a \gls{temoa}-ready
 time slices is one \gls{pygen}' key features. By specifying the number of ``seasons''
 and the number of ``times of day,'' users can quickly rerun their model at different
 temporal resolutions. The only limit to this is computational tractability on \gls{temoa}'s
-end. Figure \ref{fig:solar-timeslice} shows some historical data from \gls{uiuc}'s
+end. There are two options for time series processing, ``demand'' or ``capacity factor.''
+A ``demand'' profile ensures the sum of all representative days is unity, while
+a ``capacity factor'' profile divides each representative day by the maximum value
+of the original time series.
+Figure \ref{fig:solar-timeslice} shows some historical data from \gls{uiuc}'s
 first solar farm project, Solar Farm 1.0 \cite{white_solar_2017}, that \gls{pygen}
-sliced into four seasons with one representative day of 24 hours each.
+sliced into four seasons with one representative day of 24 hours each. With ``capacity factor''
+specified.
 \begin{figure}[H]
   \resizebox{\textwidth}{!}{\input{figures/solar_timeslice.pgf}}
   \caption{Historical solar data (left) sliced into four seasons with one
   representative day of 24 hours each (right) for a \gls{temoa} model.}
   \label{fig:solar-timeslice}
 \end{figure}
+
+Figure \ref{fig:steam-timeslice} shows how \gls{pygen} slices time series
+data with the ``demand'' option. Note that the \texttt{DemandSpecificDistribution}
+corresponds to the fraction of annual demand that time slice represents. Since
+there are 96 time slices in this example, the demand fraction is on the order of one
+percent.
+
+\begin{figure}[H]
+  \resizebox{\textwidth}{!}{\input{figures/steam_timeslice.pgf}}
+  \caption{Historical steam demand data (left) sliced into four seasons with one
+  representative day of 24 hours each (right) for a \gls{temoa} model.}
+  \label{fig:steam-timeslice}
+\end{figure}
+
+\subsubsection{Demand Growth Forecasts}
+Demand growth (or degrowth) rate is an explicit parameter in \gls{pygen}. This
+enables sensitivity analysis over growth rate and modelers can ask questions like
+``how must electricity demand evolve if the cost of electricity is to remain
+constant?'' Figure \ref{fig:dem-growth} shows the change in electricity demand
+over time for various growth rates and growth curves. \gls{pygen} currently simulates
+exponential or linear curves. In the future, this will be expanded to logistic curves
+and user-defined curves.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\input{figures/demand_growth_example.pgf}}
+  \caption{Different electricity demand futures under various growth rates and curves.}
+  \label{fig:dem-growth}
+\end{figure}
+
+By making all model parameters explicit, \gls{pygen} makes truly global sensitivity
+analysis possible. Indeed, the sensitivity analysis in Chapter \ref{chapter:illinois}
+is prohibitively labor intensive without \gls{pygen}.

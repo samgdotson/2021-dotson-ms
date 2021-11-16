@@ -1,0 +1,95 @@
+The State of Illinois generates over half of its electricity with nuclear reactors
+\cite{energy_information_administration_eia_nodate}.
+Illinois also straddles two interconnections: \gls{miso} and PJM. The recent
+passage of the CEJA bill commits Illinois to a policy of carbon-free electricity
+by 2030 and 100\% renewable energy by 2050 \cite{harmon_climate_2021}.
+I modeled a simplified version of the Illinois electric grid using \gls{temoa}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\columnwidth]{IL_system.png}
+  \caption{The Illinois electricity grid modeled in \gls{temoa}.}
+  \label{fig:ilsys}
+\end{figure}
+
+Figure \ref{fig:ilsys} shows the model topology of the Illinois system. There
+are nine different electricity generating technologies and one storage option.
+All generated electricity passes through a \texttt{TRANSMISSION} technology
+to simulate electricity delivery. The Illinois model is spatially and topologically
+simple since there are only ten distinct technologies, one region, and one
+end-use commodity.
+
+\subsection{Scenarios}
+I consider four scenarios in the Illinois case study. Each scenario imposes forces
+all carbon emissions from the electric sector to zero in 2030. This reflects Illinois'
+current policy goal of 100\% clean electricity by 2030 \cite{office_of_governor_jb_pritzker_gov_2021}.
+Further, each scenario adds a new constraint on nuclear energy in Illinois. Table
+\ref{tab:il-scenarios} summarizes these constraints.
+
+\begin{table}[H]
+  \centering
+  \caption{Summary of Illinois Case Study Scenarios}
+  \label{tab:il-scenarios}
+  \resizebox{\columnwidth}{!}{
+  \begin{tabular}{lrrrr}
+    \hline
+    Name & Abbreviation & Time Horizon & Zero Emissions Year & Note\\
+    \hline
+    Least Cost & LC & 2025-2050 & 2030 & All technology options available\\
+    Zero Advanced Nuclear  &ZAN &2025-2050 & 2030 & Advanced nuclear is explicitly disallowed\\
+    Expensive Nuclear & XN & 2025-2050 & 2030 & Advanced nuclear capital costs doubled\\
+    100\% Renewable & ZN &  2025-2050 &2030 & Nuclear energy is explicitly phased-out by 2050\\
+    \hline
+  \end{tabular}
+  }
+\end{table}
+
+The ``zero advanced nuclear'' scenario simulates the Illinois moratorium on new nuclear
+power plants. The moratorium stipulates that no new nuclear reactors may be
+commissioned in Illinois unless the United States Government offers a means to
+dispose of high level nuclear waste, or by specific approval from the Illinois
+General Assembly \cite{shea_states_2021}. The ``expensive nuclear'' scenario
+simulates the \textit{expectation} of significant cost overruns for \textit{every}
+new reactor build. Finally, the ``100\% renewable'' scenario reflects current
+Illinois policy to have 100\% renewable energy, as written in the \gls{ceja} bill
+\cite{harmon_climate_2021}. This policy implicitly requires the retirement of
+all existing Illinois nuclear plants.
+
+\subsection{Model and Data}
+
+\begin{table}[H]
+  \centering
+  \caption{Summary of Technologies and Parameters in the Illinois model}
+  \label{tab:il-tech}
+  \resizebox{\textwidth}{!}{
+  % \input{/home/sdotson/research/2021-dotson-ms/thesis/methods/uiuc_tech.tex}
+  \input{methods/il_tech}
+  } % end resize box
+\end{table}
+
+% \begin{figure}[H]
+%   \centering
+%   \resizebox{0.8\textwidth}{!}{\input{figures/capital_cost_lc.pgf}}
+%   \caption{Capital cost learning curves for various technologies.}
+%   \label{fig:capital-cost}
+% \end{figure}
+
+\begin{figure}[H]
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \resizebox{\textwidth}{!}{\input{figures/fixed_cost_lc.pgf}}
+    % \caption{Fixed cost learning curves for various technologies.}
+    % \label{fig:fixed-cost}
+  \end{minipage}
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \resizebox{\textwidth}{!}{\input{figures/capital_cost_lc.pgf}}
+    % \caption{Capital cost learning curves for various technologies.}
+    % \label{fig:capital-cost}
+  \end{minipage}
+  \label{fig:costs}
+  \caption{Left: Fixed cost learning curves. Right: Capital cost learning curves.
+  Data from the 2020 NREL Annual Technology Baseline \cite{nrel_2020_2020}.}
+\end{figure}
+
+\subsection{Sensitivity Analysis}

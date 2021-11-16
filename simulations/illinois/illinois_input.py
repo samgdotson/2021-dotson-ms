@@ -18,7 +18,7 @@ scenario_name = 'BAU'
 start_year = 2025  # the first year optimized by the model
 end_year = 2050  # the last year optimized by the model
 N_years = 6  # the number of years optimized by the model
-N_seasons = 52  # the number of "seasons" in the model
+N_seasons = 4  # the number of "seasons" in the model
 N_hours = 24  # the number of hours in a day
 database_filename = f'{folder}/IL_{scenario_name}_{N_seasons}.sqlite'  # where the database will be written
 
@@ -362,12 +362,21 @@ if __name__ == "__main__":
     # plt.minorticks_on()
     # plt.show()
 
-    plt.plot(solar_fixed.keys(), solar_fixed.values(), label='solar fc')
-    plt.plot(wind_fixed.keys(), wind_fixed.values(), label='wind fc', marker='^')
-    plt.legend()
+    test_path = "/home/sdotson/research/2021-dotson-ms/data/PG_2010.csv"
+    dist_method = choose_distribution_method(N_seasons=N_seasons, N_hours=N_hours)
+    check_dist = dist_method(test_path)
+    for i, s in enumerate(SOLAR_FARM.capacity_factor_tech['IL']):
+        plt.plot(range(24), s, label=f'season {i}', marker='o')
+        plt.plot(range(24), check_dist[i], label=f"TEST {i}", marker='^')
     plt.show()
 
-    plt.plot(solar_capital.keys(), solar_capital.values(), label='solar cc')
-    plt.plot(wind_capital.keys(), wind_capital.values(), label='wind cc', marker='^')
-    plt.show()
+
+    # plt.plot(solar_fixed.keys(), solar_fixed.values(), label='solar fc')
+    # plt.plot(wind_fixed.keys(), wind_fixed.values(), label='wind fc', marker='^')
+    # plt.legend()
+    # plt.show()
+    #
+    # plt.plot(solar_capital.keys(), solar_capital.values(), label='solar cc')
+    # plt.plot(wind_capital.keys(), wind_capital.values(), label='wind cc', marker='^')
+    # plt.show()
     # print(solar_capital)

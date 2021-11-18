@@ -51,18 +51,19 @@ if __name__ == '__main__':
 
     # path = "./simulations/illinois/zero_nuclear_RE_sensitivity/"
     # path = "./simulations/illinois/zero_adv_nuclear_RE_sensitivity/"
-    # path = "./simulations/illinois/expensive_nuclear_RE_sensitivity/"
-    path = "./simulations/illinois/least_cost_RE_sensitivity/"
+    path = "./simulations/illinois/expensive_nuclear_RE_sensitivity/"
+    # path = "./simulations/illinois/least_cost_RE_sensitivity/"
 
     # infile = "zero_nuclear_template.txt"
     # infile = "zero_adv_nuclear_template.txt"
-    infile = "least_cost_template.txt"
+    infile = "expensive_nuclear_template.txt"
+    # infile = "least_cost_template.txt"
     for i in range(2010,2021,1):
         for j in range(2010,2021,1):
             # outfile = f"IL_ZN_S{i}_W{j}_52_V2.py"
             # outfile = f"IL_ZAN_S{i}_W{j}_52_V2.py"
-            # outfile = f"IL_XN_S{i}_W{j}_52_V2.py"
-            outfile = f"IL_LC_S{i}_W{j}_52_V2.py"
+            outfile = f"IL_XN_S{i}_W{j}_52_V2.py"
+            # outfile = f"IL_LC_S{i}_W{j}_52_V2.py"
             vars = {'wind_it': i, 'solar_it': j}
 
             rendered = render_input(input_path=path,

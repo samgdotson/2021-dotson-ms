@@ -19,6 +19,20 @@ to simulate electricity delivery. The Illinois model is spatially and topologica
 simple since there are only ten distinct technologies, one region, and one
 end-use commodity.
 
+The demand curve for the \texttt{ELC\_DEMAND} commodity is modeled with hourly load
+data from the PJM Interconnection. Figure \ref{fig:pjm-elc} shows the historical
+electricity demand for PJM and the associated load curve. This data informs the
+distribution of annual demand in the \gls{temoa} model, which is scaled by the
+total annual demand.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\columnwidth}{!}{\input{figures/pjm_load_curves.pgf}}
+  \caption{Historical electricity demand for the PJM Interconnection (left) and
+  the associated load curve (right.)}
+  \label{fig:pjm-elc}
+\end{figure}
+
 \subsection{Scenarios}
 I consider four scenarios in the Illinois case study. Each scenario imposes forces
 all carbon emissions from the electric sector to zero in 2030. This reflects Illinois'
@@ -57,6 +71,20 @@ all existing Illinois nuclear plants.
 
 \subsection{Model and Data}
 
+Table \ref{tab:il-tech} summarizes the technologies and some key parameters
+used in the \gls{temoa} model. All technologies have an ``efficiency'' of unity
+because fuel resources are treated as infinite reservoirs. The variable costs
+include variable operating and management costs and cost of fuel. \gls{temoa}
+implements technology ramp rates to improve operational detail and partially
+close the gap between \glspl{esom} and unit-commitment models \cite{de_queiroz_repurposing_2019}.
+Ramp rates limit the change in power output between time slices. For example
+\texttt{NUCLEAR\_ADV} has a 25\% ramp rate, meaning it can increase or decrease
+its power output by 25\% per hour, allowing for modest load following capability
+\cite{baseload_2017,lokhov_technical_2011}. ``LC'' indicates that learning
+curves were applied for a particular technology according to the 2020 Annual Technology
+Baseline from NREL \cite{nrel_2020_2020}. These learning curves are showing in
+Figure \ref{fig:costs}.
+
 \begin{table}[H]
   \centering
   \caption{Summary of Technologies and Parameters in the Illinois model}
@@ -75,6 +103,7 @@ all existing Illinois nuclear plants.
 % \end{figure}
 
 \begin{figure}[H]
+  \label{fig:costs}
   \begin{minipage}{0.5\textwidth}
     \centering
     \resizebox{\textwidth}{!}{\input{figures/fixed_cost_lc.pgf}}
@@ -87,9 +116,117 @@ all existing Illinois nuclear plants.
     % \caption{Capital cost learning curves for various technologies.}
     % \label{fig:capital-cost}
   \end{minipage}
-  \label{fig:costs}
   \caption{Left: Fixed cost learning curves. Right: Capital cost learning curves.
   Data from the 2020 NREL Annual Technology Baseline \cite{nrel_2020_2020}.}
 \end{figure}
 
+The 2020 Annual Technology Baseline has costs from 2018 to 2050. In this model
+I assumed that costs remained flat before and after those years.
+
 \subsection{Sensitivity Analysis}
+
+\glspl{esom} typically use a time slice approach to reduce temporal complexity
+in favor of greater topological or spatial complexity. Some work investigated the
+influence of temporal resolution on model results. Poncelet et et al. 2016
+concluded that modelers should prioritize temporal resolution over spatial and
+topological detail, particularly with a significant penetration of \gls{vre}
+sources like solar and wind \cite{poncelet_impact_2016}. However,
+I am unaware of any literature that explicitly examined the annual variability
+of solar and wind. \glspl{esom} like \gls{temoa} treat each year in a model
+time horizon as identical with respect to demand curves and capacity factors. Yet
+we know \textit{a priori} that energy demand and availability of \glspl{vre}
+vary year-to-year. Thus, even a model that has a full year of hourly resolution
+will fail to capture changes in the availability of solar and wind.
+
+For the Illinois case study, I conducted two sensitivity analyses. First is a
+sensitivity on time resolution. Poncelet et al. 2016 examined the influence of
+the number of time slices, and how those time slices were chosen, on model results.
+At most, they sliced time series into four seasons with three representative days (weekday,
+Saturday, Sunday) and 24 times-of-day. Thus, they modeled 288 time slices. This
+method captures variability in energy demand within the week, but is not guaranteed
+to capture the variability of solar and wind -- which do not possess periodicity
+associated with the day of the week. In this work, I consider three time resolutions,
+each with one representative day. Table \ref{tab:time-slice} shows the different
+time resolutions I considered in this thesis.
+
+\begin{table}[H]
+  \centering
+  \caption{Summary of Time Slices for Each Experiment}
+  \label{tab:time-slice}
+  \begin{tabular}{lrrrr}
+    \toprule
+    Experiment & Seasonal & Daily & Diurnal & Total\\
+    \midrule
+    Seasonal & 4 & 1 & 24 & 96\\
+    Monthly & 12 & 1 & 24 & 288\\
+    Weekly & 52 & 1 & 24 & 1248\\
+    \midrule
+    Poncelet et al. \cite{poncelet_impact_2016} & 4 & 3 &  24 & 288\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The second sensitivity analysis varies the distribution of solar and wind generation
+each year. I retrieved historical wind speed and solar radiation data (\gls{ghi})
+from the \gls{nsrdb} \cite{sengupta_national_2018} for the years 2010 to 2020.
+The \gls{ghi} data can be used directly by \gls{temoa} since
+\begin{align}
+  P_{solar} &\propto GHI.
+\end{align}
+Which makes sense since solar power is generated when the sun is out. However,
+wind speed cannot be used directly since wind turbines have different operating
+regimes, described in Table \ref{tab:turbine}
+
+\begin{table}[H]
+  \centering
+  \caption{Summary of Wind Turbine Data}
+  \label{tab:turbine}
+
+  \resizebox{\textwidth}{!}{  \begin{tabular}{lrrrrrr}
+    \toprule
+    Turbine Model & Rated Power & Cut-in Speed & Rated Speed & Cut-out Speed & Rotor Height & Diameter\\
+     & [MW] & [m/s] & [m/s] & [m/s] & [m] & [m]\\
+    \midrule
+    GE 1.5 MW Series & 1.5 & 3.5 & 12 & 25 & 80 & 77\\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+Turbines capture no energy at wind speeds below the cut-in speed and, for safety
+reasons, brakes are applied above at wind speeds above the cut-out wind speed
+and no energy is captured. Between the rated speed and the cut-out speed, the
+wind turbine generates its rated power. At all other times, the turbines produce
+power according to
+\begin{align}
+  \label{eqn:windpower}
+  P_{turbine} &= \frac{1}{2}\eta\rho U^3 \left(\frac{\pi D^2}{4}\right),
+  \intertext{where}
+  P_{turbine} &= \text{power generated by the wind turbine},\nonumber\\
+  \eta &= \text{wind turbine efficiency} \approx 0.35 \text{ } [-], \nonumber\\
+  \rho &= \text{air density $\left[\frac{kg}{m^3}\right]$} \nonumber\\
+  \label{eqn:airdensity}
+  &= \frac{P_{dry}}{R_{dry}T} + \frac{P_{vapor}}{R_{vapor}T}, \\
+  P_{dry}&= \text{vapor pressure of dry air [Pa]}, \nonumber\\
+  P_{vapor}&= \text{vapor pressure of water [Pa]}, \nonumber\\
+  &= e_s\cdot RH,\\
+  RH &= \text{relative humidity [-]}\nonumber\\
+  e_s &= 0.6112e^{\frac{17.67T}{T+243.5}} \text{ [Pa]}\\
+  R_{dry}&= \text{specific gas constant for dry air $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
+  R_{vapor}&= \text{specific gas constant for water $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
+  T &= \text{ambient air temperature $\left[K\right]$}, \nonumber\\
+  U &= \text{wind speed at the hub height of the turbine $\left[\frac{m}{s}\right]$}\nonumber\\
+  &= v_{ref}\frac{\ln\left(\frac{z}{z_0}\right)}{\ln\left(\frac{z_{ref}}{z_0}\right)}\\
+  v_{ref} &= \text{wind speed at measured height$\left[\frac{m}{s}\right]$}\nonumber\\
+  z_0 &= \text{roughness length [m]}\nonumber\\
+  z &= \text{hub height of the turbine [m]}\nonumber\\
+  z_{ref} &= \text{height of wind speed measurement [m]}\nonumber\\
+  D &= \text{wind turbine diameter [m]}\nonumber
+\end{align}
+
+
+\begin{table}[H]
+  \centering
+  \caption{Average Capacity Factors for Wind and Solar in Illinois}
+  \label{tab:capfac}
+  \input{methods/capfac_table}
+\end{table}

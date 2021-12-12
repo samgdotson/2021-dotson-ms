@@ -5,7 +5,13 @@ simulations/illinois/**_RE_sensitivity/*.py
 simulations/illinois/**_RE_sensitivity/*_52.txt
 simulations/illinois/**_RE_sensitivity/data_files/*.sqlite
 simulations/illinois/**_RE_sensitivity/data_files/**/*.log
+data/notebooks/seasonal_arma.ipynb
+data/notebooks/sanity_check.ipynb
+data/notebooks/test_weekly.ipynb
+data/notebooks/seasonality_of_re.ipynb
+data/notebooks/uiuc_icap_goals.ipynb
 run_*.txt
+raven_inputfiles/
 .snakemake/
 __pycache__/
 

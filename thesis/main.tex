@@ -69,7 +69,9 @@
     xleftmargin=1em
 }
 
-
+\usepackage{caption}
+% \usepackage{subcaption}
+\captionsetup[subfigure]{labelformat = parens, labelsep = space, font = small}
 \usepackage{placeins}
 \usepackage{booktabs} % nice rules (thick lines) for tables
 \usepackage{microtype} % improves typography for PDF
@@ -81,6 +83,8 @@
 \usepackage{amsmath}
 \usepackage{color}
 \usepackage{multirow}
+\usepackage{geometry}
+\usepackage{pdflscape}
 \usepackage{siunitx}
 \sisetup{
     input-decimal-markers = .,input-ignore = {,},table-number-alignment = right,
@@ -198,8 +202,11 @@ Kelsey Luo
 
 \chapter{Case Study I: Carbon Zero Electricity in Illinois by 2030}
 \label{chapter:illinois}
+\input{il_case_study/il_results}
 
 \chapter{Case Study II: Emissions-Free Microgrid at UIUC}
+\input{uiuc_case_study/uiuc_results}
+
 
 \chapter*{Appendix}
 \input{appendix}

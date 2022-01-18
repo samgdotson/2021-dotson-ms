@@ -1,5 +1,6 @@
 This chapter reviews the state of energy system optimization modeling (ESOM) tools
-and tools for evaluating nuclear hybrid energy systems (NHES).
+and tools for evaluating nuclear hybrid energy systems (NHES). The role of \glspl{esom}
+in energy and environmental policymaking is also discussed.
 
 Energy systems are spatially, temporally, and topologically complex ‘machines’
 that operate cohesively to supply energy where it is needed at the exact moment
@@ -17,7 +18,8 @@ human behavior or weather conditions.
 Examining energy systems at each of these temporal resolutions is vital for
 generating robust energy policy and guaranteeing reliable energy delivery. Finally,
 topological complexity refers to the number of interacting technologies that can
-produce and move energy. A community powered by a small solar farm and a diesel
+produce and move energy along with the number of unique energy demands.
+A community powered by a small solar farm and a diesel
 backup generator is topologically simpler than a state with many types of energy
 demands, various means of production, and dozens of individual generators. Beyond
 the physical and engineering aspects of energy systems is a social context that
@@ -31,7 +33,7 @@ Essentially, energy policies need to ensure reliability, affordability, and
 sustainability \cite{fattahi_systemic_2020}. A reliable grid ensures an adequate
 energy supply when it is needed \cite{milligan_methods_2011, ramirez-meyers_how_2021,berkeley_iii_framework_2010}.
 An unreliable grid experiences an unacceptable frequency of outages or losses of
-load \cite{ramirez-meyers_how_2021} The North American Electric Reliability
+load \cite{ramirez-meyers_how_2021}. The North American Electric Reliability
 Corporation sets the desired loss-of-load frequency at 0.1 days/year and recommends
 a \gls{prm} of 15 percent \cite{milligan_methods_2011,reimers_impact_2019}. \gls{prm}
 is defined as,
@@ -62,15 +64,15 @@ costanza_value_1997}. These ecosystem services have an estimated total value bet
 \$125 trillion/year and \$145 trillion/year and, therefore, failure to mitigate
 climate change will incur severe economic damage \cite{costanza_changes_2014, malhi_climate_2020}.
 Climate change will affect each of these policy goals, which means minimizing its
-effects is a moral and political imperative.
+effects is a moral, political, and economic imperative.
 
 \subsection{Survey of climate mitigation policies}
 
 There are three primary policy strategies for climate change mitigation \cite{fawzy_strategies_2020}:
 conventional mitigation efforts, which include all policies centered around
 reducing carbon emissions, negative emissions technologies, and the final option,
-geoengineering, which reduces warming by increasing the Earth’s reflectivity. This
-thesis focuses on the first set of energy policies, conventional mitigation strategies.
+geoengineering, which reduces warming by increasing the Earth’s reflectivity. \gls{esom}
+studies generally focus on the first set of energy policies, conventional mitigation strategies.
 These strategies include:
 \begin{itemize}
   \item Investing in clean energy resources, such as renewable energy and nuclear power
@@ -94,25 +96,19 @@ In September of 2021, Illinois legislators passed a historic clean energy bill,
 \gls{ceja} \cite{harmon_climate_2021}. This bill does several notable things for
 both equity and energy policy. Naming just a few, \gls{ceja}:
 \begin{enumerate}
-  \item Sets Illinois on a path toward 100\% clean energy by 2050
+  \item Sets Illinois on a path toward 100\% clean energy by 2050 and pledges 40\% renewable
+  energy (e.g., wind or solar) by 2030 and 50\% by 2040
   \cite{office_of_governor_jb_pritzker_gov_2021}. Ambiguously,
   the text of the bill refers to 100\% renewable energy by 2050 \cite{harmon_climate_2021}.
   The former includes nuclear power, while the latter typically excludes nuclear power.
-  \item Pledges 40\% renewable energy (e.g., wind or solar) by 2030 and 50\% by 2040
-  \cite{office_of_governor_jb_pritzker_gov_2021}.
-  \item Phases out coal plants by 2045, unless those plants can operate 100\% emissions-free
-  \cite{office_of_governor_jb_pritzker_gov_2021}.
   \item Establishes a carbon credit plan that supports “zero emissions facilities”
   (i.e., nuclear power plants). Exelon reversed the imminent closure of Byron and
-  Dresden nuclear power plants based on the financial support from this bill \cite{brown_two_2021}.
-  \item Pledges Illinois to adopt one million electric vehicles by 2030 and
-  encourages consumer adoption with an electric vehicle rebate
-  \cite{office_of_governor_jb_pritzker_gov_2021}.
+  Dresden nuclear power plants based on the financial support from this bill
+  \cite{brown_two_2021}.
   \item Workforce development programs focused on equity. Such as a
   “Clean Jobs Workforce Network Hubs Program” that seeks to ensure “equity-focused”
-  populations have support to enter the clean energy workforce \cite{office_of_governor_jb_pritzker_gov_2021}.
-  \item Ensures all utility-scale wind and solar energy projects acquire labor
-  agreements and pay prevailing wages \cite{office_of_governor_jb_pritzker_gov_2021}
+  populations have support to enter the clean energy workforce
+  \cite{office_of_governor_jb_pritzker_gov_2021}.
 \end{enumerate}
 This bill extends support for nuclear plants in the PJM Interconnect, where its
 predecessor, the 2016 Future Energy Jobs Act, gave financial support to nuclear
@@ -128,14 +124,13 @@ energy goals could drive 39 billion dollars in private investment to the state
 However, the creators of this report did not consider the impacts of these targets
 on grid operations, electricity cost, and energy reliability. Although nuclear power
 plants (NPP) currently generate more than half of Illinois’ electricity, almost
-90 percent of its carbon-free energy, and the CEJA bill financially supports nuclear
-power, politicians and lobbyists fiercely debate the continued role of nuclear power
-in Illinois’ energy mix.
+90 percent of its carbon-free energy, politicians and lobbyists fiercely debate the continued
+role of nuclear power in Illinois’ energy mix.
 
 \subsection{Illinois Climate Action Plan at the University of Illinois}
 
 The University of Illinois at Urbana-Champaign (UIUC) released the first iteration
-of the Illinois Climate Action Plan (iCAP) in 2010, and a new one is released every five years.
+of the Illinois Climate Action Plan (iCAP) in 2010, and releases a new one every five years.
 The 2015 iCAP report detailed UIUC’s goal to achieve carbon neutrality by 2050
 \cite{institute_for_sustainability_energy_and_environment_illinois_2015}.
 This goal includes every scope of emissions from the energy produced on campus, to
@@ -201,7 +196,36 @@ is typically handled by either increasing model complexity to make it more
 ``realistic'' or studied systematically using \gls{mga}
 \cite{hunter_modeling_2013,decarolis_modelling_2016, yue_review_2018}.
 The framework I used in this thesis,
-\gls{temoa}, developed at North Carolina State University,
+\gls{temoa}, developed at North Carolina State University, uses \gls{mga} to efficiently
+probe decision space \cite{decarolis_temoa_2010}.
 
 
-\section{Nuclear Energy and \glspl{esom}}
+\section{Survey of \gls{esom} Literature}
+
+\glspl{esom} are useful for providing policy insights to decision makers. \gls{temoa}
+is one modeling framework among many and is structurally similar to TIMES/MARKAL
+and MESSAGE \cite{yue_review_2018}. Typically, \glspl{esom} are
+formulated with linear programming. A framework like OpenModelica models technologies
+with much higher technical detail than traditional \glspl{esom} and are closer
+to unit-commitment models. I include them in this review because OpenModelica and
+the \gls{raven} tool are used to study \glspl{nhes}
+\cite{baker_optimal_2018,garcia_dynamic_2016,epiney_economic_2020}.
+The tradeoff between model complexity and computational cost is well documented.
+
+The sensitivity analysis in the case study of the State of Illinois explicitly
+examines the effect of annual variablility wind and solar resources. Such analysis
+is absent from the literature and is important since all \gls{esom} studies select
+a set of representative days which are constant throughout the model horizon.
+
+
+\newgeometry{margin=1cm}
+\begin{landscape}
+  \begin{table}
+    \centering
+    \caption{Summary of ESOM Literature Survey}
+    \label{tab:esom_lit}
+    \input{tables/esom_lit_review}
+    % \resizebox{\textheight}{!}{}
+  \end{table}
+\end{landscape}
+\restoregeometry

@@ -12,7 +12,7 @@ curr_dir = os.path.dirname(__file__)
 
 iteration = "base"
 folder = 'data_files'
-scenario_name = 'LIMSOL_MGA2'
+scenario_name = 'UIUC_SLACK20'
 start_year = 2025  # the first year optimized by the model
 end_year = 2050  # the last year optimized by the model
 N_years = 6  # the number of years optimized by the model

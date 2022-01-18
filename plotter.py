@@ -263,7 +263,7 @@ def plot_electricity_profiles(db_conn, region, outcomm, colors=elc_colors, N_hou
     periods = get_periods(db_conn)
     all_techs = get_regional_techs(db_conn, outcomm, region)
 
-    fig, ax = plt.subplots(nrows=len(periods), ncols=1, sharex=False, figsize=(10, 20))
+    fig, ax = plt.subplots(nrows=len(periods), ncols=1, sharex=True, figsize=(10, 20))
 
     axes = []
 

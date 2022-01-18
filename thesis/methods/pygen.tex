@@ -90,7 +90,11 @@ Figure \ref{fig:steam-timeslice} shows how \gls{pygen} slices time series
 data with the ``demand'' option. Note that the \texttt{DemandSpecificDistribution}
 corresponds to the fraction of annual demand that time slice represents. Since
 there are 96 time slices in this example, the demand fraction is on the order of one
-percent.
+percent. Calculating either ``demand'' or ``capacity factor'' uses a time series
+averaging approach where the average day of a particular time period is assumed
+to be representative for all other days in that period \cite{kotzur_impact_2018}.
+If the time series has multiple years of data, the data is further averaged
+across all years.
 
 \begin{figure}[H]
   \resizebox{\textwidth}{!}{\input{figures/steam_timeslice.pgf}}

@@ -9,7 +9,7 @@ In this thesis, I demonstrate the role of advanced nuclear reactors to meet futu
 energy demands with two case studies: Illinois’ electric grid and the microgrid
 at the University of Illinois at Urbana-Champaign. Both case studies use \gls{temoa}
 to solve for the optimal least-cost solution. I developed \gls{pygen} to
-facilitate creation of \gls{temoa} input files and sensitivity analyses.
+facilitate the creation of \gls{temoa} input files and sensitivity analyses.
 
 \section{Tools for Energy System Optimization and Analysis (Temoa)}
 \input{methods/temoa}
@@ -25,3 +25,50 @@ facilitate creation of \gls{temoa} input files and sensitivity analyses.
 \section{The UIUC Microgrid}
 \label{section:uiucmodel}
 \input{methods/uiuc_case_desc.tex}
+
+\section{What About Geothermal, Biomass, and Hydropower?}
+
+Nuclear energy has significant barriers to acceptance, such as nuclear waste,
+accident risk, and fear of weapons proliferation. Whether or not these barriers
+constitute genuine technological challenges is beside the point; some decision-makers
+may look for alternatives to nuclear energy that can serve similar roles
+on the grid. Geography constrains hydropower and geothermal power. \gls{nrel} analyzed
+the technical potential for each renewable resource and found that hydroelectric dams
+and conventional geothermal plants are negligible options in Illinois. Even run-of-the-river
+hydropower could contribute less than a gigawatt \cite{nrel_2020_2020}. Enhanced Geothermal
+Systems (EGS) can overcome geographic challenges by creating artificial permeability
+with a method similar to hydraulic fracturing \cite{geothermal_technologies_office_what_2012}.
+However, EGSs have high capital costs, more than twice an AP1000 Nuclear Reactor
+\cite{nrel_2020_2020}. \gls{uiuc} has a geothermal loop that supplies 135 tons of refrigeration
+and heating, up to 65\% of the energy use for one new (as of 2021) building on campus,
+the Campus Instructional Facility \cite{noauthor_geothermal_nodate}.
+This loop cost \gls{uiuc} nearly 2 million dollars which is 580\% more expensive
+than the existing chilled water capacity
+\cite{noauthor_geothermal_nodate,affiliated_engineers_inc_utilities_2015}. For these
+reasons, I did not model, geothermal or hydropower for either \gls{uiuc} or Illinois.
+Dedicated biomass power plants are modeled for Illinois to offer an alternative
+firm capacity option. Table \ref{tab:nuclear_alt} summarizes important parameters
+for firm capacity options.
+
+\begin{table}[H]
+  \centering
+  \caption{Summary of Firm Capacity Options}
+  \label{tab:nuclear_alt}
+\resizebox{\textwidth}{!}{  \begin{tabular}{lrrrrr}
+    \toprule
+    Technology & Capacity Factor & Technical Potential$^\text{a}$ & Capital Cost &
+    Lifecycle Emissions\\
+     & [\%] & [GWe] & [M\$/GW]& g CO$_2$$_{eq}$/kWh \\
+     Source & \cite{energy_information_administration_capacity_2020,nrel_2020_2020}&
+     \cite{lopez_us_2012}& \cite{nrel_2020_2020} & \cite{nicholson_life_2021}\\
+    \midrule
+    Nuclear & 92.4 & - & 6.1 & 13 \\
+    Biomass & 62.5 & 4 & 4.0 & 42 \\
+    Geothermal$^\text{b}$ & 69.1 & 0 & 4.5 & 29\\
+    Enhanced Geothermal$^\text{b}$ & 90.0 & 86 & 14.5 & 32 \\
+    Hydroelectric & 40.7 & 1 & 3.9-6.2 & 21 \\
+    \bottomrule
+    \multicolumn{5}{l}{$^\text{a}$ Assumes all energy and fuel is produced in Illinois}\\
+    \multicolumn{5}{l}{$^\text{b}$ Assumes flash technology}
+  \end{tabular}}
+\end{table}

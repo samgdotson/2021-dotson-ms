@@ -1,6 +1,6 @@
-The State of Illinois generates over half of its electricity with nuclear reactors
-\cite{energy_information_administration_eia_nodate}.
-Illinois also straddles two interconnections: \gls{miso} and PJM. The recent
+Illinois generates over half of its electricity with nuclear reactors
+and straddles two interconnections: \gls{miso} and PJM
+\cite{energy_information_administration_eia_nodate}. The recent
 passage of the CEJA bill commits Illinois to a policy of carbon-free electricity
 by 2030 and 100\% renewable energy by 2050 \cite{harmon_climate_2021}.
 I modeled a simplified version of the Illinois electric grid using \gls{temoa}.
@@ -13,13 +13,13 @@ I modeled a simplified version of the Illinois electric grid using \gls{temoa}.
 \end{figure}
 
 Figure \ref{fig:ilsys} shows the model topology of the Illinois system. There
-are nine different electricity generating technologies and one storage option.
+are nine different electricity-generating technologies and one storage option.
 All generated electricity passes through a \texttt{TRANSMISSION} technology
 to simulate electricity delivery. The Illinois model is spatially and topologically
-simple since there are only ten distinct technologies, one region, and one
+simple since there are only ten different technologies, one region, and one
 end-use commodity.
 
-The demand curve for the \texttt{ELC\_DEMAND} commodity is modeled with hourly load
+The demand curve for the \texttt{ELC\_DEMAND} commodity uses hourly load
 data from the PJM Interconnection. Figure \ref{fig:pjm-elc} shows the historical
 electricity demand for PJM and the associated load curve. These data inform the
 distribution of annual demand in the \gls{temoa} model, which is scaled by the
@@ -34,9 +34,9 @@ total annual demand.
 \end{figure}
 
 \subsection{Scenarios}
-I consider four scenarios in the Illinois case study. Each scenario imposes forces
-all carbon emissions from the electric sector to zero in 2030. This reflects Illinois'
-current policy goal of 100\% clean electricity by 2030 \cite{office_of_governor_jb_pritzker_gov_2021}.
+I consider four scenarios in the Illinois case study. Each scenario forces
+all carbon emissions from the electric sector to zero in 2030. This constraint
+reflects Illinois' current policy goal of 100\% clean electricity by 2030 \cite{office_of_governor_jb_pritzker_gov_2021}.
 Further, each scenario adds a new constraint on nuclear energy in Illinois. Table
 \ref{tab:il-scenarios} summarizes these constraints.
 
@@ -61,11 +61,11 @@ Further, each scenario adds a new constraint on nuclear energy in Illinois. Tabl
 The ``zero advanced nuclear'' scenario simulates the Illinois moratorium on new nuclear
 power plants. The moratorium stipulates that no new nuclear reactors may be
 commissioned in Illinois unless the United States Government offers a means to
-dispose of high level nuclear waste, or by specific approval from the Illinois
+dispose of high-level nuclear waste or by specific approval from the Illinois
 General Assembly \cite{shea_states_2021}. The ``expensive nuclear'' scenario
 simulates the \textit{expectation} of significant cost overruns for \textit{every}
-new reactor build. Finally, the ``100\% renewable'' scenario reflects current
-Illinois policy to have 100\% renewable energy, as written in the \gls{ceja} bill
+new reactor build. Finally, the ``100\% renewable'' (nuclear phaseout) scenario reflects
+current Illinois policy to have 100\% renewable energy, as written in the \gls{ceja} bill
 \cite{harmon_climate_2021}. This policy implicitly requires the retirement of
 all existing Illinois nuclear plants.
 
@@ -73,17 +73,17 @@ all existing Illinois nuclear plants.
 
 Table \ref{tab:il-tech} summarizes the technologies and some key parameters
 used in the \gls{temoa} model. All technologies have an ``efficiency'' of unity
-because fuel resources are treated as infinite reservoirs. The variable costs
-include variable operating and management costs and cost of fuel. \gls{temoa}
+because fuel resources are unmodeled. The variable costs
+include variable operating and management costs and the cost of fuel. \gls{temoa}
 implements technology ramp rates to improve operational detail and partially
 close the gap between \glspl{esom} and unit-commitment models \cite{de_queiroz_repurposing_2019}.
-Ramp rates limit the change in power output between time slices. For example
-\texttt{NUCLEAR\_ADV} has a 25\% ramp rate, meaning it can increase or decrease
-its power output by 25\% per hour, allowing for modest load following capability
-\cite{baseload_2017,lokhov_technical_2011}. ``LC'' indicates that learning
-curves were applied for a particular technology according to the 2020 Annual Technology
-Baseline from NREL \cite{nrel_2020_2020}. These learning curves are shown in
-Figure \ref{fig:costs}.
+Ramp rates limit the change in power output between time slices. For example,
+\texttt{NUCLEAR\_ADV} has a 25\% ramp rate and can increase or decrease
+its power output by 25\% per hour, allowing for modest load-following capability
+\cite{baseload_2017,lokhov_technical_2011}. ``LC'' indicates that a technology's cost
+uses learning curves from NREL's 2020 Annual Technology Baseline \cite{nrel_2020_2020}.
+Figure \ref{fig:fix_costs} and Figure \ref{fig:cap_costs} show the learning curves
+for fixed costs and capital costs, respectively.
 
 \begin{table}[H]
   \centering
@@ -103,22 +103,39 @@ Figure \ref{fig:costs}.
 % \end{figure}
 
 \begin{figure}[H]
-  \begin{minipage}{0.5\textwidth}
+  \begin{minipage}{0.48\textwidth}
+    \captionsetup{type=figure}
     \centering
-    \resizebox{\textwidth}{!}{\input{figures/fixed_cost_lc.pgf}}
-    % \caption{Fixed cost learning curves for various technologies.}
-    % \label{fig:fixed-cost}
+    \resizebox{\columnwidth}{!}{\input{figures/fixed_cost_lc.pgf}}
+    \caption[]{Fixed cost learning curve \cite{nrel_2020_2020}.}
+    \label{fig:fix_costs}
   \end{minipage}
-  \begin{minipage}{0.5\textwidth}
+  \begin{minipage}{0.48\textwidth}
+    \captionsetup{type=figure}
     \centering
-    \resizebox{\textwidth}{!}{\input{figures/capital_cost_lc.pgf}}
-    % \caption{Capital cost learning curves for various technologies.}
-    % \label{fig:capital-cost}
+    \resizebox{\columnwidth}{!}{\input{figures/capital_cost_lc.pgf}}
+    \caption[]{Capital cost learning curve \cite{nrel_2020_2020}.}
+    \label{fig:cap_costs}
   \end{minipage}
-  \caption{Left: Fixed cost learning curves. Right: Capital cost learning curves.
-  Data from the 2020 NREL Annual Technology Baseline \cite{nrel_2020_2020}.}
-  \label{fig:costs}
 \end{figure}
+
+% \begin{figure}[H]
+%   \begin{minipage}{0.5\textwidth}
+%     \centering
+%     \resizebox{\textwidth}{!}{\input{figures/fixed_cost_lc.pgf}}
+%     % \caption{Fixed cost learning curves for various technologies.}
+%     % \label{fig:fixed-cost}
+%   \end{minipage}
+%   \begin{minipage}{0.5\textwidth}
+%     \centering
+%     \resizebox{\textwidth}{!}{\input{figures/capital_cost_lc.pgf}}
+%     % \caption{Capital cost learning curves for various technologies.}
+%     % \label{fig:capital-cost}
+%   \end{minipage}
+%   \caption{Left: Fixed cost learning curves. Right: Capital cost learning curves.
+%   Data from the 2020 NREL Annual Technology Baseline \cite{nrel_2020_2020}.}
+%   \label{fig:costs}
+% \end{figure}
 
 The 2020 Annual Technology Baseline has costs from 2018 to 2050. In this model
 I assumed that costs remained flat before and after those years.
@@ -127,27 +144,27 @@ I assumed that costs remained flat before and after those years.
 
 \glspl{esom} typically use a time slice approach to reduce temporal complexity
 in favor of greater topological or spatial complexity. Some work investigated the
-influence of temporal resolution on model results. Poncelet et et al. 2016
+influence of temporal resolution on model results. Poncelet et al. 2016
 concluded that modelers should prioritize temporal resolution over spatial and
-topological detail, particularly with a significant penetration of \gls{vre}
+topological detail, particularly with significant penetration of \gls{vre}
 sources like solar and wind \cite{poncelet_impact_2016}. However,
 I am unaware of any literature that explicitly examined the annual variability
 of solar and wind. \glspl{esom} like \gls{temoa} treat each year in a model
-time horizon as identical with respect to demand curves and capacity factors. Yet
+time horizon as identical with respect to demand curves and capacity factors
+\cite{hunter_modeling_2013}. Yet
 we know \textit{a priori} that energy demand and availability of \glspl{vre}
-vary year-to-year. Thus, even a model that has a full year of hourly resolution
+vary year-to-year. Thus, even a model with a full year of hourly resolution
 will fail to capture changes in the availability of solar and wind.
 
-For the Illinois case study, I conducted two sensitivity analyses. First is a
-sensitivity on time resolution. Poncelet et al. 2016 examined the influence of
+For the Illinois case study, I conducted two sensitivity analyses. The first is a
+sensitivity to time resolution. Poncelet et al. 2016 examined the influence of
 the number of time slices, and how those time slices were chosen, on model results.
 At most, they sliced time series into four seasons with three representative days (weekday,
 Saturday, Sunday) and 24 times-of-day. Thus, they modeled 288 time slices. This
 method captures variability in energy demand within the week, but is not guaranteed
 to capture the variability of solar and wind -- which do not possess periodicity
-associated with the day of the week. In this work, I consider three time resolutions,
-each with one representative day. Table \ref{tab:time-slice} shows the different
-time resolutions I considered in this thesis.
+associated with the day of the week. I considered three time resolutions in this work.
+Table \ref{tab:time-slice} shows the different time resolutions I considered in this thesis.
 
 \begin{table}[H]
   \centering
@@ -174,9 +191,9 @@ The \gls{ghi} data can be converted to a capacity factor and used directly by
 \begin{align}
   P_{solar} &\propto GHI.
 \end{align}
-Which makes sense since solar power is generated when the sun is out. However,
-wind speed cannot be used directly since wind turbines have different operating
-regimes, described in Table \ref{tab:turbine}
+This makes sense since solar panels generate power when the sun is out. However,
+wind speed does not directly correspond to power since wind turbines have different
+operating regimes, described in Table \ref{tab:turbine}
 
 \begin{table}[H]
   \centering
@@ -193,40 +210,56 @@ regimes, described in Table \ref{tab:turbine}
   \end{tabular}}
 \end{table}
 
-Turbines capture no energy at wind speeds below the cut-in speed and, for safety
-reasons, brakes are applied above at wind speeds above the cut-out wind speed
-and no energy is captured. Between the rated speed and the cut-out speed, the
-wind turbine generates its rated power. At all other times, the turbines produce
-power according to
+Turbines capture no energy at wind speeds below the cut-in speed, and, for safety
+reasons, brakes are applied at wind speeds above the cut-out wind speed and
+capture no energy. A wind turbine generates its rated power between the rated
+and cut-out speed. At all other times, the turbines produce power according to
 \begin{align}
   \label{eqn:windpower}
   P_{turbine} &= \frac{1}{2}\eta\rho U^3 \left(\frac{\pi D^2}{4}\right),
   \intertext{where}
   P_{turbine} &= \text{power generated by the wind turbine},\nonumber\\
+  D &= \text{wind turbine diameter [m]}\nonumber\\
   \eta &= \text{wind turbine efficiency} \approx 0.35 \text{ } [-], \nonumber\\
-  \rho &= \text{air density $\left[\frac{kg}{m^3}\right]$} \nonumber\\
+  U &= \text{wind speed at the hub height of the turbine $\left[\frac{m}{s}\right]$}\nonumber\\
+  \rho &= \text{air density $\left[\frac{kg}{m^3}\right]$}. \nonumber
   \label{eqn:airdensity}
-  &= \frac{P_{dry}}{R_{dry}T} + \frac{P_{vapor}}{R_{vapor}T}, \\
+\end{align}
+Air density can be calculated using temperature, the vapor pressures
+of water and air. A form of the  August-Roche-Magnus formula approximates
+the saturation vapor pressure of water, $e_s$.
+  %
+  % \intertext{Air density can be calculated using temperature, the vapor pressures
+  % of water and air. A form of the  August-Roche-Magnus formula approximates
+  % the saturation vapor pressure of water.}
+  \begin{align}
+  \rho &= \frac{P_{dry}}{R_{dry}T} + \frac{P_{vapor}}{R_{vapor}T}, \\
+  R_{dry}&= \text{specific gas constant for dry air $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
+  R_{vapor}&= \text{specific gas constant for water $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
   P_{dry}&= \text{vapor pressure of dry air [Pa]}, \nonumber\\
   P_{vapor}&= \text{vapor pressure of water [Pa]}, \nonumber\\
   &= e_s\cdot RH,\\
   RH &= \text{relative humidity [-]}\nonumber\\
   e_s &= 0.6112e^{\frac{17.67T}{T+243.5}} \text{ [Pa]}\\
-  R_{dry}&= \text{specific gas constant for dry air $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
-  R_{vapor}&= \text{specific gas constant for water $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
-  T &= \text{ambient air temperature $\left[K\right]$}, \nonumber\\
-  U &= \text{wind speed at the hub height of the turbine $\left[\frac{m}{s}\right]$}\nonumber\\
-  &= v_{ref}\frac{\ln\left(\frac{z}{z_0}\right)}{\ln\left(\frac{z_{ref}}{z_0}\right)}\\
+  T &= \text{ambient air temperature $\left[K\right]$}. \nonumber
+\end{align}
+  Additionally, the wind speed measurements were taken at two-meters
+  above the ground. The wind speed at the hub height is estimated by,
+  % \intertext{Additionally, the wind speed measurements were taken at two-meters
+  % above the ground. The wind speed at the hub height is estimated by,}
+\begin{align}
+  U &= v_{ref}\frac{\ln\left(\frac{z}{z_0}\right)}{\ln\left(\frac{z_{ref}}{z_0}\right)}\\
   v_{ref} &= \text{wind speed at measured height$\left[\frac{m}{s}\right]$}\nonumber\\
   z_0 &= \text{roughness length [m]}\nonumber\\
+  &\approx 0.12\nonumber\\
   z &= \text{hub height of the turbine [m]}\nonumber\\
-  z_{ref} &= \text{height of wind speed measurement [m]}\nonumber\\
-  D &= \text{wind turbine diameter [m]}\nonumber
+  &=80\nonumber\\
+  z_{ref} &= \text{height of wind speed measurement [m]}\nonumber
 \end{align}
 After calculating theoretical wind power generation from wind speed data, the
 data are passed to \gls{pygen} and used as a capacity factor. I permuted the
-ten years of wind speed and solar radiation data to generate a total of 100
-unique scenarios that captures the annual variability of solar and wind. The
+eleven years of wind speed and solar radiation data to generate a total of 121
+unique scenarios that capture the annual variability of solar and wind. The
 choice to use a limited set of historical data to generate a broader set of
 scenarios is justified since wind speed and \gls{ghi} are highly uncorrelated.
 Figure \ref{fig:solar-wind-corr} shows a heatmap of correlations among various

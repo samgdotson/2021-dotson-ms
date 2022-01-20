@@ -4,14 +4,12 @@ least-cost solution while meeting various demand and capacity constraints \cite{
 The key benefits of \gls{temoa} are its open-source code, data, and built-in
 uncertainty analysis capabilities. These features reflect the need for greater
 transparency in \gls{esom} modeling and robust assessment of future uncertainties
-\cite{hunter_modeling_2013}. One of the key limitations of \glspl{esom} is that
+\cite{hunter_modeling_2013}. One of the critical limitations of \glspl{esom} is that
 they are inherently unverifiable. By making the data and source code open,
 \gls{temoa} facilitates repeatability. ``The evidence for integrity is transparency''
-\cite{decarolis_case_2012}. To that end, \gls{temoa} models are should be solvable
-with open-source linear programming solvers like \texttt{COIN-OR} \cite{noauthor_coin-or_nodate},
-or \texttt{GLPK} \cite{noauthor_glpk_nodate}. In this thesis, I used the \texttt{CBC}
-solver from \texttt{COIN-OR} \cite{noauthor_cbc_2021}.
-
+\cite{decarolis_case_2012}. To that end, \gls{temoa} models should be solvable
+with open-source linear programming solvers like \texttt{COIN-OR} \cite{noauthor_coin-or_nodate} or \texttt{GLPK} \cite{noauthor_glpk_nodate}. In this thesis, I used the
+\texttt{CBC} solver from \texttt{COIN-OR} \cite{noauthor_cbc_2021} in this thesis.
 Another benefit of \gls{temoa} is its flexibility.
 The tool is technology agnostic and is only concerned with flows and transformations
 of commodities. User-defined time slices allow modelers to run a model, in theory,
@@ -52,18 +50,18 @@ The most complicated of these terms is $C_{loans}$, which is calculated by,
   &= \min{\left(LP_{t,v}, \left(P_{last}-LP_{t,v}\right)\right)}\\
   \textbf{CAP}_{t,v} &= \text{the capacity of a process}.\nonumber
 \end{align}
-An important point in this formulation is that the loan period, $LLN_{t,v}$ only
+An essential point in this formulation is that the loan period, $LLN_{t,v}$ only
 influences the value of the objective function when the global discount rate
-and the process specific discount rate take on unique values. The difference between
-these two values is known as the ``hurdle rate.'' When the hurdle rate is zero
-$C_{loans}$ is not a function of loan period. In the following case studies, I
-do not specify a unique discount rate for each process. There is some work that
-suggests a high discount rate may encourage capital intensive projects \cite{alzbutas_uncertainty_2012,
+and the process-specific discount rate take on unique values. The difference between
+these two values is known as the ``hurdle rate.'' When the hurdle rate is zero,
+$C_{loans}$ is not a function of the loan period. I
+do not specify unique discount rates for each process n the following case studies.
+Some work suggests that a high discount rate may encourage capital-intensive projects \cite{alzbutas_uncertainty_2012,
 decarolis_modelling_2016}, but the effect of hurdle rates is beyond the scope of
 this thesis. This objective function is also subject to various constraints that
 guarantee energy demands are met at all times and, if specified, ensures respect
 of capacity and emissions limits. The details of these constraints are available
-at \href{https://temoacloud.com/temoaproject/Documentation.html#the-math-behind-temoa}{temoacloud.com}
+at \href{https://temoacloud.com/temoaproject/Documentation.html#the-math-behind-temoa}{temoacloud.com}.
 
 \subsubsection{Modeling-to-Generate-Alternatives}
 \gls{mga} enables systematic evaluation of structural uncertainty by probing
@@ -71,7 +69,7 @@ near-optimal decision space. \gls{temoa} uses the Hop-Skip-Jump (HSJ) algorithm 
 \gls{mga}. The steps for HSJ are \cite{decarolis_modelling_2016}:
 \begin{enumerate}
   \item Obtain an optimal solution by any method.
-  \item Add a user-specified amount of slack to objective function value from the
+  \item Add a user-specified amount of slack to the objective function value from the
   first step.
   \item Use the adjusted objective function value as an upper bound constraint.
   \item Generate a new objective function that minimizes the sum of all decision
@@ -94,15 +92,15 @@ The mathematical formulation of this algorithm is:
   X &= \text{the set of all feasible solutions}.\nonumber
 \end{align}
 This procedure results in a small set of maximally different solutions for
-modelers to interpret. In this way \gls{mga} efficiently explores decision space
+modelers to interpret. In this way, \gls{mga} efficiently explores decision space
 to offer alternatives that may capture unmodeled objectives, such as political
 expediency or social acceptance.
 
 \subsection{Na\"{i}ve Pathway to 100\% Clean Energy: Linear Programming Example}
 \label{section:naive-example}
 
-This example illustrates the influence of both structural and parametric uncertainties and
-how \gls{mga} probes decision space. As discussed in Section \ref{section:ceja},
+This example illustrates the influence of both structural and parametric uncertainties
+and how \gls{mga} probes decision space. As discussed in Section \ref{section:ceja},
 the \gls{ceja} bill promises to make Illinois' electric grid 100\% clean energy
 by 2030. According to the Illinois Clean Jobs Coalition, 6.3 GW of additional wind energy
 capacity and 17 GW of solar capacity should be enough to achieve this goal while
@@ -154,22 +152,22 @@ if it operated 100\% of the time. CF is given by,
 
 This linear problem only has two decision variables, solar and wind capacity,
 which makes it graphically solvable. Figure \ref{fig:mga-fig} shows the optimal
-solution and one \gls{mga} iteration. As well as the \gls{ceja} goals, for reference.
-Every point above the demand constraint represents a feasible solution, since
-those are all combinations of solar and wind that can meet annual electricity
-demand. The \gls{ceja} goals are well within the feasible region, but highly sub-optimal.
-This amount of capacity suggests the energy could be exported, curtailed, or stored, which are
-unmodeled, structural uncertainties, in this formulation.
+solution and one \gls{mga} iteration. As well as the \gls{ceja} goals for reference.
+Every point above the demand constraint represents a feasible solution since those
+combinations of solar and wind can meet annual electricity demand. The \gls{ceja} goals
+are well within the feasible region but highly sub-optimal.
+This amount of capacity suggests the energy could be exported, curtailed, or stored,
+which are unmodeled, structural uncertainties, in this formulation.
 The optimal solution minimizes the total cost and lies at the intersection
 of the objective function and the demand constraint. The objective function cannot
-be reduced any further because those solutions would not satisfy the electricity demand.
-The \gls{mga} ``objective function'' added a 10\% slack to the original objective function
-and becomes an additional upper bound constraint. The new objective function minimizes
-the sum of solar and wind capacity. In this trivial case, the model will always build
-solar over wind, unless the cost of wind becomes cheaper than the cost of solar.
-However, the example illustrates \gls{mga} generally. Finally, although \gls{mga} scenarios
-may account for either structural uncertainties or parametric uncertainties
-\cite{decarolis_modelling_2016}, I use the former interpretation. This is because
+be reduced further because those solutions would not satisfy the electricity demand.
+The \gls{mga} ``objective function'' added a 10\% slack to the original objective
+function and became an additional upper bound constraint. The new objective function
+minimizes the sum of solar and wind capacity. In this trivial case, the model will
+always build solar over wind unless the cost of wind becomes cheaper than the cost of
+solar. However, the example illustrates \gls{mga} generally. Finally, although \gls{mga}
+scenarios may account for either structural or parametric uncertainties
+\cite{decarolis_modelling_2016}, I use the former interpretation because
 \gls{mga} cannot specify which uncertain parameters led to a particular scenario.
 \begin{figure}[H]
   \centering
@@ -185,19 +183,19 @@ While \gls{mga} helps modelers explore alternative energy futures and structural
 uncertainty, quantifying parametric uncertainty is essential for creating robust insights
 for policy decisions. Figure \ref{fig:param-fig} shows the same decision space for
 the na\"{i}ve capacity expansion problem as before with upper and lower bounds for
-the demand constraint and objective function with 10\% uncertainty applied to all
+the demand constraint and objective function, with 10\% uncertainty applied to all
 parameters. The upper bound for the demand constraint represents a scenario where
-the capacity factors for wind and solar are both 10\% less than average and electricity
+the capacity factors for wind and solar are both 10\% less than average, and electricity
 demand is 10\% higher. The upper and lower bounds on the objective function represent
-futures where the cost of solar and wind energy is 10\% higher or lower than
-projected, respectively. The CEJA capacity goal is identified by the red dot in
-\ref{fig:param-fig}. There are several methods to explore this optimal space and
+futures where solar and wind energy costs are 10\% higher or lower, respectively. The
+red dot in Figure \ref{fig:param-fig} represents the
+capacity goal set by CEJA. There are several methods to explore this optimal space and
 \gls{temoa} has some functionality for two: \gls{mca} \cite{yue_review_2018} and
 stochastic optimization \cite{decarolis_multi-stage_2012, bennett_extending_2021}.
 \gls{mca} is useful for global sensitivity analysis since its computational
-cost increases with the number of iterations, but not the number of uncertain
+cost increases with the number of iterations but not the number of uncertain
 parameters. However, \gls{mca} depends strongly on the underlying data distribution
-and cannot give a likelihood for any given scenario \cite{yue_review_2018}.
+and cannot give a probability for any given scenario \cite{yue_review_2018}.
 Stochastic optimization offers a likelihood and a possible ``hedging'' strategy,
 but computational cost limits the number of uncertain parameters that can be
 tested \cite{yue_review_2018}.
@@ -213,12 +211,13 @@ tested \cite{yue_review_2018}.
 \end{figure}
 Considering the optimal mixture of wind and solar to achieve Illinois' clean
 energy goals, in this manner, and comparing it to current policy trivializes the
-problem. There are many features of energy systems no captured in this simple formulation,
-like availability of solar power, need for back up or energy storage when weather
-fails, and other clean technology options. Thus \glspl{esom} are necessary. However,
-this example illustrates the \gls{mga} method and shows how the optimal space
+problem.
+Many features of energy systems are not captured in this simple formulation,
+such as the availability of solar power, need for backup or energy storage when
+the weather fails, and other clean technology options. Thus \glspl{esom} are necessary.
+However, this example illustrates the \gls{mga} method and shows how the optimal space
 expands under parametric uncertainties.
 
-In the following case studies I apply \gls{mga} to explore near-optimal solutions
+In the following case studies, I apply \gls{mga} to explore near-optimal solutions
 for the \gls{uiuc} energy system and study the sensitivity of Illinois' grid to
 wind and solar capacity factor profiles and time resolution.

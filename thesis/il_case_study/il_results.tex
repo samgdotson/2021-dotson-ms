@@ -43,10 +43,10 @@ battery capacity thirty fold \cite{hutchins_us_2021}.
   seasons, 12 months, and 52 weeks.}
   \label{fig:time_res_LC}
 \end{figure}
-With a slightly improved time resolution, the cheapest pathway for net-zero
-electricity includes a modest addition of advanced nuclear capacity. Due to
-the assumed high capacity factor of advanced nuclear, the penetration of solar
-and wind is roughly halved. The addition of advanced nuclear also significantly
+With a slightly improved time resolution, 288 time slices, the cheapest pathway
+for net-zero electricity includes a modest addition of advanced nuclear capacity.
+Due to the assumed high capacity factor of advanced nuclear, the penetration of
+solar and wind is roughly halved. The addition of advanced nuclear also significantly
 reduces battery storage requirements. Further, the share of installed renewable
 capacity from wind drops from half to a third.
 
@@ -61,13 +61,13 @@ existing nuclear fleet.
 The sensitivities of ``Expensive Nuclear'' and ``Zero Advanced Nuclear'' scenarios
 to time resolution are both shown in Figure \ref{fig:time_res_ZAN}. The results
 are identical for these two scenarios because doubling the capital cost of
-advanced nuclear had the same effect as explicitly prohibiting it, in this scenario.
+advanced nuclear had the same effect as explicitly prohibiting it, in these scenarios.
 There are three noticable trends in Figure \ref{fig:time_res_ZAN} as time resolution
 increases. First, the total capacity and generation increase as time resolution improves.
 Second, the share of renewable capacity from wind decreases with improved time resolution.
 Third, necessary battery storage increases significantly with a greater number of time-
-slices. These trends are due to the greater variability of solar and wind resources that is
-captured by higher time resolutions. Additionally, at a weekly resolution, the
+slices. These trends appear because higher temporal resolutions capture more
+variability in solar and wind resources. Additionally, at a weekly resolution, the
 model installed 1.5 GW of biomass fired power plants. Although scarcely used,
 this capacity served as a back-up when renewable sources and stored energy are
 insufficient.
@@ -85,7 +85,7 @@ As in the ``Least Cost'' scenario, Illinois' existing nuclear fleet persists in
 both the ``Expensive Nuclear'' and ``Zero Advanced Nuclear'' scenarios.
 
 The final scenario considered was the ``Nuclear Phaseout'' scenario. Here, advanced
-nuclear is explicitly disallowed and the existing nuclear fleet is shut down by
+nuclear is explicitly disallowed and the existing Illinois nuclear fleet is shut down by
 2050. This matches the ``100\% renewable energy'' language in the 2021 \gls{ceja} bill
 \cite{harmon_climate_2021}. Figure \ref{fig:time_res_ZN} shows the time sensitivity
 results for this scenario.
@@ -99,8 +99,8 @@ results for this scenario.
   \label{fig:time_res_ZN}
 \end{figure}
 
-The same three trends observed in the ZAN and XN scenarios are repeated and
-more pronounced in a total nuclear phaseout. Wind penetration is greatly overestimated
+The same three trends observed in the ZAN and XN scenarios are repeated, and
+more pronounced, in a total nuclear phaseout. Wind penetration is greatly overestimated
 with low time resolution and the necessary battery capacity is greatly underestimated.
 In this scenario, the required battery capacity doubles from seasonal resolution to
 weekly resolution. At the latter resolution, Illinois would need 29 GW of 4-hour
@@ -111,6 +111,57 @@ of California, and more than 14 times the storage capcity of the entire United S
 In all cases, natural gas and coal plants do not operate beyond 2025
 and those plants close at the end of their functional lives. In reality, they could be
 shuttered sooner if that capacity is not needed for back-up generation.
+
+
+
+\subsection{Discussion of Time Resolution}
+The results presented in section \ref{section:time_res} are consistent with findings
+of Poncelet et al. 2016, that temporal resolution has a significant impact on model results.
+However, Poncelet used up to 288 time slices for their model, while this work used
+up to 1248 time slices and showed further impacts of time resolution. Table
+\ref{tab:time_res_clock} shows the wall-clock time for each simulation, illustrating
+tradeoff between model complexity and computational cost.
+
+\begin{table}[H]
+  \centering
+  \caption{Wall-clock run time for each simulation in seconds}
+  \label{tab:time_res_clock}
+  \begin{tabular}{l*{3}{r}}
+    \toprule
+    & \multicolumn{3}{c}{Number of Time Slices}\\
+    Scenario & 96 & 288 & 1248\\
+    \midrule
+    LC &13.27&50.47&481.03\\
+    XAN &10.49&41.96&373.20\\
+    ZAN &9.87&36.69&280.86\\
+    ZN & 10.57&37.80&223.87\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+  \centering
+  \caption{Difference Between Time Resolutions as a Percentage of the 52-week resolution}
+  \label{tab:relative_error}
+\begin{tabular}{lrr|rr|rr|rr}
+  \toprule
+    & \multicolumn{8}{c}{Number of Time Slices}\\
+    & \multicolumn{2}{c}{LC} & \multicolumn{2}{c}{XAN} & \multicolumn{2}{c}{ZAN} & \multicolumn{2}{c}{ZN}\\
+    Technology & 96 & 288 & 96 & 288 & 96 & 288 & 96 & 288\\
+    \midrule
+    BIOMASS &0.00&0.00&NAN&NAN&NAN&NAN& NAN & NAN\\
+    WIND\_FARM &340.15&60.92&33.07&3.27&33.07&3.27& 48.47 & 2.48\\
+    SOLAR\_FARM &57.73&28.70&-45.16&-9.57&-45.16&-9.57& -50.41 & -10.36\\
+    NUCLEAR\_CONV &0.00&0.00&0.00&0.00&0.00&0.00& - & -\\
+    NUCLEAR\_ADV &NAN&-25.88&0.00&0.00&-&-& - & - \\
+    LI\_BATTERY &68.59&29.64&-43.23&-5.80&-43.23&-5.80&-57.16&-7.44\\
+    NATGAS\_CONV &0.00&0.00&0.00&0.00&0.00&0.00&0.00&0.00\\
+    COAL\_CONV &0.00&0.00&0.00&0.00&0.00&0.00&0.00&0.00\\
+    \bottomrule
+    \multicolumn{9}{p{12.25cm}}{\small{NAN values occur where a technology was only present in the 52-week time resolution.}}
+  \end{tabular}
+\end{table}
 
 \section{Sensitivity to Resource Availability}
 

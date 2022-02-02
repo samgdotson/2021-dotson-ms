@@ -139,6 +139,16 @@ tradeoff between model complexity and computational cost.
   \end{tabular}
 \end{table}
 
+The least cost scenario (LC) took longer than the other scenarios at all time
+resolutions because it had the most technology options for the model to consider.
+Run time tends to decrease as the number of constraints rises. This pattern is
+clearest in the simulations with 1248 time slices.
+
+If we consider the 52-week resolution the ``truth,'' then Table \ref{tab:relative_error}
+shows the relative error for the less resolved simulations. In the nuclear constrained
+scenarios, 288 time slices generally results in less than 10 percent error. In the
+LC case, even a monthly resolution fails to achieve a reasonable error. In all cases,
+96 time slices is clearly inadequate and often exceeds 50 percent error.
 
 \begin{table}[H]
   \centering
@@ -171,17 +181,18 @@ aggregation. However, even well chosen time-slices fail to capture the full vari
 of wind and solar because models, like \gls{temoa}, treat each year in a model
 horizon as identical \cite{hunter_modeling_2013}. In the present analysis, the
 sensitivities of electricity cost and capacity expansion to renewable resource
-availability is explicitly considered using a weekly resolution and a unique combination
-of solar and wind data in each model run. Figure \ref{fig:obj_cost_plot} shows
-the spread of electricity cost for each scenario.
+availability are explicitly considered using a weekly resolution and a unique combination
+of solar and wind data in each model run. By doing this analysis we can develop
+a hedging strategy that avoids costly power outages and ensures grid reliability.
 
+Figure \ref{fig:obj_cost_plot} shows the spread of electricity cost for each scenario.
 The mean price of electricity in the Least Cost scenario is 16 percent less than
 the XN or ZAN scenarios and 28 percent cheaper than the Nuclear Phaseout scenario.
 Additionally, the variance is greatly reduced in the Least Cost scenario compared
-with the other three scenarios. The XN and ZAN scenarios are virtually identical
+with the other three scenarios. The XAN and ZAN scenarios are virtually identical
 except for a subset of simulations at the high end of system cost. The maximum
-system cost is slightly lower when advanced nuclear is costly, but allowed,
-than when it's prohibited.
+system cost is slightly lower for the XAN scenario than in ZAN because advanced
+nuclear is not explicitly disallowed.
 
 \begin{figure}[H]
   \centering
@@ -195,10 +206,12 @@ Figure \ref{fig:il_capacity} shows how resource availability affects capacity
 expansion. As shown previously in Section \ref{section:time_res}, the LC scenario
 has the lowest total capacity because most of the generation come from firm nuclear
 power. The nuclear constrained scenarios in Figure \ref{fig:il_capacity} also
-highlight the necessity of on-demand back up capacity. In the ZN, ZAN, and XN
+highlight the necessity of on-demand back up capacity. In the ZN, ZAN, and XAN
 scenarios, biomass plants serve that role. The uncertainty in renewable energy
-capacity is much higher for each of these scenarios.
-
+capacity is much higher for each of these scenarios.  The XAN case simulates the
+\textit{expectation} of significant cost overruns for every reactor build. So,
+somewhat surprisingly, there are scenarios in the XAN case where building
+advanced reactors is advantageous.
 
 \begin{figure}[H]
   \centering
@@ -207,3 +220,38 @@ capacity is much higher for each of these scenarios.
    solar and wind resources.}
   \label{fig:il_capacity}
 \end{figure}
+
+\section{Sensitivity Analysis Discussion}
+
+The fundmantal question in capacity expansion problems is: How much capacity is enough?
+\glspl{esom} attempt to answer this question while balancing other priorities such
+as reducing carbon emissions and ensuring grid reliability. Many studies address
+deep uncertainties surrounding future costs
+\cite{alzbutas_uncertainty_2012,barron_differential_2015,komiyama_energy_2015,
+li_open_2020,yue_least_2020} or different energy and climate policies \cite{bennett_extending_2021,
+bouckaert_expanding_2014,de_sisternes_value_2016,decarolis_modelling_2016,neumann_near-optimal_2021,
+seck_embedding_2020} by evaluating a set of cases, Monte Carlo sampling cost distributions,
+or using \gls{mga}. Virtually all of these studies include intermittent renewable
+energy in the model, but none of them treat annual variability of solar and wind
+as an uncertain parameter. The purpose of this analysis was to address precisely
+that issue. Figure \ref{fig:obj_cost_plot} and Figure \ref{fig:il_capacity} clarify
+two points. First, that including firm nuclear capacity has the greatest positive
+influence on both the certainty and the mean of system levelized cost. Relying primarily
+on intermittent renewables increases both the mean and uncertainty of electricity cost.
+Second, the fundamental question of \glspl{esom} is unanswerable without firm nuclear capacity.
+Biomass was modeled as an alternative firm capacity option but was only marginally
+useful.
+
+\subsection{Feasibility of 100\% Renewable Energy Policies}
+
+Pursuing a policy of 100\% renewable energy 
+
+
+\section{Limitations to the Model}
+\begin{enumerate}
+  \item Lack of spatial resolution
+  \item Only one temporal aggregation method was considered (averaging)
+  \item Limited technology options. For example, other storage options may
+  could be considered.
+  \item Loss of load probability needed to assess planning reserve margin.
+\end{enumerate}

@@ -24,7 +24,7 @@ epub:
 	ebook-convert $(manuscript).html $(manuscript).epub
 
 clean:
-	rm -f *.dvi *.toc *.aux *.out *.log *.bbl *.blg *.log *.spl *~ *.spl *.zip *.acn *.glo *.ist *.epub
+	rm -f *.dvi *.toc *.aux *.out *.log *.bbl *.blg *.lof *.spl *~ *.spl *.zip *.acn *.glo *.ist *.epub *.lot *.fls
 
 realclean: clean
 	rm -rf $(manuscript).dvi

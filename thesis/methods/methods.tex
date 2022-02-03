@@ -27,6 +27,7 @@ facilitate the creation of \gls{temoa} input files and sensitivity analyses.
 \input{methods/uiuc_case_desc.tex}
 
 \section{What About Geothermal, Biomass, and Hydropower?}
+\label{section:alt_firm}
 
 Nuclear energy has significant barriers to acceptance, such as nuclear waste,
 accident risk, and fear of weapons proliferation. Whether or not these barriers
@@ -35,8 +36,8 @@ may look for alternatives to nuclear energy that can serve similar roles
 on the grid. Geography constrains hydropower and geothermal power. \gls{nrel} analyzed
 the technical potential for each renewable resource and found that hydroelectric dams
 and conventional geothermal plants are negligible options in Illinois. Even run-of-the-river
-hydropower could contribute less than a gigawatt \cite{nrel_2020_2020}. Enhanced Geothermal
-Systems (EGS) can overcome geographic challenges by creating artificial permeability
+hydropower could contribute less than a gigawatt \cite{lopez_us_2012}. Enhanced Geothermal
+Systems (EGS) can overcome geographic challenges by creating artificial geological permeability
 with a method similar to hydraulic fracturing \cite{geothermal_technologies_office_what_2012}.
 However, EGSs have high capital costs, more than twice an AP1000 Nuclear Reactor
 \cite{nrel_2020_2020}. \gls{uiuc} has a geothermal loop that supplies 135 tons of refrigeration
@@ -47,8 +48,11 @@ than the existing chilled water capacity
 \cite{noauthor_geothermal_nodate,affiliated_engineers_inc_utilities_2015}. For these
 reasons, I did not model, geothermal or hydropower for either \gls{uiuc} or Illinois.
 Dedicated biomass power plants are modeled for Illinois to offer an alternative
-firm capacity option. Table \ref{tab:nuclear_alt} summarizes important parameters
-for firm capacity options.
+firm capacity option. However, \gls{nrel} also modeled the technical potential for biopower
+and found that Illinois could generate up to 4 GW of electricity from biofueled turbines, the highest potential
+for any U.S. state \cite{lopez_us_2012}. A further caveat to this technical potential is that it does not
+consider alternative uses for the land (e.g., food production). Nevertheless, a 4 GW limit is a constraint in the Illinois study for the time resolution analysis. 
+Table \ref{tab:nuclear_alt} summarizes important parameters for firm capacity options.
 
 \begin{table}[H]
   \centering

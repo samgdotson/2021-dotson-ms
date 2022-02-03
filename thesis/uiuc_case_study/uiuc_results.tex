@@ -14,7 +14,7 @@ grows throughout the model horizon. In particular, the \texttt{ABBOTT\_TB} capac
 increases to just over 100 MW$_e$, even though Figure \ref{fig:uiuc_elc_gen}
 shows its electric generation dropping to zero by 2050. This is likely due to
 the model using \texttt{ABBOTT\_TB} to meet the planning reserve margin, even
-though it is unused. Additionally, electric import capacity, \texttt{IMP\_ELC}, rises
+though it is does not generate electricity. Additionally, electric import capacity, \texttt{IMP\_ELC}, rises
 to almost 120 MW and accounts for roughly 35\% of total electricity by 2050.
 This result is consistent with the recommendation from the Campus Master Plan
 \cite{affiliated_engineers_inc_utilities_2015}.
@@ -42,7 +42,7 @@ its output \cite{breitweiser_wind_2016}. That the model recommends 100 MW of
 wind capacity reflects the fact that wind energy is cheap and that there is significant
 built-in flexibility through other electricity imports.
 
-Figure \ref{uiuc_thm_cap} and Figure \ref{fig:uiuc_chw_cap} show the capacities
+Figure \ref{fig:uiuc_thm_cap} and Figure \ref{fig:uiuc_chw_cap} show the capacities
 for steam production and refrigeration, respectively. In this model, there is no
 carbon-free alternative to produce steam besides a nuclear reactor. Figure
 \ref{fig:uiuc_chw_cap} shows that chilled water capacity increases with annual
@@ -105,7 +105,9 @@ of \gls{uiuc}. Similar to the electric sector, these results change very little.
 Allowing the system cost to increase by 1\% allows \gls{uiuc} to build additional
 natural gas capacity, which is anathema to the goal of net-zero carbon emissions.
 The nuclear capacity does not change at all. These two features are also caused
-by a lack of technology options in the steam sector.
+by a lack of technology options in the steam sector. As discussed in Section \ref{section:alt_firm},
+there are no true steam-production alternatives to coal and natural gas besides nuclear power 
+in Illinois.
 
 
 \begin{figure}[H]
@@ -139,3 +141,18 @@ important role for storage capacity.
   plotted. Each row of panels corresponds to a different technology.}
   \label{fig:uiuc_chw_mga}
 \end{figure}
+
+\section{Discussion and Limitations}
+The cheapest pathway to net-zero for \gls{uiuc} identified in this analysis has two key features:
+\begin{enumerate}
+\item Expanding electricity imports.
+\item Replacing natural gas and coal with nuclear power.
+\end{enumerate}
+There is a significant limitation to the modeling of \gls{uiuc}'s electricity system, namely that energy from wind \glspl{ppa} must flow
+through the same infrastructure as generalized electricity imports. In this case, the results show an increase in electricity imports up to 220 MW. If the wind capacity does not represent greater investment in \glspl{ppa}, then the wind capacity must be interpreted as owned and operated by \gls{uiuc} on its own land, which would require the use of 50\% of the University's farmland \cite{lopez_us_2012}. The former interpretation challenges \gls{uiuc}'s energy security and independence, the primary motivation for establishing a microgrid. The latter interpretation preserves \gls{uiuc} energy independence but may restrict its agricultural research capabilities.
+
+Another limitation of this model is that it assumes the larger Illinois grid will achieve carbon neutrality by 2030, which is the current state policy. If Illinois fails to achieve this goal by 2050, then \gls{uiuc} would have to eliminate electricity imports entirely. This case is not considered in the present analysis.
+
+Separately, the nuclear capacity is nearly 100 MW$_{th}$ by 2050 in all simulations. The reactor type is not specified, although it is assumed this would be a series of microreactors or small modular reactors. \gls{uiuc} is already pursuing a small research reactor developed by \gls{usnc} \cite{noauthor_university_2021}, but this is not nearly enough to meet all of the campus' energy demands. The dearth of technology options for steam production is genuine. Yet, the university may pursue other heating methods \textit{besides} steam, such as retrofitting all campus buildings with electric heaters and/or heat pumps. The cost of such a retrofit is beyond the scope of this work. 
+
+Lastly, this model excludes the transportation sector of campus since that sector is responsible for a small fraction of all emissions \cite{institute_for_sustainability_energy_and_environment_illinois_2020}. However, as the energy sector reduces emissions, the transportation sector will make up a greater portion of total carbon. The last few tons of carbon will be the most difficult to curtail. In any case, achieving true carbon neutrality is an amibitious and costly endeavor.

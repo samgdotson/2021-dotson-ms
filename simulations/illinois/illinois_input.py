@@ -13,14 +13,14 @@ curr_dir = os.path.dirname(__file__)
 
 # Simulation metadata goes here
 iteration = "base"
-folder = 'data_files'
-scenario_name = 'myopic'
+folder = 'zero_nuclear'
+scenario_name = 'CC30'
 start_year = 2025  # the first year optimized by the model
 end_year = 2050  # the last year optimized by the model
 N_years = 6  # the number of years optimized by the model
-N_seasons = 4  # the number of "seasons" in the model
+N_seasons = 365  # the number of "seasons" in the model
 N_hours = 24  # the number of hours in a day
-database_filename = f'{folder}/IL_{scenario_name}_{N_seasons}.sqlite'  # where the database will be written
+database_filename = f'{folder}/IL_{scenario_name}_{N_seasons}_ZN.sqlite'  # where the database will be written
 
 
 # Optional parameters
@@ -163,7 +163,8 @@ NUCLEAR_CONV.add_regional_data(region='IL',
                                cost_fixed=0.17773741,
                                cost_invest=0.05,
                                cost_variable=0.005811,
-                               max_capacity = {2025:12.42e3,
+                               max_capacity = {
+                                               2025:12.42e3,
                                                2030:12.42e3,
                                                2035:12.42e3,
                                                2040:12.42e3,
@@ -173,7 +174,8 @@ NUCLEAR_CONV.add_regional_data(region='IL',
                                )
 
 # Multiply capital cost by 2 to simulate cost overruns.
-nuclear_capital = np.array(capital_df['Nuclear']).astype('float')*2
+# nuclear_capital = np.array(capital_df['Nuclear']).astype('float')*2
+nuclear_capital = np.array(capital_df['Nuclear']).astype('float')
 nuclear_capital = dict(zip(nrel_years, nuclear_capital))
 nuclear_fixed = np.array(fixed_df['Nuclear']).astype('float')
 nuclear_fixed = dict(zip(nrel_years, nuclear_fixed))
@@ -190,7 +192,7 @@ NUCLEAR_ADV.add_regional_data(region='IL',
                                cost_fixed=nuclear_fixed,
                                cost_invest=nuclear_capital,
                                cost_variable=0.009158,
-                               # max_capacity = {2050:0.0} # zero nuclear scenario
+                               max_capacity = {2050:0.0} # zero nuclear scenario
                                )
 
 ngcc_existing = get_existing_capacity(curr_data,
@@ -283,7 +285,13 @@ BIOMASS.add_regional_data(region='IL',
                           emissions={co2eq:2.3e-4},
                           cost_fixed=0.123,
                           cost_invest=biomass_capital,
-                          cost_variable=0.047
+                          cost_variable=0.047,
+                          # max_capacity = {2025:4.0e3,
+                          #                 2030:4.0e3,
+                          #                 2035:4.0e3,
+                          #                 2040:4.0e3,
+                          #                 2045:4.0e3,
+                          #                 2050:4.0e3,},
                           )
 
 libatt_capital = np.array(capital_df['Battery']).astype('float')

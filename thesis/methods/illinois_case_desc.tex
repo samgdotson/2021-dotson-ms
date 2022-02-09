@@ -163,7 +163,7 @@ At most, they sliced time series into four seasons with three representative day
 Saturday, Sunday) and 24 times-of-day. Thus, they modeled 288 time slices. This
 method captures variability in energy demand within the week, but is not guaranteed
 to capture the variability of solar and wind -- which do not possess periodicity
-associated with the day of the week. I considered three time resolutions in this work.
+associated with the day of the week. I considered four time resolutions in this work.
 Table \ref{tab:time-slice} shows the different time resolutions I considered in this thesis.
 
 \begin{table}[H]
@@ -177,6 +177,7 @@ Table \ref{tab:time-slice} shows the different time resolutions I considered in 
     Seasonal & 4 & 1 & 24 & 96\\
     Monthly & 12 & 1 & 24 & 288\\
     Weekly & 52 & 1 & 24 & 1248\\
+    Daily & 365 & 1 & 24 & 8760\\
     \midrule
     Poncelet et al. \cite{poncelet_impact_2016} & 4 & 3 &  24 & 288\\
     \bottomrule

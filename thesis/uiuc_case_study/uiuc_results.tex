@@ -1,7 +1,7 @@
 The University of Illinois at Urbana-Champaign pledged to achieve net-zero carbon
 emissions from all campus sectors by 2050
 \cite{institute_for_sustainability_energy_and_environment_illinois_2015}. This
-chapter presents the results of the \gls{uiuc} case study. Since Section
+chapter presents the results of the \gls{uiuc} case study. Since section
 \ref{section:time_res} established the importance of time resolution in model results,
 all simulations in this chapter use a 52-week time resolution. The sensitivity
 analysis explores other feasible options for the university with \gls{mga} and
@@ -12,9 +12,10 @@ Figure \ref{fig:uiuc_elc_cap} shows the annual capacity expansion in the cost
 minimized solution. Notably, the capacity for all electric generating technologies
 grows throughout the model horizon. In particular, the \texttt{ABBOTT\_TB} capacity
 increases to just over 100 MW$_e$, even though Figure \ref{fig:uiuc_elc_gen}
-shows its electric generation dropping to zero by 2050. This is likely due to
+shows its electric generation dropping to zero by 2050. This behavior is likely due to
 the model using \texttt{ABBOTT\_TB} to meet the planning reserve margin, even
-though it is does not generate electricity. Additionally, electric import capacity, \texttt{IMP\_ELC}, rises
+though it does not generate electricity. Additionally, electric import capacity,
+\texttt{IMP\_ELC}, rises
 to almost 120 MW and accounts for roughly 35\% of total electricity by 2050.
 This result is consistent with the recommendation from the Campus Master Plan
 \cite{affiliated_engineers_inc_utilities_2015}.
@@ -37,16 +38,16 @@ This result is consistent with the recommendation from the Campus Master Plan
 
 Lastly, the wind capacity immediately jumps to 100 MW by 2025. The model was
 constrained to 100.5 MW because \gls{uiuc} has a power purchase agreement with
-Rail Splitter Wind Farm, which has an existing capacity of 100.5 MW, for 8\% of
-its output \cite{breitweiser_wind_2016}. That the model recommends 100 MW of
-wind capacity reflects the fact that wind energy is cheap and that there is significant
-built-in flexibility through other electricity imports.
+Rail Splitter Wind Farm, which has an existing capacity of 100.5 MW for 8\% of
+its output \cite{breitweiser_wind_2016}. The model recommends 100 MW of wind
+capacity because wind energy is cheap and has significant built-in flexibility
+through other electricity imports.
 
 Figure \ref{fig:uiuc_thm_cap} and Figure \ref{fig:uiuc_chw_cap} show the capacities
-for steam production and refrigeration, respectively. In this model, there is no
-carbon-free alternative to produce steam besides a nuclear reactor. Figure
+for steam production and refrigeration, respectively. There is no carbon-free
+alternative to produce steam besides a nuclear reactor in this model. Figure
 \ref{fig:uiuc_chw_cap} shows that chilled water capacity increases with annual
-cooling demand and the chilled water storage is roughly constant.
+cooling demand, and the chilled water storage is roughly constant.
 
 \begin{figure}[H]
   \begin{minipage}{0.48\textwidth}
@@ -66,22 +67,22 @@ cooling demand and the chilled water storage is roughly constant.
 
 \section{Alternative Pathways}
 
-Common formulations of capacity expansion problems use linear programming to optimize
+Typical formulations of capacity expansion problems use linear programming to optimize
 an objective function, usually system cost. However, these models often miss
-other appealing options due to unmodeled, structural, uncertainty. \gls{mga}
+other appealing options due to unmodeled, structural uncertainty. \gls{mga}
 works around this by relaxing the objective function according to a user-defined
-slack variable and searching for near-optimal solutions in decision space. This
-section presents the results for \gls{uiuc} using \gls{mga} to explore alternatives
+slack variable and searching for near-optimal solutions in decision-space. This
+section presents the results for \gls{uiuc} using \gls{mga} to explore alternative
 pathways to net-zero carbon emissions.
 
 Figure \ref{fig:uiuc_elc_mga} shows the \gls{mga} results for \gls{uiuc}'s electric
 sector. The first column of Figure \ref{fig:uiuc_elc_mga} shows that a one percent
-increase in system cost allows \gls{uiuc} to fully retire Abbott Power Plant's
-natural gas turbines and does not require nuclear powered steam turbines, in exchange
-for slightly higher solar capacity and electricity imports. All other \gls{mga}
-and slack values have identical results for the electric sector.
+increase in system cost allows \gls{uiuc} to retire Abbott Power Plant's
+natural gas turbines fully and does not require nuclear-powered steam turbines
+in exchange for slightly higher solar capacity and electricity imports. All other
+\gls{mga} and slack values have identical results for the electric sector.
 This lack of unique alternatives is possibly the result of the capacity constraints on
-wind and solar, and the limited set of technology options.
+wind and solar and the limited set of technology options.
 
 \begin{figure}[H]
   \centering
@@ -95,18 +96,18 @@ wind and solar, and the limited set of technology options.
   \label{fig:uiuc_elc_mga}
 \end{figure}
 
-The capacity limit for solar was set to 191 MW of photovoltaic cells, which corresponds
-roughly to one-eighth of university owned land. The fact that installed solar capacity
-is so far below this limit suggests that further increases in solar panels would
+I set the capacity limit for solar to 191 MW of photovoltaic cells, which corresponds
+roughly to one-eighth of University-owned land. The fact that installed solar capacity
+is so far below this limit suggests that further increases in solar capacity would
 raise system costs beyond 20\% of the optimal solution.
 
 Figure \ref{fig:uiuc_thm_mga} shows the \gls{mga} results for the steam sector
 of \gls{uiuc}. Similar to the electric sector, these results change very little.
 Allowing the system cost to increase by 1\% allows \gls{uiuc} to build additional
-natural gas capacity, which is anathema to the goal of net-zero carbon emissions.
+natural gas capacity, which is antithetical to the goal of net-zero carbon emissions.
 The nuclear capacity does not change at all. These two features are also caused
-by a lack of technology options in the steam sector. As discussed in Section \ref{section:alt_firm},
-there are no true steam-production alternatives to coal and natural gas besides nuclear power 
+by a lack of technology options in the steam sector. As discussed in section \ref{section:alt_firm},
+there are no actual steam production alternatives to coal and natural gas besides nuclear power
 in Illinois.
 
 
@@ -127,8 +128,8 @@ water sector. As with the other two sectors, the chilled water sector lacks a
 diverse set of technology options, leading to persistent results. However,
 unique to this sector, the slack value changes the results. Increasing the slack
 value shows a tradeoff between chilled water storage and electric chilling capacity.
-The chilled water storage only decreases with slack value, which indicates an
-important role for storage capacity.
+The chilled water storage only decreases with slack value, indicating an
+essential role for storage capacity.
 
 \begin{figure}[H]
   \centering
@@ -148,11 +149,35 @@ The cheapest pathway to net-zero for \gls{uiuc} identified in this analysis has 
 \item Expanding electricity imports.
 \item Replacing natural gas and coal with nuclear power.
 \end{enumerate}
-There is a significant limitation to the modeling of \gls{uiuc}'s electricity system, namely that energy from wind \glspl{ppa} must flow
-through the same infrastructure as generalized electricity imports. In this case, the results show an increase in electricity imports up to 220 MW. If the wind capacity does not represent greater investment in \glspl{ppa}, then the wind capacity must be interpreted as owned and operated by \gls{uiuc} on its own land, which would require the use of 50\% of the University's farmland \cite{lopez_us_2012}. The former interpretation challenges \gls{uiuc}'s energy security and independence, the primary motivation for establishing a microgrid. The latter interpretation preserves \gls{uiuc} energy independence but may restrict its agricultural research capabilities.
+A significant limitation to the modeling of UIUC’s electricity system is that energy
+from wind power \glspl{ppa} must flow through the same infrastructure as generalized
+electricity imports. In this case, the results show an increase in electricity
+imports up to 220 MW. If the wind capacity does not represent a greater investment
+in \glspl{ppa}, then the wind capacity must be interpreted as owned and operated
+by \gls{uiuc} on its land, which would require the use of 50\% of the University's
+farmland \cite{lopez_us_2012}. The former interpretation challenges \gls{uiuc}'s
+energy security and independence, the primary motivation for establishing a microgrid.
+The latter interpretation preserves \gls{uiuc}'s' energy independence but may restrict
+its agricultural research capabilities.
 
-Another limitation of this model is that it assumes the larger Illinois grid will achieve carbon neutrality by 2030, which is the current state policy. If Illinois fails to achieve this goal by 2050, then \gls{uiuc} would have to eliminate electricity imports entirely. This case is not considered in the present analysis.
+Another limitation of this model is that it assumes the larger Illinois grid will
+achieve carbon neutrality by 2030, the current state policy. If Illinois fails to
+achieve this goal by 2050, UIUC would have to eliminate electricity imports entirely.
+This case is not considered in the present analysis.
 
-Separately, the nuclear capacity is nearly 100 MW$_{th}$ by 2050 in all simulations. The reactor type is not specified, although it is assumed this would be a series of microreactors or small modular reactors. \gls{uiuc} is already pursuing a small research reactor developed by \gls{usnc} \cite{noauthor_university_2021}, but this is not nearly enough to meet all of the campus' energy demands. The dearth of technology options for steam production is genuine. Yet, the university may pursue other heating methods \textit{besides} steam, such as retrofitting all campus buildings with electric heaters and/or heat pumps. The cost of such a retrofit is beyond the scope of this work. 
+Separately, the nuclear capacity is nearly 100 MW$_{th}$ by 2050 in all simulations.
+The reactor type is not specified, although it is assumed this would be a series
+of microreactors or small modular reactors. \gls{uiuc} is already pursuing a small
+research reactor developed by \gls{usnc} \cite{noauthor_university_2021}, but this
+is not nearly enough to meet all campus energy demands. The dearth of technology
+options for steam production is genuine. However, the University may pursue other heating
+methods \textit{besides} steam, such as retrofitting all campus buildings with electric
+heaters or heat pumps. The cost of such a retrofit is beyond the scope of this work.
 
-Lastly, this model excludes the transportation sector of campus since that sector is responsible for a small fraction of all emissions \cite{institute_for_sustainability_energy_and_environment_illinois_2020}. However, as the energy sector reduces emissions, the transportation sector will make up a greater portion of total carbon. The last few tons of carbon will be the most difficult to curtail. In any case, achieving true carbon neutrality is an amibitious and costly endeavor.
+Lastly, this model excludes the transportation sector of campus since that sector
+is responsible for a small fraction of all emissions
+\cite{institute_for_sustainability_energy_and_environment_illinois_2020}. However,
+as the energy sector reduces emissions, the transportation sector will make up a
+more significant portion of total carbon. The last few tons of carbon will be the most difficult
+to curtail. In any case, achieving true carbon neutrality is an ambitious and costly
+endeavor.

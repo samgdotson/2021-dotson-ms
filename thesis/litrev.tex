@@ -1,4 +1,4 @@
-This chapter reviews the state of energy system optimization modeling (ESOM) tools
+This chapter reviews the state of \gls{esom} tools
 and tools for evaluating nuclear hybrid energy systems (NHES). The role of \glspl{esom}
 in energy and environmental policymaking is also discussed.
 
@@ -31,8 +31,11 @@ of a given society or community and manifest as energy policy.
 
 Energy policies serve to coordinate the different aspects of energy systems.
 Essentially, energy policies need to ensure reliability, affordability, and
-sustainability \cite{fattahi_systemic_2020}. A reliable grid ensures an adequate
-energy supply when needed \cite{milligan_methods_2011, ramirez-meyers_how_2021,berkeley_iii_framework_2010}.
+sustainability \cite{fattahi_systemic_2020}. \glspl{esom}, such as the ones used
+in the present work, are useful tools for designing and evaluating energy policy
+that balances each of these competing goals.
+
+A reliable grid ensures an adequate energy supply when needed \cite{milligan_methods_2011, ramirez-meyers_how_2021,berkeley_iii_framework_2010}.
 An unreliable grid experiences an unacceptable frequency of outages or losses of
 load \cite{ramirez-meyers_how_2021}. The North American Electric Reliability
 Corporation sets the desired loss-of-load frequency at 0.1 days/year and recommends
@@ -45,17 +48,22 @@ is defined as,
   P_{\text{peak}} &= \text{power demand at annual peak} \nonumber.
 \end{align}
 In other words, \gls{prm} is the fraction of capacity held in reserve during peak
-times. ‘Affordability’ is an ill-defined term and varies significantly. An ``affordable''
-energy system can be loosely understood as one with a low rate of energy poverty
-\cite{brown_high_2020}. High energy costs have cascading adverse effects on every
-aspect of life and significantly impact low-income households \cite{brown_high_2020}.
+times.
+
+An ``affordable'' energy system can be loosely understood as one with a low rate
+of energy poverty \cite{brown_high_2020}. Households facing energy poverty, or
+energy burden, are often forced to choose among necessary services such as rent,
+water, food, and electricity. High energy costs have cascading adverse
+effects on every aspect of life and significantly impact low-income households
+\cite{brown_high_2020}.
 Measures that lead to increased costs for energy producers, such as carbon taxes,
 almost always lead to higher consumer costs \cite{brown_high_2020,poelhekke_how_2019,khastar_how_2020}.
 Thus, policymakers often seek a least-cost solution when designing energy policy.
+
 Lastly, sustainability is defined as ``meeting the needs of the present without
 compromising the ability of future generations to meet their own needs'' \cite{brook_why_2014,
-the_united_nations_brundtland_commission_our_1987}. The twin problems of fossil
-fuel consumption and climate change will significantly diminish the ability of
+the_united_nations_brundtland_commission_our_1987}. Climate change, driven by
+fossil fuel consumption, will significantly diminish the ability of
 future generations to meet their basic needs. Droughts, forest fires, extreme
 weather events, and flooding have increased due to climate change
 \cite{reidmiller_fourth_2018}. Additionally, human activities like deforestation,
@@ -71,10 +79,10 @@ effects is a moral, political, and economic imperative.
 
 There are three primary policy strategies for climate change mitigation \cite{fawzy_strategies_2020}:
 conventional mitigation efforts, which include all policies centered around
-reducing carbon emissions, negative emissions technologies, and the final option,
-geoengineering, which reduces warming by increasing the Earth’s reflectivity. \gls{esom}
-studies generally focus on the first set of energy policies, conventional mitigation strategies.
-These strategies include:
+reducing carbon emissions; negative emissions technologies like direct air carbon-
+capture; and the final option, geoengineering, which reduces warming by increasing
+the Earth’s reflectivity. \gls{esom} studies generally focus on conventional mitigation
+strategies. These strategies include:
 \begin{itemize}
   \item Investing in clean energy resources, such as renewable energy and nuclear power
   \cite{fawzy_strategies_2020}. These strategies affect the topology of the energy
@@ -113,19 +121,17 @@ both equity and energy policy. Naming just a few, \gls{ceja}:
 \end{enumerate}
 This bill extends support for nuclear plants in the PJM Interconnect, where its
 predecessor, the 2016 Future Energy Jobs Act, gave financial support to nuclear
-plants in the MISO grid. The Solar Energy Industries Association (SEIA) and Illinois
+plants in the \gls{miso} grid. The Solar Energy Industries Association (SEIA) and Illinois
 Clean Jobs Coalition estimate that Illinois will have to add 6.3 GW to its wind capacity
 and 17 GW of combined utility and residential solar energy
 to achieve its renewable energy goals \cite{goeller_new_2021, the_accelerate_group_clean_2019}.
-The Illinois Clean Jobs Coalition drove much of the content of the CEJA bill.
+The Illinois Clean Jobs Coalition drove much of the content of the CEJA bill
+\cite{the_accelerate_group_clean_2019}.
 The Coalition funded a report to evaluate the economic impact of the CEJA bill,
 finding that Illinois’ renewable energy goals could drive 39 billion dollars in
 private investment to the state \cite{the_accelerate_group_clean_2019}.
 However, the creators of this report did not consider the impacts of these targets
-on grid operations, electricity cost, and energy reliability. Although nuclear power
-plants (NPP) currently generate more than half of Illinois’ electricity, almost
-90 percent of its carbon-free energy, politicians and lobbyists fiercely debate the continued
-role of nuclear power in Illinois’ energy mix.
+on grid operations, electricity cost, and energy reliability.
 
 \subsection{Illinois Climate Action Plan at the University of Illinois}
 
@@ -151,13 +157,16 @@ iCAP reports established several themes and objectives for each. These themes ar
   \item Funding
 \end{itemize}
 The ``Energy'' theme presents most significant opportunity to reduce carbon emissions
-on the UIUC campus. \gls{uiuc}’s specific energy objectives include an energy
+on the UIUC campus because energy production accounts for almost 90\% of the University's
+carbon emissions \cite{institute_for_sustainability_energy_and_environment_illinois_2015}.
+\gls{uiuc}’s specific energy objectives include an energy
 efficiency target of 167,000 BTU/square foot by 2030, purchasing 140 GWh of clean
 electricity by 2025, and reducing building-level energy use
-\cite{institute_for_sustainability_energy_and_environment_illinois_2020}. The University
-heats virtually all of its buildings using steam produced by Abbott Power Plant
-(APP), which burns coal and natural gas. The iCAP objectives conspicuously lack a
-measurable target for clean thermal energy on campus.
+\cite{institute_for_sustainability_energy_and_environment_illinois_2020}.
+The University heats virtually all of its buildings using steam produced by Abbott
+Power Plant (APP), which burns coal and natural gas. The iCAP objectives conspicuously
+lack a measurable target for clean thermal energy on campus, highlighting the
+challenge of replacing thermal energy.
 
 \section{Energy System Optimization Models}
 
@@ -168,12 +177,41 @@ In order to achieve this goal, \glspl{esom} have to balance spatial, temporal, a
 complexities while accounting for profound future uncertainties \cite{martinez-gordon_review_2021}.
 \glspl{esom} typically use a “time-slice” approach where modelers use several
 representative time slices to capture temporal variability \cite{fattahi_systemic_2020}.
-Some frameworks handle spatial complexity by modeling different regions. The most detailed among
-them incorporate data from geographical information systems (GIS) \cite{fattahi_systemic_2020}.
-Lastly, most \glspl{esom} consider grid topology by grouping technology types (e.g. ‘coal power’
-or ‘nuclear power’) \cite{fattahi_systemic_2020}, while some frameworks look at
-interactions among individual plants \cite{jenkins_enhanced_2017}. Handling
-future uncertainty is one of the most critical features of an \gls{esom}.
+Some frameworks handle spatial complexity by modeling different regions. The most
+detailed among them incorporate geospatial data from geographical information
+systems (GIS) \cite{fattahi_systemic_2020}.
+Lastly, most \glspl{esom} consider grid topology by grouping technology types
+(e.g. ‘coal power’ or ‘nuclear power’) \cite{fattahi_systemic_2020}, while some
+frameworks look at interactions among individual plants \cite{jenkins_enhanced_2017}.
+Handling future uncertainty is one of the most critical features of an \gls{esom}.
+
+\subsection{Structure and Assumptions}
+
+\gls{esom} tools are typically formulated using linear programming where the model
+will seek to minimize cost, the objective function, and address other policy
+goals through constraints. The details of linear programming are discussed in
+chapter \ref{chapter:methods}. TIMES and MARKAL are two of the most mature
+\glspl{esom} in the the literature that use linear programming \cite{decarolis_case_2012}.
+However, these modeling frameworks do not have open source code, data, and is
+proprietary software. Other \glspl{esom} that use linear programming include
+OSeMOSYS, MESSAGE, GenX, PPSA, and \gls{temoa} to name a few
+\cite{decarolis_case_2012,yue_review_2018,jenkins_enhanced_2017}. These
+frameworks differ by code-openness, licensing, data sources, and some specific
+formulation of their objective functions, but they share multi-decadal
+time horizons and the assumption that every modeled year in the time
+horizon is identical. Additionally, these tools model energy demands as constraints
+which must be met at all times. Thus, they cannot easily model deferrable or optional
+loads like water desalination or direct air carbon-capture.
+
+Other tools for energy system modeling, such as OpenModelica and \gls{raven},
+use dispatch models that enable modeling of deferrable loads and different annual
+demand and resource availability profiles \cite{baker_optimal_2018,epiney_economic_2020}.
+OpenModelica models technologies with much greater technical detail than traditional
+\glspl{esom} and are closer to near-term planning tools, such as unit-commitment
+models. I include OpenModelica and
+\gls{raven} in this review because they are often used to study \glspl{nhes}
+\cite{baker_optimal_2018,garcia_dynamic_2016,epiney_economic_2020}.
+Research descriptions and model parameters are summarized in Table \ref{tab:esom_lit}.
 
 \subsection{Uncertainty Quantification}
 
@@ -181,18 +219,21 @@ Since perfect foresight is impossible, and policymakers often act then learn, ha
 uncertainty is critical to developing robust insights
 \cite{yue_review_2018, decarolis_modelling_2016}.
 The two broad categories of uncertainties are parametric uncertainty and structural
-uncertainty. Parametric uncertainty deals with the influence of unknown quantities
-like future fuel prices, learning curves, and discount rates. Structural uncertainty
-relates to factors not captured in a model’s equations\cite{hunter_modeling_2013,
-yue_review_2018}. The latter uncertainty includes heterogeneity of decision-makers,
+uncertainty.
+
+Parametric uncertainty deals with the influence of unknown quantities
+like future fuel prices, learning curves, and discount rates. Several systematic methods account for parametric uncertainty, including Monte Carlo, stochastic optimization, and
+global sensitivity analysis \cite{yue_review_2018}.
+
+Structural uncertainty relates to factors not captured in a model’s equations
+\cite{hunter_modeling_2013, yue_review_2018}. The latter uncertainty includes
+heterogeneity of decision-makers,
 social acceptance, and different priorities \cite{yue_review_2018}. Most ESOM
 studies handle uncertainties using a small ensemble of scenarios where a modeler
 develops a  reference scenario and analyze policy impacts with additional constraints
-and assumptions \cite{yue_review_2018}.  Several systematic methods account for
-parametric uncertainty, including Monte Carlo, stochastic optimization, and
-global sensitivity analysis \cite{yue_review_2018}. Structural uncertainty
-is typically handled by either increasing model complexity to make it more
-``realistic'' or studied systematically using \gls{mga}
+and assumptions \cite{yue_review_2018}.
+Structural uncertainty is typically handled by either increasing model complexity
+to make it more ``realistic'' or studied systematically using \gls{mga}
 \cite{hunter_modeling_2013,decarolis_modelling_2016, yue_review_2018}.
 The framework I used in this thesis, \gls{temoa}, developed at North Carolina
 State University, uses \gls{mga} to probe decision space efficiently
@@ -201,24 +242,24 @@ State University, uses \gls{mga} to probe decision space efficiently
 
 \section{Survey of \gls{esom} Literature}
 
-\glspl{esom} provide valuable policy insights to decision-makers. \gls{temoa}
+\glspl{esom} provide valuable policy insights to decision-makers. Table \ref{tab:esom_lit}
+summarizes all of the \gls{esom} studies in this literature review, as well as
+the model time horizon, number of time slices location, and the model used to
+perform the analysis.
+\gls{temoa}
 is one modeling framework among many and is structurally similar to TIMES/MARKAL
 and MESSAGE since they are formulated with linear programming \cite{yue_review_2018}.
-OpenModelica models technologies with much greater technical detail than traditional
-\glspl{esom} and are closer to unit-commitment models. I include them in this review
-because they use OpenModelica and the \gls{raven} tool to study \glspl{nhes}
-\cite{baker_optimal_2018,garcia_dynamic_2016,epiney_economic_2020}.
 The tradeoff between model complexity and computational cost is well documented.
 Every study described in Table \ref{tab:esom_lit} with at least an hourly
 time resolution optimizes at most a single year. For example, Garcia et al. 2016,
 Epiney et al. 2020, and Baker et al. 2018 all use hourly resolution, capturing
-the variability of solar and wind. However, they only consider single microgrids
+the variability of solar and wind. However, they exclusively consider single microgrids
 and optimize a single year
 \cite{epiney_economic_2020,baker_optimal_2018,garcia_dynamic_2016}.
 These models do not consider demand growth, existing capacity, or energy policy
 scenarios. Komiyama et al. 2015 used a 5-minute time resolution for a detailed
-solar and wind variability model. That work only optimizes one year, but
-the study does consider several emissions and energy policies \cite{komiyama_energy_2015}.
+solar and wind variability model. That work optimizes one year, but
+considers several emissions and energy policies \cite{komiyama_energy_2015}.
 The most spatially complex model, Neumann\&Brown 2021, consider 100 spatial nodes
 spanning the United Kingdom and continental Europe along with 12 times of day for
 an entire year (4380 time slices) \cite{neumann_near-optimal_2021}. Neumann\&Brown
@@ -235,13 +276,7 @@ seck_embedding_2020,yue_least_2020}. These models may use as few as four annual
 time slices \cite{decarolis_modelling_2016} or up to 288 annual time slices \cite{poncelet_impact_2016}.
 Here, the primary tradeoff is between temporal variations and topological complexity.
 Poncelet et al. 2016 recommend prioritizing temporal complexity over topological
-complexity due to the strong impact of resource variability on model results \cite{poncelet_impact_2016}.
-
-The sensitivity analysis in the State of Illinois case study explicitly
-examines the effect of annual variability wind and solar resources by varying
-the capacity factor of those technologies. Such analysis is absent from the literature
-but is essential to answering the fundamental question of \glspl{esom}: How much
-capacity is enough?
+complexity due to the strong impact of resource variability on model results \cite{poncelet_impact_2016}
 
   \begin{table}
     \centering

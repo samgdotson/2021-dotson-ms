@@ -5,14 +5,17 @@ goal. Nevertheless, complex models can be tens to hundreds of thousands of lines
 The \texttt{US\_Regional.sql} database maintained by the \gls{temoa} team exceeds
 150,000 lines \cite{model_databases_2021}. Even with an open-source
 database viewer like \texttt{DBeaver}, checking a large dataset's assumptions can be
-overwhelming \cite{noauthor_dbeaver_nodate}. On the flip side, developing new datasets
+overwhelming \cite{noauthor_dbeaver_nodate}. Conversely, developing new datasets
 for \gls{temoa} presents a steep learning curve for some new users or a time-consuming
 endeavor for experienced ones. Updating model parameters or structure (e.g., number
 of time slices or time periods) is tricky. Further, although \gls{temoa}
 is capable of sensitivity analysis with \gls{mga}, \gls{mca}, and stochastic
 optimization, only \gls{mga} is ``native'' to the framework. In fact, \gls{temoa}
 currently only offers \gls{mga} sensitivity analysis on its cloud platform.
-\gls{pygen} is a user-friendly wrapper for \gls{temoa}.
+
+\gls{pygen} is a user-friendly wrapper for \gls{temoa}. \gls{pygen} was developed
+to support the work in Chapter \ref{chapter:illinois} and Chapter \ref{chapter:uiuc}.
+It facilitates reproducible model creation for energy system modeling.
 I created \gls{pygen} to:
 \begin{enumerate}
   \item Automatically generate \gls{temoa} \texttt{SQL} databases and configuration files,
@@ -21,15 +24,20 @@ I created \gls{pygen} to:
   \item Facilitate sensitivity analysis using a templated approach.
   \item Be executable from the command line, anywhere
 \end{enumerate}
-\gls{pygen} condenses an \texttt{SQL} database with tens of thousands of rows into
-a few hundred lines of Python code, most of which is due to formatting for
-readability. Figure \ref{fig:pygen-flow} shows the flow of data through \gls{pygen}.
+\gls{pygen} allows users to interact with a few hundred lines of Python code rather
+than an \texttt{SQL} database with tens of thousands of rows.
+Figure \ref{fig:pygen-flow} shows the flow of data through \gls{pygen}.
 A \gls{pygen} input file consists of three main components, simulation metadata,
 \texttt{Technology} objects, and \texttt{Commodity} objects. These objects
 contain all parameters, data, and units necessary to populate a \gls{temoa}
-database. Further, since \gls{pygen} input files use in Python, modelers
-can directly interrogate model assumptions. \gls{pygen} adds clarity and usability
-while preserving \gls{temoa}'s flexibility.
+database. Further, since \gls{pygen} input files use Python, modelers
+can directly interrogate model assumptions. For example, by plotting the demand
+growth over time, or the learning curves for each technology, with the \gls{pygen}
+input file.
+\gls{pygen} adds clarity and usability while preserving \gls{temoa}'s flexibility.
+A \gls{pygen} input file can be turned into a template using a liquid-text format
+to specify uncertain parameters, and then hundreds of input files can be
+populated with the \texttt{Jinja2} Python library \cite{noauthor_jinja_2022}.
 
 \begin{figure}[H]
   \centering
@@ -38,33 +46,6 @@ while preserving \gls{temoa}'s flexibility.
   input file and writes an \texttt{SQL} database and a configuration textfile.}
   \label{fig:pygen-flow}
 \end{figure}
-
-A \gls{pygen} input file can be turned into a template using a liquid-text format
-to specify uncertain parameters, and then hundreds of input files can be
-populated with the \texttt{Jinja2} Python library. Code Listing \ref{code:sql} shows
-the code \gls{temoa} requires to specify the model time horizon and time slices.
-The \gls{pygen} equivalent is shown in code listing \ref{code:python}. Changing
-the number of modeled ``seasons'' or years in the model horizon is non-trivial with
-\gls{temoa} alone, especially since other tables, such as \texttt{CapacityFactorTech},
-which specifies the availability of each technology at each time slice, depend
-on the number of time slices and technologies (the product of ``number of seasons,''
-``times of day,'' and number of technologies).
-The example in code listing \ref{code:sql} produces 96 time slices, thus \texttt{CapacityFactorTech}
-would have at least 96 rows for a single technology. With \gls{pygen}, users can
-update the number of time slices and all affected tables with no additional lines
-of code.
-
-\input{methods/temoa_time_tabs.tex}
-
-\begin{lstlisting}[style=pythonstyle, caption={Equivalent \gls{pygen} code to specify the model horizon and time slices.}, label={code:python}, floatplacement=H]
-start_year = 2025  # the first year optimized by the model
-end_year = 2050  # the last year optimized by the model
-N_years = 6  # the number of years optimized by the model
-N_seasons = 4 # the number of "seasons" in the model
-N_hours = 24  # the number of hours in a day
-\end{lstlisting}
-
-
 
 
 \subsubsection{Time-Series Processing}

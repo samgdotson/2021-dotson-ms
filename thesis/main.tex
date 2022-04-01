@@ -86,7 +86,10 @@
 \usepackage{multirow}
 \usepackage{geometry}
 \usepackage{pdflscape}
+\usepackage{lscape}
+\usepackage{array}
 \usepackage{siunitx}
+\usepackage{rotating}
 \sisetup{
     input-decimal-markers = .,input-ignore = {,},table-number-alignment = right,
     group-separator={,}, group-four-digits = true
@@ -194,8 +197,8 @@
 % \chapter{Introduction}
 % \input{introduction}
 %
-\chapter{Literature Review}
-\input{litrev}
+% \chapter{Literature Review}
+% \input{litrev}
 %
 % \chapter{Methods and Data}
 % \label{chapter:methods}
@@ -206,14 +209,15 @@
 % \input{il_case_study/il_results}
 %
  % \chapter{Case Study II: Emissions-Free Microgrid at UIUC}
+% \label{chapter:uiuc}
  % \input{uiuc_case_study/uiuc_results}
 
 % \chapter{Conclusions}
 % \input{conclusion}
 
 %
-% \chapter*{Appendix}
-% \input{appendix}
+\chapter*{Appendix}
+\input{appendix}
 %
 \backmatter
 

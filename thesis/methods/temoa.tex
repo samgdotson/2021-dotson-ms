@@ -5,22 +5,23 @@ The key benefits of \gls{temoa} are its open-source code, data, and built-in
 uncertainty analysis capabilities. These features reflect the need for greater
 transparency in \gls{esom} modeling and robust assessment of future uncertainties
 \cite{hunter_modeling_2013}. One of the critical limitations of \glspl{esom} is that
-they are inherently unverifiable. By making the data and source code open,
-\gls{temoa} facilitates repeatability. ``The evidence for integrity is transparency''
-\cite{decarolis_case_2012}. To that end, \gls{temoa} models should be solvable
-with open-source linear programming solvers like \texttt{COIN-OR} \cite{noauthor_coin-or_nodate} or \texttt{GLPK} \cite{noauthor_glpk_nodate}. In this thesis, I used the
+the nature of the systems they are intended to model make them inherently
+unverifiable. By making the data and source code open,
+\gls{temoa} facilitates repeatability and its transparency provides evidence for
+model integrity.
+\cite{decarolis_case_2012}. To that end, along with open source-code and open data,
+\gls{temoa} models should be solvable
+with open-source linear programming solvers like \texttt{COIN-OR} \cite{noauthor_coin-or_nodate} or \texttt{GLPK} \cite{noauthor_glpk_nodate}. I used the
 \texttt{CBC} solver from \texttt{COIN-OR} \cite{noauthor_cbc_2021} in this thesis.
 Another benefit of \gls{temoa} is its flexibility.
-The tool is technology agnostic and is only concerned with flows and transformations
-of commodities. User-defined time slices allow modelers to run a model, in theory,
-at an arbitrarily high time resolution, restricted only by data availability and
-computational resources. de Quieroz et al. (2019) used \gls{temoa} to run a
-pseudo-unit commitment model to bridge the gap between the low time resolution,
-multi-decadal horizons of \glspl{esom}, and the high time resolution, month-long
-horizons of unit commitment models \cite{de_queiroz_repurposing_2019}.
+The tool is technology agnostic and is designed to model flows and transformations
+of commodities created by users.
+User-defined time slices allow modelers to run a model at an arbitrarily high
+time resolution, restricted only by data availability and computational resources.
 
 \subsection{Mathematics of Temoa}
-
+\glspl{esom} like \gls{temoa} use linear programming to optimize an objective
+function, in most cases the objective function represents total system cost.
 A single \gls{temoa} run minimizes the following objective function \cite{noauthor_preface_nodate},
 
 \begin{align}
@@ -30,7 +31,8 @@ A single \gls{temoa} run minimizes the following objective function \cite{noauth
   C_{fixed} &= \text{the sum of all fixed operating costs},\nonumber\\
   C_{variable} &= \text{the sum of all variable operating costs}.\nonumber
 \end{align}
-The most complicated of these terms is $C_{loans}$, which is calculated by,
+Each term in $C_{total}$ has a mathematical expression but the most complicated
+of these terms is $C_{loans}$, which is calculated by,
 \begin{align}
   C_{loans} &= \sum_{t,v \in \Theta_{IC}}{\left(\left[IC_{t,v}\cdot LA_{t,v} \cdot \frac{(1+GDR)^{P_0-v+1}\cdot (1-(1+GDR)^{-LLN_{t,v}})}{GDR} \cdot \frac{1-(1+GDR)^{-LPA_{t,v}}}{1-(1+GDR)^{-LP_{t,v}}}\right] \cdot \textbf{CAP}_{t,v}\right)}
   \intertext{where}
@@ -60,35 +62,36 @@ Some work suggests that a high discount rate may encourage capital-intensive pro
 decarolis_modelling_2016}, but the effect of hurdle rates is beyond the scope of
 this thesis. This objective function is also subject to various constraints that
 guarantee energy demands are met at all times and, if specified, ensures respect
-of capacity and emissions limits. The details of these constraints are available
-at \href{https://temoacloud.com/temoaproject/Documentation.html#the-math-behind-temoa}{temoacloud.com}.
+of capacity and emissions limits. The details of these constraints and the
+mathematical expressions for the other cost terms are available online
+\cite{noauthor_preface_nodate}.
 
 \subsubsection{Modeling-to-Generate-Alternatives}
 \gls{mga} enables systematic evaluation of structural uncertainty by probing
 near-optimal decision space. \gls{temoa} uses the Hop-Skip-Jump (HSJ) algorithm for
 \gls{mga}. The steps for HSJ are \cite{decarolis_modelling_2016}:
 \begin{enumerate}
-  \item Obtain an optimal solution by any method.
+  \item Obtain an optimal solution by any method,
   \item Add a user-specified amount of slack to the objective function value from the
-  first step.
-  \item Use the adjusted objective function value as an upper bound constraint.
+  first step,
+  \item Use the adjusted objective function value as an upper bound constraint,
   \item Generate a new objective function that minimizes the sum of all decision
-  variables.
-  \item Iterate the procedure.
+  variables,
+  \item Iterate the procedure,
   \item Stop the \gls{mga} when no significant changes are observed.
 \end{enumerate}
 The mathematical formulation of this algorithm is:
 \begin{align}
   \intertext{Minimize:}
-  p &= \sum_{k\in K} x_k
+  p &= \sum_{k\in K} x_k,
   \intertext{Subject to:}
-  f_j\left(\vec{x}\right) &\leq T_j \forall j\\
-  \vec{x}&\in X
+  f_j\left(\vec{x}\right) &\leq T_j \forall j\\,
+  \vec{x}&\in X,
   \intertext{where}
-  p &= \text{the new objective function}\nonumber\\
-  x_k &= \text{the $k^{th}$ decision variable with a nonzero value in previous solutions}\nonumber\\
-  f_j\left(\vec{x}\right) &= \text{the $j^{th}$ original objective function} \nonumber\\
-  T_j &= \text{the slack-adjusted target value}\nonumber\\
+  p &= \text{the new objective function}\nonumber\\,
+  x_k &= \text{the $k^{th}$ decision variable with a nonzero value in previous solutions}\nonumber\\,
+  f_j\left(\vec{x}\right) &= \text{the $j^{th}$ original objective function} \nonumber\\,
+  T_j &= \text{the slack-adjusted target value}\nonumber\\,
   X &= \text{the set of all feasible solutions}.\nonumber
 \end{align}
 This procedure results in a small set of maximally different solutions for
@@ -100,16 +103,18 @@ expediency or social acceptance.
 \label{section:naive-example}
 
 This example illustrates the influence of both structural and parametric uncertainties
-and how \gls{mga} probes decision space. As discussed in Section \ref{section:ceja},
+and how \gls{mga} probes decision space. I include this example to give an intuition
+for the results in presented in Chapter \ref{chapter:illinois} and Chapter
+\ref{chapter:uiuc}. As discussed in Section \ref{section:ceja},
 the \gls{ceja} bill promises to make Illinois' electric grid 100\% clean energy
 by 2030. According to the Illinois Clean Jobs Coalition, 6.3 GW of additional wind energy
 capacity and 17 GW of solar capacity should be enough to achieve this goal while
 meeting Illinois' electricity demand \cite{the_accelerate_group_clean_2019}. The
 Illinois Clean Jobs Coalition implicitly assumes the following:
 \begin{enumerate}
-  \item All of Illinois' existing nuclear fleet will be operating in 2030.
-  \item All fossil fuel plants will be replaced by wind or solar energy in 2030.
-  \item Stagnant electricity demand.
+  \item All of Illinois' existing nuclear fleet will be operating in 2030,
+  \item All fossil fuel plants will be replaced by wind or solar energy in 2030,
+  \item Stagnant electricity demand,
   \item Zero electricity exports. Illinois currently exports approximately 24\%
   of its total generation \cite{energy_information_administration_eia_nodate}.
 \end{enumerate}
@@ -118,32 +123,34 @@ nuclear power \cite{energy_information_administration_eia_nodate}.
 Formulated as a linear programming problem, Illinois must:
 \begin{align}
   \intertext{Minimize:}
-  C_{total} &= C_s x_1 + C_w x_2
+  C_{total} &= C_s x_s + C_w x_w
   \intertext{Subject to:}
-  D &\leq \left[CF_s x_1 + CF_w x_2\right]\cdot8.76
+  D &\leq \left[CF_s x_s + CF_w x_w\right]\cdot8.76
   \intertext{where}
-  x_1 &= \text{capacity of solar (first decision variable), $\left[GW\right]$}\nonumber\\
-  x_2 &= \text{capacity of wind (first decision variable), $\left[GW\right]$}\nonumber\\
-  C_s &= \text{cost of solar $\approx 8.11$ $\left[\frac{B\$}{GW}\right]$} \nonumber\\
-  C_w &= \text{cost of wind $\approx 1.411$ $\left[\frac{B\$}{GW}\right]$}\nonumber\\
-  CF_s &= \text{capacity factor of solar $\approx 0.2$, $\left[\%\right]$}  \nonumber\\
-  CF_w &= \text{capacity factor of wind, $\approx 0.35$ $\left[\%\right]$}  \nonumber\\
-  D &= \text{remaining electricity demand $\approx 39.3$ $\left[TWh\right]$}\nonumber
+  x_s &= \text{capacity of solar (first decision variable), $\left[GW\right]$}\nonumber\\
+  x_w &= \text{capacity of wind (first decision variable), $\left[GW\right]$}\nonumber\\
+  C_s &= \text{cost of solar, $\left[\frac{B\$}{GW}\right]$} \nonumber\\
+  C_w &= \text{cost of wind, $\left[\frac{B\$}{GW}\right]$}\nonumber\\
+  CF_s &= \text{capacity factor of solar,  $\left[\%\right]$}  \nonumber\\
+  CF_w &= \text{capacity factor of wind, $\left[\%\right]$}  \nonumber\\
+  D &= \text{remaining electricity demand, $\left[TWh\right]$}\nonumber\\
+  8.76 &= \text{a factor that converts power in GW to energy in TWh}\nonumber.
 \end{align}
-Table \ref{tab:naive} summarizes the data for this toy problem. The capacity factor (CF)
-is the ratio of energy produced by a generator and the energy it could have produced
-if it operated 100\% of the time. CF is given by,
+The capacity factor (CF)
+is the ratio of energy produced by a generating technology and the energy it could
+have produced if it operated 100\% of the time. CF is given by,
 \begin{align}
   CF &= \frac{E_{tot}}{P_{np}*8.76}
   \intertext{where}
   E_{tot} &= \text{the total energy produced in a given year, $\left[TWh\right]$} \nonumber\\
-  P_{np} &= \text{the nameplate capacity of a generator, $\left[GW\right]$}\nonumber\\
-  8.76 &= \text{a factor that converts power in GW to energy in TWh}\nonumber.
+  P_{np} &= \text{the nameplate capacity of a generator, $\left[GW\right]$}\nonumber.
 \end{align}
+
+Table \ref{tab:naive} summarizes the data for this toy problem.
 
 \begin{table}[H]
   \centering
-  \caption{Summary of Solar and Wind Data}
+  \caption{Summary of Solar and Wind Data for the ``Na\"{i}ve Pathway"}
   \label{tab:naive}
   \resizebox{0.75\textwidth}{!}{
   \input{methods/naive_ceja}
@@ -154,8 +161,9 @@ This linear problem only has two decision variables, solar and wind capacity,
 which makes it graphically solvable. Figure \ref{fig:mga-fig} shows the optimal
 solution and one \gls{mga} iteration. As well as the \gls{ceja} goals for reference.
 Every point above the demand constraint represents a feasible solution since those
-combinations of solar and wind can meet annual electricity demand. The \gls{ceja} goals
-are well within the feasible region but highly sub-optimal.
+combinations of solar and wind can meet annual electricity demand.
+Points above the ``demand constraint'' line, represent an excess of total capacity. 
+The \gls{ceja} goals are well within the feasible region but highly sub-optimal.
 This amount of capacity suggests the energy could be exported, curtailed, or stored,
 which are unmodeled, structural uncertainties, in this formulation.
 The optimal solution minimizes the total cost and lies at the intersection
@@ -209,15 +217,17 @@ tested \cite{yue_review_2018}.
   renewable energy, for reference.}
   \label{fig:param-fig}
 \end{figure}
-Considering the optimal mixture of wind and solar to achieve Illinois' clean
-energy goals, in this manner, and comparing it to current policy trivializes the
-problem.
+
+This example illustrates the \gls{mga} method and shows how the optimal space
+expands under parametric uncertainties.
+Although a useful demonstration, considering the optimal mixture of wind and solar
+to achieve Illinois' clean energy goals, in this manner, and comparing it to
+current policy oversimplifies the problem.
 Many features of energy systems are not captured in this simple formulation,
 such as the availability of solar power, need for backup or energy storage when
 the weather fails, and other clean technology options. Thus \glspl{esom} are necessary.
-However, this example illustrates the \gls{mga} method and shows how the optimal space
-expands under parametric uncertainties.
 
 In the following case studies, I apply \gls{mga} to explore near-optimal solutions
-for the \gls{uiuc} energy system and study the sensitivity of Illinois' grid to
-wind and solar capacity factor profiles and time resolution.
+for the \gls{uiuc} energy system in Chapter \ref{chapter:uiuc} and study the
+sensitivity of Illinois' grid to wind and solar capacity factor profiles and time
+resolution in Chapter \ref{chapter:illinois}.

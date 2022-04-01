@@ -3,7 +3,9 @@ and straddles two interconnections: \gls{miso} and PJM
 \cite{energy_information_administration_eia_nodate}. The recent
 passage of the CEJA bill commits Illinois to a policy of carbon-free electricity
 by 2030 and 100\% renewable energy by 2050 \cite{harmon_climate_2021}.
-I modeled a simplified version of the Illinois electric grid using \gls{temoa}.
+I modeled a simplified version of the Illinois electric grid using \gls{temoa}
+to evaluate different policy futures and investigate the influence of inter-year
+temporal variability on model results.
 
 \begin{figure}[H]
   \centering
@@ -20,10 +22,12 @@ simple since there are only ten different technologies, one region, and one
 end-use commodity.
 
 The demand curve for the \texttt{ELC\_DEMAND} commodity uses hourly load
-data from the PJM Interconnection. Figure \ref{fig:pjm-elc} shows the historical
-electricity demand for PJM and the associated load curve. These data inform the
-distribution of annual demand in the \gls{temoa} model, which is scaled by the
-total annual demand.
+data from the PJM Interconnection. A large fraction of Illinois' population lives
+within PJM, but due to the significant spatial aggregation of both MISO and PJM,
+using data for the latter was largely arbitrary. Figure \ref{fig:pjm-elc} shows
+the historical electricity demand for PJM and the associated load curve. These
+data inform the distribution of annual demand in the \gls{temoa} model, which is
+scaled by the total annual demand.
 
 \begin{figure}[H]
   \centering
@@ -36,9 +40,27 @@ total annual demand.
 \subsection{Scenarios}
 I consider four scenarios in the Illinois case study. Each scenario forces
 all carbon emissions from the electric sector to zero in 2030. This constraint
-reflects Illinois' current policy goal of 100\% clean electricity by 2030 \cite{office_of_governor_jb_pritzker_gov_2021}.
-Further, each scenario adds a new constraint on nuclear energy in Illinois. Table
-\ref{tab:il-scenarios} summarizes these constraints.
+reflects Illinois' current policy goal of 100\% clean electricity by 2030
+\cite{office_of_governor_jb_pritzker_gov_2021}.
+Further, each scenario adds a new constraint on nuclear energy in Illinois to
+simulate different energy policies. Table \ref{tab:il-scenarios} summarizes these
+constraints.
+
+In the ``least cost'' scenario, all modeled technology options are available,
+including advanced nuclear. This simulates a future where the moratorium on
+new nuclear builds is lifted and the costs of advanced nuclear plants are
+consistent with the projections from \gls{nrel} \cite{nrel_2020_2020}.
+The ``zero advanced nuclear'' scenario simulates the Illinois moratorium on new nuclear
+power plants. The moratorium stipulates that no new nuclear reactors may be
+commissioned in Illinois unless the United States Government offers a means to
+dispose of high-level nuclear waste or by specific approval from the Illinois
+General Assembly \cite{shea_states_2021}. The ``expensive nuclear'' scenario
+simulates the \textit{expectation} of significant cost overruns for \textit{every}
+new reactor build by doubling the capital cost for new builds, without explicitly
+prohibiting advanced reactors. Finally, the ``100\% renewable'' (nuclear phaseout)
+scenario reflects current Illinois policy to have 100\% renewable energy, as
+written in the \gls{ceja} bill \cite{harmon_climate_2021}. This policy implicitly
+requires the retirement of all existing Illinois nuclear plants.
 
 \begin{table}[H]
   \centering
@@ -47,7 +69,8 @@ Further, each scenario adds a new constraint on nuclear energy in Illinois. Tabl
   \resizebox{\columnwidth}{!}{
   \begin{tabular}{lrrrrr}
     \toprule
-    Name & Abbreviation & Time Horizon & Zero Emissions Year& Linear Growth Rate & Note\\
+    Name & Abbreviation & Time Horizon & Zero Emissions Year& Linear Growth Rate & Nuclear
+    Constraint\\
     \midrule
     Least Cost & LC & 2025-2050 & 2030& 1.0\% & All technology options available\\
     Zero Advanced Nuclear  &ZAN &2025-2050 & 2030& 1.0\% & Advanced nuclear is explicitly disallowed\\
@@ -58,17 +81,6 @@ Further, each scenario adds a new constraint on nuclear energy in Illinois. Tabl
   }
 \end{table}
 
-The ``zero advanced nuclear'' scenario simulates the Illinois moratorium on new nuclear
-power plants. The moratorium stipulates that no new nuclear reactors may be
-commissioned in Illinois unless the United States Government offers a means to
-dispose of high-level nuclear waste or by specific approval from the Illinois
-General Assembly \cite{shea_states_2021}. The ``expensive nuclear'' scenario
-simulates the \textit{expectation} of significant cost overruns for \textit{every}
-new reactor build. Finally, the ``100\% renewable'' (nuclear phaseout) scenario reflects
-current Illinois policy to have 100\% renewable energy, as written in the \gls{ceja} bill
-\cite{harmon_climate_2021}. This policy implicitly requires the retirement of
-all existing Illinois nuclear plants.
-
 \subsection{Model and Data}
 
 Table \ref{tab:il-tech} summarizes the technologies and some key parameters
@@ -76,16 +88,17 @@ used in the \gls{temoa} model. All technologies have an ``efficiency'' of unity
 because fuel resources are unmodeled. The variable costs
 include variable operating and management costs and the cost of fuel. \gls{temoa}
 implements technology ramp rates to improve operational detail and partially
-close the gap between \glspl{esom} and unit-commitment models \cite{de_queiroz_repurposing_2019}.
+close the gap between \glspl{esom} and unit-commitment models, which are more
+technologically detailed \cite{de_queiroz_repurposing_2019}.
 Ramp rates limit the change in power output between time slices. For example,
 \texttt{NUCLEAR\_ADV} has a 25\% ramp rate and can increase or decrease
 its power output by 25\% per hour, allowing for modest load-following capability
 \cite{baseload_2017,lokhov_technical_2011}. ``LC'' indicates that a technology's cost
-uses learning curves from NREL's 2020 Annual Technology Baseline \cite{nrel_2020_2020}.
+uses learning curves from \gls{nrel}'s 2020 Annual Technology Baseline \cite{nrel_2020_2020}.
 Figure \ref{fig:fix_costs} and Figure \ref{fig:cap_costs} show the learning curves
 for fixed costs and capital costs, respectively.
 
-\begin{table}[H]
+\begin{sidewaystable}
   \centering
   \caption{Summary of Technologies and Parameters in the Illinois model}
   \label{tab:il-tech}
@@ -93,31 +106,39 @@ for fixed costs and capital costs, respectively.
   % \input{/home/sdotson/research/2021-dotson-ms/thesis/methods/uiuc_tech.tex}
   \input{methods/il_tech}
   } % end resize box
-\end{table}
+\end{sidewaystable}
 
-% \begin{figure}[H]
-%   \centering
-%   \resizebox{0.8\textwidth}{!}{\input{figures/capital_cost_lc.pgf}}
-%   \caption{Capital cost learning curves for various technologies.}
-%   \label{fig:capital-cost}
-% \end{figure}
 
 \begin{figure}[H]
-  \begin{minipage}{0.48\textwidth}
-    \captionsetup{type=figure}
-    \centering
-    \resizebox{\columnwidth}{!}{\input{figures/fixed_cost_lc.pgf}}
-    \caption[]{Fixed cost learning curve \cite{nrel_2020_2020}.}
-    \label{fig:fix_costs}
-  \end{minipage}
-  \begin{minipage}{0.48\textwidth}
-    \captionsetup{type=figure}
-    \centering
-    \resizebox{\columnwidth}{!}{\input{figures/capital_cost_lc.pgf}}
-    \caption[]{Capital cost learning curve \cite{nrel_2020_2020}.}
-    \label{fig:cap_costs}
-  \end{minipage}
+  \centering
+  \resizebox{0.6\textwidth}{!}{\input{figures/capital_cost_lc.pgf}}
+  \caption{Capital cost learning curves for various technologies.}
+  \label{fig:capital-cost}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.61\columnwidth}{!}{\input{figures/fixed_cost_lc.pgf}}
+    \caption{Fixed cost learning curve \cite{nrel_2020_2020}.}
+    \label{fig:fix_costs}
+\end{figure}
+
+% \begin{figure}[H]
+%   \begin{minipage}{0.48\textwidth}
+%     \captionsetup{type=figure}
+%     \centering
+%     \resizebox{\columnwidth}{!}{\input{figures/fixed_cost_lc.pgf}}
+%     \caption[]{Fixed cost learning curve \cite{nrel_2020_2020}.}
+%     \label{fig:fix_costs}
+%   \end{minipage}
+%   \begin{minipage}{0.48\textwidth}
+%     \captionsetup{type=figure}
+%     \centering
+%     \resizebox{\columnwidth}{!}{\input{figures/capital_cost_lc.pgf}}
+%     \caption[]{Capital cost learning curve \cite{nrel_2020_2020}.}
+%     \label{fig:cap_costs}
+%   \end{minipage}
+% \end{figure}
 
 % \begin{figure}[H]
 %   \begin{minipage}{0.5\textwidth}
@@ -233,6 +254,7 @@ the saturation vapor pressure of water, $e_s$.
   % \intertext{Air density can be calculated using temperature, the vapor pressures
   % of water and air. A form of the  August-Roche-Magnus formula approximates
   % the saturation vapor pressure of water.}
+
   \begin{align}
   \rho &= \frac{P_{dry}}{R_{dry}T} + \frac{P_{vapor}}{R_{vapor}T}, \\
   R_{dry}&= \text{specific gas constant for dry air $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
@@ -249,7 +271,8 @@ the saturation vapor pressure of water, $e_s$.
   % \intertext{Additionally, the wind speed measurements were taken at two-meters
   % above the ground. The wind speed at the hub height is estimated by,}
 \begin{align}
-  U &= v_{ref}\frac{\ln\left(\frac{z}{z_0}\right)}{\ln\left(\frac{z_{ref}}{z_0}\right)}\\
+  U &= v_{ref}\frac{\ln\left(\frac{z}{z_0}\right)}{\ln\left(\frac{z_{ref}}{z_0}\right)}
+  \intertext{where}
   v_{ref} &= \text{wind speed at measured height$\left[\frac{m}{s}\right]$}\nonumber\\
   z_0 &= \text{roughness length [m]}\nonumber\\
   &\approx 0.12\nonumber\\
@@ -260,11 +283,13 @@ the saturation vapor pressure of water, $e_s$.
 After calculating theoretical wind power generation from wind speed data, the
 data are passed to \gls{pygen} and used as a capacity factor. I permuted the
 eleven years of wind speed and solar radiation data to generate a total of 121
-unique scenarios that capture the annual variability of solar and wind. The
-choice to use a limited set of historical data to generate a broader set of
-scenarios is justified since wind speed and \gls{ghi} are highly uncorrelated.
-Figure \ref{fig:solar-wind-corr} shows a heatmap of correlations among various
-weather parameters.
+unique scenarios that capture the annual variability of solar and wind. I used
+the Pearson statistic to measure the correlation among weather parameters. A
+value of +1.0 indicates a perfect positive correlation and a value of -1.0
+indicates a perfect negative correlation.
+The choice to use a limited set of historical data to generate a broader set of
+scenarios is justified since wind speed and \gls{ghi} are highly uncorrelated as
+shown in Figure \ref{fig:solar-wind-corr}.
 
 \begin{figure}[H]
   \centering
@@ -275,7 +300,9 @@ weather parameters.
 \end{figure}
 
 Table \ref{tab:capfac} lists the average annual capacity factors for solar energy
-and a hypothetical wind farm at the site of \gls{uiuc}'s Solar Farm 1.0.
+and a hypothetical wind farm at the site of \gls{uiuc}'s Solar Farm 1.0. The
+variability in mean capacity factors suggests a need for incorporating inter-year
+changes in resource availability.
 
 \begin{table}[H]
   \centering

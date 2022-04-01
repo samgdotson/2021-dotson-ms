@@ -1,0 +1,68 @@
+Climate change is a monumental problem with devastating consequences for the future.
+A lack of strong federal policy in the United States means it is up to individual
+states and entities to develop energy and environmental policies to combat climate
+change. Fortunately, the State of Illinois and its flagship university, \gls{uiuc},
+developed their own commitments with the Climate and Equitable Jobs Act and
+the Illinois Climate Action Plan, respectively. These plans call for changes
+to energy production in Illinois and at \gls{uiuc} but lack effective measures
+to meet the affordability, reliability, and sustainability requirements for sound
+energy policy. This thesis used \gls{temoa} and \gls{pygen} to evaluate these
+plans and make recommendations for the future.
+
+\section{Contributions}
+
+\gls{esom} studies attempt to answer: How much capacity is enough? While
+ensuring energy is available on-demand (reliability), that consumers are not
+burdened by costs (affordability), and that pursuing a particular energy policy
+does not restrict future generations' ability to meet their needs (sustainability).
+Of course, this question can never be answered exactly due to ambiguities and deep
+uncertainties about the future. Instead, \glspl{esom} offer a range of possible answers
+using various tools to clarify these uncertainties. Most frequently, the varied
+parameters in a given uncertainty analysis are technology
+costs or fuel prices. The influence of time resolution, part of an \gls{esom}'s
+structure, only recently became a feature of interest. How model results change
+due to annual weather variability is almost totally absent from the literature.
+This thesis introduced the \gls{pygen} tool to facilitate temporal sensitivity
+analysis and fill this gap in the literature. The Illinois case study in this thesis
+demonstrated that capability by varying wind and solar energy capacity factors.
+As well as varying the model's time resolution. The sensitivity to time resolution
+showed that using too few time-slices does not capture enough of the true variability
+of solar and wind energy. At these coarse levels, wind energy's role is overstated,
+and the role of clean firm capacity is significantly understated. In the fully
+time-resolved scenarios, advanced nuclear reactors generate a significant fraction
+of Illinois' electricity, even when the capital cost for these new reactors doubled
+to simulate severe cost overruns. The sensitivity analysis over renewable resource
+availability demonstrated that energy systems that depend primarily on firm
+capacity, such as advanced nuclear reactors, are the most robust to annual renewable
+resource variability. Conversely, energy systems with a high penetration of intermittent
+and variable energy sources are susceptible to significant uncertainties in both cost
+and reliability. Ultimately, the results of this case study showed that \gls{ceja}
+is insufficient for meeting Illinois' energy and climate goals.
+
+\gls{uiuc}'s \gls{icap} report committed the University to net-zero carbon emissions
+by 2050. That report identified a need for clean thermal energy but lacked any
+discussion on achieving that goal. The \gls{uiuc} case study presented
+in this thesis identifies nuclear energy as a solution to the campus' need for
+carbon-free thermal power.
+
+\section{Recommendations}
+
+All of the models studied in this work were developed with \gls{pygen}. This
+software leverages object-oriented programming to aid model creation, sensitivity
+analyses, and external verification. Since modelers can use \gls{pygen} to adjust
+the temporal resolution of their models for free, modelers should use a
+low time resolution during the development stage and then use the highest
+computationally-tractable time resolution for sensitivity analyses and final
+results.
+
+\section{Suggested Future Work}
+
+This thesis focused on the effects of intra- and inter-annual variability on model
+results and performance. Only one temporal aggregation technique was applied (averaging),
+and there was no spatial resolution. Future work should investigate more efficient
+temporal aggregation methods, such as those proposed by Kotzur et a. 2018
+\cite{kotzur_impact_2018}. Additionally, future studies should examine the influence
+of spatial resolution and different spatial aggregation techniques, as well as
+the tradeoffs between spatial and temporal complexity. \gls{pygen} should be used
+to create models in future work to support third-party verification and replication,
+two pillars of open science.

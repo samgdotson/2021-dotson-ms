@@ -1,18 +1,43 @@
-This chapter presents the results of the Illinois case study. In all cases, the
-energy system produces zero carbon emissions by 2030, consistent with the Illinois
-government's stated policy goals
-\cite{harmon_climate_2021,office_of_governor_jb_pritzker_gov_2021}.
+This chapter presents the results of the Illinois case study.These simulations
+consider the influence intra- and inter-year variability of renewable resources.
+In all cases, the energy system produces zero carbon emissions by 2030,
+consistent with the Illinois government's stated policy goals
+\cite{harmon_climate_2021,office_of_governor_jb_pritzker_gov_2021}. The table
+below is a recreation of Table \ref{tab:il-scenarios}, and describes the
+scenarios used in the following experiments.
+
+\begin{table}[H]
+  \centering
+  \caption{Summary of Illinois Case Study Scenarios}
+  \resizebox{\columnwidth}{!}{
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Name & Abbreviation & Time Horizon & Zero Emissions Year& Linear Growth Rate & Nuclear
+    Constraint\\
+    \midrule
+    Least Cost & LC & 2025-2050 & 2030& 1.0\% & All technology options available\\
+    Zero Advanced Nuclear  &ZAN &2025-2050 & 2030& 1.0\% & Advanced nuclear is explicitly disallowed\\
+    Expensive Advanced Nuclear & XAN & 2025-2050 & 2030& 1.0\% & Advanced nuclear capital costs doubled\\
+    100\% Renewable & ZN &  2025-2050 &2030& 1.0\% & Nuclear energy is explicitly phased-out by 2050\\
+    \bottomrule
+  \end{tabular}
+  }
+\end{table}
+
+
 \section{Sensitivity to Time Resolution}
 \label{section:time_res}
 
 First, I examined the influence of time resolution on model results for four
-unique scenarios. Table \ref{tab:time-slices} describes the total number of
-time-slices in each model run.
+unique scenarios. The table below, which is a replication of  Table \ref{tab:time-slice},
+describes the total number of time-slices in each model run.
+The sensitivity to time resolution reflects the sensitivity to \textit{intra-year}
+variability.
 
 \begin{table}[H]
   \centering
   \caption{Summary of Time-slices}
-  \label{tab:time-slices}
+  % \label{tab:time-slices}
   \begin{tabular}{lrrr}
     \toprule
     Title & Hours & Seasons & Time-slices \\
@@ -24,13 +49,14 @@ time-slices in each model run.
     \bottomrule
   \end{tabular}
 \end{table}
-The sensitivity to time resolution reflects the sensitivity to \textit{intra-year}
-variability.
+
 
 \subsection{Least Cost Scenario}
 
-There are no technology constraints in the ``Least Cost'' scenario, shown in Figure \ref{fig:time_res_LC}. When the model uses only 96 time-slices,
-the results show that Illinois' cheapest path to net-zero electricity uses
+The \gls{LC} scenario, shown in Figure \ref{fig:time_res_LC}, has no
+technology constraints. When the model uses only 96 time-slices --- the lowest
+resolution simulated --- the results show that Illinois' cheapest path to net-zero
+electricity uses
 only solar, wind, and battery storage to replace fossil fuels. This path includes
 a significant over-build of wind and solar capacity that is either stored
 or curtailed. The combined penetration (the fraction of total generation)
@@ -38,10 +64,11 @@ of solar, wind, and storage, reaches almost 60\% in this model run. The installe
 capacity of solar and wind are comparable. Notably, the battery storage
 required to ensure grid reliability in this scenario is 14.5 GW of power with
 a 4-hour duration by 2030. This battery capacity exceeds California's current
-battery capacity thirtyfold \cite{hutchins_us_2021}.
+battery capacity thirtyfold \cite{hutchins_us_2021}. More battery storage is
+required by 2050. This simulation builds the most total capacity.
 
-With a slightly improved time resolution, 288 time-slices, the cheapest pathway
-for net-zero electricity includes a modest addition of advanced nuclear capacity.
+With an increase in time resolution, 288 time-slices, the cheapest pathway
+for net-zero electricity includes some advanced nuclear capacity.
 Due to the assumed high capacity factor of advanced nuclear, the penetration of
 solar and wind decreases by almost half. The addition of advanced nuclear also significantly
 reduces battery storage requirements. Further, wind power's share of installed renewable
@@ -52,7 +79,11 @@ capacity drops from half to a third.
   \resizebox{0.95\columnwidth}{!}{\input{figures/time_resolution_plot_LC.pgf}}
   \caption{Impact of time resolution on the least cost results. Each year has four bars where
   each bar represents a different time resolution. Left to right, the time resolutions are: 4
-  seasons, 12 months, 52 weeks, 365 days.}
+  seasons, 12 months, 52 weeks, 365 days.
+  The left column shows the installed capacity and the right column shows the
+  total generation. The top row plots the absolute numbers in either GW or TWh
+  and the bottom row shows the relative penetration of each technology as a
+  percentage of the total capacity or generation, respectively.}
   \label{fig:time_res_LC}
 \end{figure}
 
@@ -74,28 +105,32 @@ required.
 
 \subsection{Expensive Nuclear and Zero Advanced Nuclear Scenarios}
 
-Figure \ref{fig:time_res_ZAN} and Figure \ref{fig:time_res_XN} show the sensitivities of
-``Expensive Nuclear'' and ``Zero Advanced Nuclear'' scenarios to time resolution.
-The results are identical for these two scenarios at time resolutions less than
+Figure \ref{fig:time_res_ZAN} and Figure \ref{fig:time_res_XAN} show the sensitivities of
+\gls{XAN} and \gls{ZAN} scenarios to time resolution.
+The results are identical for these two scenarios at time resolutions less a than
 full year because doubling the capital cost of advanced nuclear has an effect similar
 to explicitly prohibiting it in these scenarios.
 There are three noticeable trends shared by Figure \ref{fig:time_res_ZAN} and Figure
-\ref{fig:time_res_XN} for the first three time resolutions.
+\ref{fig:time_res_XAN} for the first three time resolutions.
  First, the total capacity and generation increase as time resolution improves.
 Second, the share of renewable capacity from wind decreases with improved time resolution.
 Third, necessary battery storage increases significantly with a greater number of time-
 slices. These trends appear because higher temporal resolutions capture more
 variability in solar and wind resources. Additionally, the model installed 1.5 GW
 of biomass-fired power plants at a weekly resolution. Although scarcely used,
-this capacity served as a back-up when renewable sources and stored energy were
-insufficient.
+this capacity served as a back-up when renewable sources and stored energy from
+batteries were insufficient.
 
 \begin{figure}[H]
   \centering
   \resizebox{0.95\columnwidth}{!}{\input{figures/time_resolution_plot_ZAN.pgf}}
   \caption{Impact of time resolution on the zero advanced nuclear scenario.
   Each year has four bars where each bar represents a different time resolution.
-  Left to right, the time resolutions are: 4 seasons, 12 months, 52 weeks, 365 days.}
+  Left to right, the time resolutions are: 4 seasons, 12 months, 52 weeks, 365 days.
+  The left column shows the installed capacity and the right column shows the
+  total generation. The top row plots the absolute numbers in either GW or TWh
+  and the bottom row shows the relative penetration of each technology as a
+  percentage of the total capacity or generation, respectively.}
   \label{fig:time_res_ZAN}
 \end{figure}
 \begin{figure}[H]
@@ -103,25 +138,35 @@ insufficient.
   \resizebox{0.95\columnwidth}{!}{\input{figures/time_resolution_plot_XN.pgf}}
   \caption{Impact of time resolution on the expensive nuclear scenario.
   Each year has four bars where each bar represents a different time resolution.
-  Left to right, the time resolutions are: 4 seasons, 12 months, 52 weeks, 365 days.}
-  \label{fig:time_res_XN}
+  Left to right, the time resolutions are: 4 seasons, 12 months, 52 weeks, 365 days.
+  The left column shows the installed capacity and the right column shows the
+  total generation. The top row plots the absolute numbers in either GW or TWh
+  and the bottom row shows the relative penetration of each technology as a
+  percentage of the total capacity or generation, respectively.}
+  \label{fig:time_res_XAN}
 \end{figure}
 
-These two scenarios diverge dramatically when simulated with a full year of hourly
-resolution. The ZAN scenario continues on the same trajectory as before: more total capacity
-and less wind penetration. However, biomass plays
+These two scenarios diverge when simulated with a full year of hourly
+resolution. The \gls{ZAN} scenario continues on the same trajectory as before:
+more total capacity and less wind penetration. However, biomass plays
 a significant role in providing baseload power at this fine temporal resolution.
-The XN scenario introduces advanced nuclear reactor and biomass power plants, and
+The \gls{XAN} scenario, illustrate in Figure \ref{fig:time_res_XAN} introduces
+advanced nuclear reactor and biomass power plants, and
 thus the total capacity drops significantly.  This new nuclear capacity, along
 with biomass, displaces much of the
 renewable energy capacity. The difference between them is exclusively the policy
-towards advanced nuclear technology. This difference appears slight since the less
-time-resolved simulations were identical and the two policies function as obstacles
+towards advanced nuclear technology. This difference appears slight since the coarse
+time resolution simulations were identical and the two policies function as obstacles
 towards developing a new nuclear fleet. However, the small difference in policies
-led to significant changes in capacity expansion.
+led to significant changes in capacity expansion as the time resolution increased.
+In both of these scenarios, the finest time resolution indicates a significant
+role for dispatchable baseload power not present in the coarser time resolutions.
+This suggests that even minimal temporal aggregation, as in the weekly time resolution,
+generates potentially misleading results, such as minimizing the role of baseload
+power.
 
 \subsection{Nuclear Phaseout Scenario}
-The final scenario considered was the ``Nuclear Phaseout'' scenario. Advanced
+The final scenario considered was the \gls{ZN} scenario. Advanced
 nuclear is explicitly disallowed here, and the existing Illinois nuclear fleet is shut down by
 2050. These constraints match the ``100\% renewable energy'' language in the 2021
 \gls{ceja} bill \cite{harmon_climate_2021}. Figure \ref{fig:time_res_ZN} shows
@@ -132,11 +177,15 @@ the time-sensitivity results for this scenario.
   \resizebox{0.95\columnwidth}{!}{\input{figures/time_resolution_plot_ZN.pgf}}
   \caption{Impact of time resolution on the nuclear phaseout scenario.  Each
   year has four bars where each bar represents a different time resolution.
-  Left to right, the time resolutions are: 4 seasons, 12 months, 52 weeks, 365 days.}
+  Left to right, the time resolutions are: 4 seasons, 12 months, 52 weeks, 365 days.
+  The left column shows the installed capacity and the right column shows the
+  total generation. The top row plots the absolute numbers in either GW or TWh
+  and the bottom row shows the relative penetration of each technology as a
+  percentage of the total capacity or generation, respectively.}
   \label{fig:time_res_ZN}
 \end{figure}
 
-The same three trends observed in the ZAN scenario are repeated and
+The same three trends observed in the \gls{ZAN} scenario are repeated and
 more pronounced in a total nuclear phaseout. The model dramatically overestimates
 wind penetration at low time resolution and underestimates the necessary battery capacity.
 Additionally, significant biomass capacity is needed to provide baseload
@@ -148,14 +197,24 @@ That is 58 times the current storage capacity of California and more than
 14 times the storage capacity of the entire United States
 \cite{hutchins_us_2021}.
 Biomass provides a more significant amount of baseload power, 27 GW at the highest
-time resolution, than in the ZAN scenario.
+time resolution, than in the \gls{ZAN} scenario.
 
 \subsection{Scenario Comparisons}
 This sensitivity analysis showed the strong influence of intra-year variability
-and time resolution on model results.
+and time resolution on model results. Here, I compare the scenarios in terms
+of total system cost and computational cost.
+
 Figure \ref{fig:time_res_cost} shows the differences between total system costs
 for each scenario and time resolution.
-
+In all cases, the total system cost increases with time resolution. The \gls{LC}
+scenario is appropriately named since it had the lowest total cost
+of all scenarios and time resolutions. The \gls{XAN} and \gls{ZAN} scenarios share
+nearly identical cost curves,
+with a very slight difference in cost with 8760 time-slices. Since these scenarios
+are so close in cost but have divergent energy futures, they could represent
+alternatives in terms of other unmodeled objectives, such as social acceptance,
+along with policy differences. Completely phasing out Illinois' existing nuclear
+fleet leads to much higher costs in all scenarios.
 
 \begin{figure}[H]
   \centering
@@ -164,18 +223,11 @@ for each scenario and time resolution.
   \label{fig:time_res_cost}
 \end{figure}
 
-In all cases, the total system cost increases with time resolution. The ``Least
-Cost'' scenario is appropriately named since it had the lowest total cost
-of all scenarios. The XN and ZAN scenarios share virtually identical cost curves,
-with a very slight difference in cost with 8760 time-slices. Since these scenarios
-are so close in cost but have divergent energy futures, they could represent
-alternatives in terms of other unmodeled objectives, such as social acceptance,
-along with policy differences. Completely phasing out Illinois' existing nuclear
-fleet leads to much higher costs in all scenarios.
 
 
 % \subsection{Discussion of Time Resolution}
-Table \ref{tab:time_res_clock} shows the
+There is a significant tradeoff between model complexity (in this case, temporal),
+and computational cost. Table \ref{tab:time_res_clock} shows the
 wall-clock time for each simulation, illustrating the tradeoff between model
 complexity and computational cost.
 
@@ -197,12 +249,17 @@ complexity and computational cost.
 \end{table}
 
 The computing time increases with both the temporal resolution and the number of
-decision variables. The XAN scenario with 8760 time-slices had the most decision
-variables since the model considered coal and natural gas with CCS and therefore took
-the longest.
+decision variables. The \gls{XAN} scenario with 8760 time-slices had the most decision
+variables since the model considered coal and natural gas with
+carbon-capture-and-storage and therefore took the longest. The zero-advanced-nuclear
+scenario was the fastest at finer time resolutions because it has the fewest
+available technologies.
 
-Table \ref{tab:relative_error} shows the relative error for each simulation with
-respect to the daily resolution. There are two commonalities across all scenarios
+I use the daily resolution as the reference case since it captures the most
+intra-year variability.
+Table \ref{tab:relative_error} shows the relative difference for each simulation
+with respect to the daily resolution. From Table \ref{tab:relative_error} and
+Figure \ref{fig:time_res_cost}, there are two commonalities across all scenarios
 and time resolutions.
 \begin{enumerate}
   \item The penetration of wind energy is greatly overestimated.
@@ -210,16 +267,17 @@ and time resolutions.
   fleet is the most cost-effective way to decarbonize Illinois' electric sector.
 \end{enumerate}
 In most other cases, solar power is underestimated since wind power is partially
-replaced by solar. The exception to this is the XAN scenario, which overestimates
+replaced by solar. The overestimate of wind power leads to an underestimate in
+solar power. The exception to this is the \gls{XAN} scenario, which overestimates
 solar power because the model introduces advanced nuclear at the highest time resolution.
 Scenarios without advanced nuclear energy vastly underestimate the importance of
 baseload power and therefore underestimate the role of biomass in those cases.
-Advanced nuclear is preferred over biomass due to its higher capacity factor and lower
-fuel costs.
+Advanced nuclear is preferred over biomass due to its higher capacity factor and
+lower fuel costs, when both are available.
 
 \begin{table}[H]
   \centering
-  \caption{Relative Error in Total Capacity}
+  \caption{Relative Difference in Total Capacity}
   \label{tab:relative_error}
 \resizebox{\textwidth}{!}{\begin{tabular}{lrrr|rrr|rrr|rrr}
   \toprule
@@ -234,7 +292,8 @@ fuel costs.
     NUCLEAR\_ADV & NaN & -49.89 & -32.39 & NaN & NaN & NaN & - & - & - & - & - & - \\
     LI\_BATTERY & 11.03 & -14.62 & -34.14 & -3.90 & 59.46 & 69.29 & -43.26 & -5.86 & -0.06 & -54.63 & -1.97 & 5.91\\
     \bottomrule
-    \multicolumn{13}{p{12.25cm}}{\small{NaN values occur where a technology is not present in the given scenario.}}
+    \multicolumn{13}{p{12.25cm}}{\small{NaN values occur where a technology is not built in the given scenario.}}\\
+    \multicolumn{13}{p{12.25cm}}{\small{``-'' values occur where a technology is not allowed in the given scenario.}}
   \end{tabular}}
 \end{table}
 
@@ -248,18 +307,19 @@ of wind and solar because models, like \gls{temoa}, treat each year in a model
 horizon as identical \cite{hunter_modeling_2013}. In the present analysis, the
 sensitivities of electricity cost and capacity expansion to renewable resource
 availability are explicitly considered using a weekly resolution and a unique combination
-of solar and wind data in each model run. By doing this analysis, we can develop
-a hedging strategy that avoids costly power outages and ensures grid reliability.
-I used a weekly time resolution to ensure computational tractability.
+of eleven years of solar and wind data in each model run. By doing this analysis,
+we can develop a hedging strategy that avoids costly power outages and ensures
+grid reliability. I used a weekly time resolution to ensure computational tractability.
 
 Figure \ref{fig:obj_cost_plot} shows the spread of electricity cost for each scenario.
-The mean price of electricity in the Least Cost scenario is 16 percent less than
-the XAN or ZAN scenarios and 28 percent cheaper than the Nuclear Phaseout scenario.
-Additionally, the variance is far less in the Least Cost scenario than the other
-three scenarios. The XAN and ZAN scenarios are virtually identical
+The mean price of electricity in the \gls{LC} scenario is 16 percent less than
+the \gls{XAN} or \gls{ZAN} scenarios and 28 percent cheaper than the Nuclear Phaseout scenario.
+Additionally, the variance is far less in the \gls{LC} scenario than the other
+three scenarios. The \gls{XAN} and \gls{ZAN} scenarios are virtually identical
 except for a subset of simulations at the high end of the system cost. The maximum
-system cost is slightly lower for the XAN scenario than in ZAN because advanced
-nuclear is not explicitly disallowed.
+system cost is slightly lower for the \gls{XAN} scenario than in \gls{ZAN} because advanced
+nuclear is not explicitly disallowed. The cost of electricity is most uncertain
+in the \gls{ZN} scenario and the mean value is the highest of any case.
 
 \begin{figure}[H]
   \centering
@@ -270,15 +330,18 @@ nuclear is not explicitly disallowed.
 \end{figure}
 
 Figure \ref{fig:il_capacity} shows how resource availability affects capacity
-expansion. As shown previously in Section \ref{section:time_res}, the LC scenario
+expansion. As shown previously in Section \ref{section:time_res}, the \gls{LC} scenario
 has the lowest total capacity because most of the generation comes from firm nuclear
 power. The nuclear-constrained scenarios in Figure \ref{fig:il_capacity} also
 highlight the necessity of on-demand back-up capacity. Biomass plants serve that role
-in the ZN, ZAN, and XAN scenarios. The mean biomass capacity is higher
-in the ZAN scenario than in XAN because the latter allows advanced nuclear. Since
-this sensitivity study only uses a weekly time resolution, all three nuclear-constrained scenarios
-underestimate the role of baseload power, as shown in Table \ref{tab:relative_error}.
-The uncertainty in renewable energy capacity is also much higher for these three scenarios.
+in the \gls{ZN}, \gls{ZAN}, and \gls{XAN} scenarios. The mean biomass capacity is higher
+in the \gls{ZAN} scenario than in \gls{XAN} because the latter allows advanced nuclear. Since
+this sensitivity study only uses a weekly time resolution, all three nuclear-constrained
+scenarios underestimate the role of baseload power compared to the daily resolution,
+as shown in Table \ref{tab:relative_error}. The uncertainty in renewable energy
+capacity is also much higher for these three scenarios.
+The large uncertainties in system cost and capacity expansion due to resource
+variability suggests significant policy challenges.
 
 
 \begin{figure}[H]
@@ -289,12 +352,12 @@ The uncertainty in renewable energy capacity is also much higher for these three
   \label{fig:il_capacity}
 \end{figure}
 
-The XAN case simulates the
+The \gls{XAN} case simulates the
 \textit{expectation} of significant cost overruns for every reactor build. Even so,
 with only a weekly resolution there are scenarios where building advanced reactors
-is advantageous in the XAN case. These results likely underestimate the role of
-advanced nuclear since advanced nuclear showed up in the XAN case for 8760
-time-slices, where it was previously not needed, as shown in Figure \ref{fig:time_res_XN}.
+is advantageous in the \gls{XAN} case. These results likely underestimate the role of
+advanced nuclear since advanced nuclear showed up in the \gls{XAN} case for 8760
+time-slices, where it was previously not needed, as shown in Figure \ref{fig:time_res_XAN}.
 
 \section{Discussion and Policy Implications}
 
@@ -309,42 +372,45 @@ seck_embedding_2020} by evaluating a set of cases, Monte Carlo sampling cost dis
 or using \gls{mga}. Virtually all of these studies include intermittent renewable
 energy in the model, but none treat the annual variability of solar and wind
 as an uncertain parameter, nor do they consider the effect of time resolution on
-model results. The purpose of these analyses was to address precisely that issue.
+model results. The purpose of these analyses was to address precisely that issue
+and to help inform science-based policymaking.
 
 Figure \ref{fig:obj_cost_plot} and Figure \ref{fig:il_capacity} clarify
 two points. First, including firm nuclear capacity has the greatest positive
 influence on both the certainty and the mean of system levelized cost. Relying primarily
 on intermittent renewables increases both the mean and uncertainty of electricity cost.
+We observe a high variance in cost for these scenarios.
 Second, the fundamental question of \glspl{esom} is unanswerable without firm nuclear capacity.
 As the penetration of intermittent renewables increases, so does the uncertainty around
 capacity expansion. This pattern likely continues at a full-year hourly time resolution
-since the model underestimates total capacity in every case, except for the XAN scenario.
+since the model underestimates total capacity in every case, except for the \gls{XAN} scenario.
+
 I modeled biomass as an alternative firm capacity option. The mean biomass in all
-nuclear-constrained scenarios is greater than 5 GW. Which Table \ref{tab:relative_error}
-shows is a significant underestimate! \gls{nrel} calculated Illinois technical potential
-for biomass electricity production at 4 GW, the highest of any state \cite{lopez_us_2012}.
-These results indicate a greater capacity requirement than Illinois' technical potential,
-suggesting either greater renewable and storage capacity or requiring advanced
-nuclear reactors. Due to large uncertainties, the renewable capacity requirement
-will never be clear.
+nuclear-constrained scenarios is greater than 5 GW. Table \ref{tab:relative_error}
+shows that this is likely an underestimate. \gls{nrel} calculated Illinois technical
+potential for biomass electricity production at 4 GW, the highest of any state
+\cite{lopez_us_2012}. These results indicate a greater capacity requirement than
+Illinois' technical potential, suggesting that to satisfying energy needs would
+require either greater renewable and storage capacity or the inclusion of advanced
+nuclear reactors. Due to large uncertainties in resource availability, the renewable
+capacity requirement will never be clear.
 
 The minimum hedging strategy for decarbonizing Illinois' electricity is preserving
-the existing nuclear fleet since the entire nuclear capacity is present in all
-simulations and resolutions unless explicitly limited. A further
+the existing nuclear fleet since the entire existing nuclear capacity is present
+in all simulations and resolutions unless explicitly limited. A further
 hedging strategy would be to lift the moratorium on new nuclear plants in Illinois
 since advanced nuclear reactors are built, even when the capital cost doubles, unless
-explicitly limited. Further, the results in Figure \ref{fig:time_res_LC}, from the
-Least Cost scenario, show that solar energy is a good investment and may couple well
+explicitly limited. Further, the \gls{LC} scenario results in Figure \ref{fig:time_res_LC}
+show that solar energy is a good investment and may couple well
 with advanced nuclear reactors. Further investments in wind power should be
 considered carefully or eliminated altogether.
 
 As outlined in section \ref{section:energy_policy}, good energy policies should
 ensure reliability, affordability, and sustainability. The results in section
 \ref{section:time_res} and section \ref{section:resource_sa} challenge the
-current Illinois energy policy described in \gls{ceja}.
-
-Figure \ref{fig:compare_ceja} compares the 2030 Illinois capacity expansion
-for each scenario in the present work with the current Illinois policy.
+current Illinois energy policy described in \gls{ceja}. Figure \ref{fig:compare_ceja}
+compares the 2030 Illinois capacity expansion for each scenario in the present
+work with the current Illinois policy.
 
 \begin{figure}[H]
   \centering
@@ -356,16 +422,17 @@ for each scenario in the present work with the current Illinois policy.
   \label{fig:compare_ceja}
 \end{figure}
 
-\gls{ceja} is a tremendous step in the right direction and makes Illinois a leader
+\gls{ceja} was a tremendous step in the right direction and makes Illinois a leader
 on climate change. In particular, \gls{ceja} provided subsidies for ``zero
 emissions facilities'' (nuclear power plants) that reversed plans to shutter Byron
 and Dresden Nuclear Plants prematurely \cite{harmon_climate_2021,brown_two_2021}.
-However, it is clear from this figure that the specific numbers recommended in
-\gls{ceja} were not motivated by a robust energy system analysis. In every model
-scenario, the total CEJA target capacity falls far short of capacity expansion.
-CEJA's solar and wind capacities are comparable to those
-in the "Least Cost" scenario but do not include firm capacity from
-advanced nuclear nor sufficient energy storage to guarantee reliability.  Further, the
+However, it is clear from Figure \ref{fig:compare_ceja} that the specific numbers
+recommended in \gls{ceja} could be improved by increasing the energy storage
+targets and enabling advanced nuclear projects.
+In every model scenario, the total CEJA target capacity falls far short of capacity
+expansion. CEJA's solar and wind capacities are comparable to those in the \gls{LC}
+scenario but do not include firm capacity from advanced nuclear nor sufficient
+energy storage to guarantee reliability. Further, the
 renewable energy targets are far lower than in the nuclear-constrained scenarios.
 The authors of \gls{ceja}'s capacity targets, the Illinois Clean Jobs Coalition,
 assumed that Illinois would end electricity exports, reducing electricity generation
@@ -374,45 +441,54 @@ through 2030 \cite{the_accelerate_group_clean_2019}. Skeptics may therefore argu
 that the present comparison is unfair since the modeled scenarios preserve Illinois
 status as a net-exporter and include a 1\% annual growth in electricity demand.
 However, these differences highlight the deficiencies of Illinois' current
-clean energy policies. Decarbonizing every economic sector will require
+clean energy policies. Decarbonizing every economic sector, like manufacturing and
+transportation, will require
 at least some amount of electrification. Even with rapid technology adoption and
 energy efficiency measures, electrification of other energy sectors leads to greater
 electricity demand \cite{mai_electrification_2018}. Further, ending electricity
 exports will force neighboring states to build more generating capacity or use
-their fossil fuel reserves more regularly, counterproductive to reducing
-carbon emissions.
+their fossil fuel reserves more regularly, which is counterproductive to reducing
+carbon emissions nationally or globally.
 
-By neglecting the vital role of clean firm capacity, \gls{ceja} cannot guarantee
-reliable electricity and simultaneously enforce a carbon-free electric grid. This oversight
-means \gls{ceja} fails the first criterion for sound energy policy. Related to grid
+By minimizing the vital role of clean firm capacity, \gls{ceja} cannot guarantee
+reliable electricity and simultaneously enforce a carbon-free electric grid. Related to grid
 reliability, higher penetrations of solar and wind, without sufficient energy
 storage, lead to greater price volatility \cite{winkler_impact_2016, blazquez_renewable_2018}
-and more energy poverty \cite{henry_how_2021}. Thus \gls{ceja} does not ensure energy
-affordability and does not meet the second criterion for a good energy policy. Since
+and more energy poverty \cite{henry_how_2021}. The results shown in Figure
+\ref{fig:obj_cost_plot} indicate that even with sufficient energy storage, the cost
+of electricity is still highly uncertain. Since
 \gls{ceja} cannot guarantee reliability or affordability with its current capacity
-targets, Illinois may be forced to use fossil fuels as energy back-up. Without
+targets, Illinois may be forced to use fossil fuels as energy back-up if these
+policies are pursued and implemented. Without
 clean firm capacity options or sufficient energy storage, \gls{ceja} locks in
 fossil fuel dependence and misses the sustainability criterion for a good energy policy.
 Although the \gls{ceja}'s passage into law is an encouraging indicator of Illinois
-legislators' commitment to climate action, the bill does not go far enough. Future
+legislators' commitment to climate action, Illinois energy and climate policies
+may be improved by robust modeling efforts. Future
 policies in Illinois should lift the moratorium on new nuclear facilities and
-continue subsidizing these ``zero emissions facilities'' as recommended by
-Blazquez et al. 2018 \cite{blazquez_renewable_2018}.
+continue subsidizing these ``zero emissions facilities'' as suggested by Figure
+\ref{fig:time_res_LC}, which shows the benefit of advanced nuclear projects,
+and Figure \ref{fig:obj_cost_plot}, which shows that scenarios with more firm
+capacity also have more certain electricity costs.
 
 \section{Limitations to the Model}
 
 There are several limitations to the model used in this analysis. Some are related
-to model assumptions and others to model structure. First, the sensitivity analysis
-in Section \ref{section:time_res} only aggregated time series with averaging. I
-chose this method due to its simplicity. Kotzur et al. 2018 found that averaging
-produced the most error with respect to a reference case with a full year of
+to model assumptions and others to model structure. In this section I outline some
+of these limitations and propose some solutions for future work.
+
+First, the sensitivity analysis in Section \ref{section:resource_sa} only aggregated
+time series with averaging. I chose this method due to its simplicity. Kotzur
+et al. 2018 found that averaging produced the most error with respect to a
+reference case with a full year of
 hourly data \cite{kotzur_impact_2018}. Selecting time-slices using another algorithm,
 such as k-means, significantly reduced error. However, Kotzur et al. only tested a single
 year of data rather than conducting a sensitivity analysis as in section
 \ref{section:resource_sa}. All aggregation methods are subject to error. Choosing
 a simple time series aggregation approach may be forgiven in this case since section
-\ref{section:time_res} includes a reference case (daily resolution) to compare against.
-Superior temporal aggregation methods are necessary for models with enough
+\ref{section:time_res} includes a reference case (daily resolution) to compare against
+in order to to give a sense of how the dimensionality reduction influenced model
+results. Superior temporal aggregation methods are necessary for models with enough
 spatial and topological complexity that a fully time-resolved reference case is
 computationally intractable.
 
@@ -430,26 +506,26 @@ no studies have compared the conflicting influences of spatial and temporal comp
 Due to the lack of spatial resolution, the cost of additional transmission lines
 is not modeled. This is somewhat less important for scenarios with significant
 baseload capacity from advanced nuclear reactors or biomass since those technologies
-could be sited at retired coal or natural gas plants, as in Wyoming
-\cite{associated_press_bill_2021}. In the case of solar panels, programs like Solar
-For All and Illinois Shines \cite{chicago_illinois_nodate, noauthor_illinois_nodate}
+could be sited at retired coal or natural gas plants, as is proposed by TerraPower
+in Wyoming \cite{associated_press_bill_2021}. In the case of solar panels, programs
+like Solar For All and Illinois Shines \cite{chicago_illinois_nodate, noauthor_illinois_nodate}
 could put all of the solar capacity on consumers' rooftops \cite{lopez_us_2012},
 eliminating the need for additional transmission if they are all grid-connected.
 
 Third, this model uses a planning reserve margin to ensure sufficient
 excess capacity to guarantee grid reliability. However, this measure of reliability
-is less helpful for grids that depend heavily on intermittent and variable sources
-of electricity. Two systems with identical \glspl{prm} may not be equally reliable.
-I used the FERC-recommended \gls{prm} of 15 percent, which may be
+may not be sufficient for grids that depend heavily on intermittent and variable
+sources of electricity. Two systems with identical \glspl{prm} may not be equally
+reliable. I used the FERC-recommended \gls{prm} of 15 percent, which may be
 an underestimate for grids with high renewable penetration \cite{milligan_methods_2011}.
 Further, because \gls{temoa} always builds enough capacity to satisfy the demand
 constraint at all time-slices, the model does not consider the cost of
 importing electricity when there is insufficient in-state generation. However,
-this issue is insignificant because Illinois is a net exporter of electricity
+this issue is insignificant for Illinois simulations is a net exporter of electricity
 \cite{energy_information_administration_eia_nodate}.
 
 Lastly, the model has limited technology options. The dearth of options for
 firm capacity reflects genuine physical limitations, as discussed in section
-\ref{section:alt_firm}.However, other energy storage options such as
+\ref{section:alt_firm}. However, other energy storage options such as
 molten salt, flywheels, and hydrogen storage are less technically mature
 than lithium-ion batteries but could play a role in the future.

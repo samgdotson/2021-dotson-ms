@@ -24,8 +24,8 @@ end-use commodity.
 The demand curve for the \texttt{ELC\_DEMAND} commodity uses hourly load
 data from the PJM Interconnection. A large fraction of Illinois' population lives
 within PJM, but due to the significant spatial aggregation of both MISO and PJM,
-using data for the latter was largely arbitrary. Figure \ref{fig:pjm-elc} shows
-the historical electricity demand for PJM and the associated load curve. These
+using data from the latter in this model was an arbitrary choice. Figure \ref{fig:pjm-elc}
+shows the historical electricity demand for PJM and the associated load curve. These
 data inform the distribution of annual demand in the \gls{temoa} model, which is
 scaled by the total annual demand.
 
@@ -93,10 +93,12 @@ technologically detailed \cite{de_queiroz_repurposing_2019}.
 Ramp rates limit the change in power output between time slices. For example,
 \texttt{NUCLEAR\_ADV} has a 25\% ramp rate and can increase or decrease
 its power output by 25\% per hour, allowing for modest load-following capability
-\cite{baseload_2017,lokhov_technical_2011}. ``LC'' indicates that a technology's cost
-uses learning curves from \gls{nrel}'s 2020 Annual Technology Baseline \cite{nrel_2020_2020}.
-Figure \ref{fig:fix_costs} and Figure \ref{fig:cap_costs} show the learning curves
-for fixed costs and capital costs, respectively.
+\cite{baseload_2017,lokhov_technical_2011}. ``Learning Curve'' indicates that a
+technology's cost uses learning curves from \gls{nrel}'s 2020 Annual Technology
+Baseline \cite{nrel_2020_2020}. Figure \ref{fig:capital_cost} and Figure
+\ref{fig:fix_costs} show the learning curves for fixed costs and capital costs,
+respectively. The 2020 Annual Technology Baseline has costs from 2018 to 2050. In this model
+I assumed that costs remained flat before and after those years.
 
 \begin{sidewaystable}
   \centering
@@ -113,7 +115,7 @@ for fixed costs and capital costs, respectively.
   \centering
   \resizebox{0.6\textwidth}{!}{\input{figures/capital_cost_lc.pgf}}
   \caption{Capital cost learning curves for various technologies.}
-  \label{fig:capital-cost}
+  \label{fig:capital_cost}
 \end{figure}
 
 \begin{figure}[H]
@@ -158,8 +160,7 @@ for fixed costs and capital costs, respectively.
 %   \label{fig:costs}
 % \end{figure}
 
-The 2020 Annual Technology Baseline has costs from 2018 to 2050. In this model
-I assumed that costs remained flat before and after those years.
+
 
 \subsection{Sensitivity Analysis}
 
@@ -179,13 +180,15 @@ will fail to capture changes in the availability of solar and wind.
 
 For the Illinois case study, I conducted two sensitivity analyses. The first is a
 sensitivity to time resolution. Poncelet et al. 2016 examined the influence of
-the number of time slices, and how those time slices were chosen, on model results.
+the number of time slices, and how those time slices were chosen, on model results
+\cite{poncelet_impact_2016}.
 At most, they sliced time series into four seasons with three representative days (weekday,
 Saturday, Sunday) and 24 times-of-day. Thus, they modeled 288 time slices. This
 method captures variability in energy demand within the week, but is not guaranteed
 to capture the variability of solar and wind -- which do not possess periodicity
-associated with the day of the week. I considered four time resolutions in this work.
-Table \ref{tab:time-slice} shows the different time resolutions I considered in this thesis.
+associated with the day of the week. I considered four time resolutions in this work,
+which are summarized in Table \ref{tab:time-slice}, and compared against Poncelet
+et al. 2016.
 
 \begin{table}[H]
   \centering
@@ -208,14 +211,15 @@ Table \ref{tab:time-slice} shows the different time resolutions I considered in 
 The second sensitivity analysis varies the distribution of solar and wind generation
 each year. I retrieved historical wind speed and solar radiation data (\gls{ghi})
 from the \gls{nsrdb} \cite{sengupta_national_2018} for the years 2010 to 2020.
-The \gls{ghi} data can be converted to a capacity factor and used directly by
-\gls{temoa} since
+Since solar panels generate power when the sun is out, the \gls{ghi} data can be
+converted to a capacity factor and used directly by \gls{temoa} with the following
+relationship:
 \begin{align}
   P_{solar} &\propto GHI.
 \end{align}
-This makes sense since solar panels generate power when the sun is out. However,
+However,
 wind speed does not directly correspond to power since wind turbines have different
-operating regimes, described in Table \ref{tab:turbine}
+operating regimes, described in Table \ref{tab:turbine} for a representative turbine.
 
 \begin{table}[H]
   \centering
@@ -247,23 +251,21 @@ and cut-out speed. At all other times, the turbines produce power according to
   \rho &= \text{air density $\left[\frac{kg}{m^3}\right]$}. \nonumber
   \label{eqn:airdensity}
 \end{align}
-Air density can be calculated using temperature, the vapor pressures
+Air density can be calculated using temperature and the vapor pressures
 of water and air. A form of the  August-Roche-Magnus formula approximates
 the saturation vapor pressure of water, $e_s$.
-  %
-  % \intertext{Air density can be calculated using temperature, the vapor pressures
-  % of water and air. A form of the  August-Roche-Magnus formula approximates
-  % the saturation vapor pressure of water.}
-
-  \begin{align}
-  \rho &= \frac{P_{dry}}{R_{dry}T} + \frac{P_{vapor}}{R_{vapor}T}, \\
-  R_{dry}&= \text{specific gas constant for dry air $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
-  R_{vapor}&= \text{specific gas constant for water $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
-  P_{dry}&= \text{vapor pressure of dry air [Pa]}, \nonumber\\
+\begin{align}
   P_{vapor}&= \text{vapor pressure of water [Pa]}, \nonumber\\
   &= e_s\cdot RH,\\
   RH &= \text{relative humidity [-]}\nonumber\\
   e_s &= 0.6112e^{\frac{17.67T}{T+243.5}} \text{ [Pa]}\\
+  \intertext{which can be related to air density by, }
+  \displaybreak
+  \rho &= \frac{P_{dry}}{R_{dry}T} + \frac{P_{vapor}}{R_{vapor}T}, \\
+  \intertext{where}
+  R_{dry}&= \text{specific gas constant for dry air $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
+  R_{vapor}&= \text{specific gas constant for water $\left[\frac{J}{kg\cdot K}\right]$}, \nonumber\\
+  P_{dry}&= \text{vapor pressure of dry air [Pa]}, \nonumber\\
   T &= \text{ambient air temperature $\left[K\right]$}. \nonumber
 \end{align}
   Additionally, the wind speed measurements were taken at two-meters
@@ -271,14 +273,13 @@ the saturation vapor pressure of water, $e_s$.
   % \intertext{Additionally, the wind speed measurements were taken at two-meters
   % above the ground. The wind speed at the hub height is estimated by,}
 \begin{align}
-  U &= v_{ref}\frac{\ln\left(\frac{z}{z_0}\right)}{\ln\left(\frac{z_{ref}}{z_0}\right)}
+  U &= v_{ref}\frac{\ln\left(\frac{z}{z_0}\right)}{\ln\left(\frac{z_{ref}}{z_0}\right)},
   \intertext{where}
-  v_{ref} &= \text{wind speed at measured height$\left[\frac{m}{s}\right]$}\nonumber\\
-  z_0 &= \text{roughness length [m]}\nonumber\\
+  v_{ref} &= \text{wind speed at measured height$\left[\frac{m}{s}\right]$}\nonumber,\\
+  z_0 &= \text{roughness length [m]}\nonumber,\\
   &\approx 0.12\nonumber\\
-  z &= \text{hub height of the turbine [m]}\nonumber\\
-  &=80\nonumber\\
-  z_{ref} &= \text{height of wind speed measurement [m]}\nonumber
+  z &= \text{hub height of the turbine [m]}\nonumber,\\
+  z_{ref} &= \text{height of wind speed measurement [m]}.\nonumber
 \end{align}
 After calculating theoretical wind power generation from wind speed data, the
 data are passed to \gls{pygen} and used as a capacity factor. I permuted the

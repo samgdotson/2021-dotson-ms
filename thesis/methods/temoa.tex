@@ -1,15 +1,15 @@
 \gls{temoa} is an open-source \gls{esom} developed at North Carolina State University.
 Like other \glspl{esom}, \gls{temoa} uses linear programming to solve the optimal
 least-cost solution while meeting various demand and capacity constraints \cite{hunter_modeling_2013}.
-The key benefits of \gls{temoa} are its open-source code, data, and built-in
-uncertainty analysis capabilities. These features reflect the need for greater
+The key benefits of \gls{temoa} are its open-source code, open data, and built-in
+uncertainty analysis capabilities. These features address the need for greater
 transparency in \gls{esom} modeling and robust assessment of future uncertainties
 \cite{hunter_modeling_2013}. One of the critical limitations of \glspl{esom} is that
 the nature of the systems they are intended to model make them inherently
 unverifiable. By making the data and source code open,
 \gls{temoa} facilitates repeatability and its transparency provides evidence for
-model integrity.
-\cite{decarolis_case_2012}. To that end, along with open source-code and open data,
+model integrity
+\cite{decarolis_case_2012}. To that end, along with open-source code and open data,
 \gls{temoa} models should be solvable
 with open-source linear programming solvers like \texttt{COIN-OR} \cite{noauthor_coin-or_nodate} or \texttt{GLPK} \cite{noauthor_glpk_nodate}. I used the
 \texttt{CBC} solver from \texttt{COIN-OR} \cite{noauthor_cbc_2021} in this thesis.
@@ -41,6 +41,7 @@ of these terms is $C_{loans}$, which is calculated by,
   \Theta_{IC} &= \text{the set of all technologies that have associated investment costs}, \nonumber\\
   IC_{t,v} &= \text{the investment cost for a particular technology and vintage (i.e. a ``process'')},\nonumber\\
   LA_{t,v} &= \text{the amortization of the loan},\nonumber\\
+  \displaybreak
   &= \frac{DR_{t,v}}{1-(1+DR_{t,v})^{-LLN_{t,v}}} \forall \{t,v\} \in \Theta_{IC}\\
   DR_{t,v} &= \text{the process specific discount rate}, \nonumber\\
   GDR &= \text{the global discount rate, applied to all processes}, \nonumber\\
@@ -71,27 +72,28 @@ mathematical expressions for the other cost terms are available online
 near-optimal decision space. \gls{temoa} uses the Hop-Skip-Jump (HSJ) algorithm for
 \gls{mga}. The steps for HSJ are \cite{decarolis_modelling_2016}:
 \begin{enumerate}
-  \item Obtain an optimal solution by any method,
-  \item Add a user-specified amount of slack to the objective function value from the
+  \item obtain an optimal solution by any method,
+  \item add a user-specified amount of slack to the objective function value from the
   first step,
-  \item Use the adjusted objective function value as an upper bound constraint,
-  \item Generate a new objective function that minimizes the sum of all decision
+  \item use the adjusted objective function value as an upper bound constraint,
+  \item generate a new objective function that minimizes the sum of all decision
   variables,
-  \item Iterate the procedure,
-  \item Stop the \gls{mga} when no significant changes are observed.
+  \item iterate the procedure,
+  \item stop the \gls{mga} when no significant changes are observed.
 \end{enumerate}
 The mathematical formulation of this algorithm is:
 \begin{align}
   \intertext{Minimize:}
   p &= \sum_{k\in K} x_k,
   \intertext{Subject to:}
-  f_j\left(\vec{x}\right) &\leq T_j \forall j\\,
+  f_j\left(\vec{x}\right) &\leq T_j \forall j,\\
   \vec{x}&\in X,
   \intertext{where}
-  p &= \text{the new objective function}\nonumber\\,
-  x_k &= \text{the $k^{th}$ decision variable with a nonzero value in previous solutions}\nonumber\\,
-  f_j\left(\vec{x}\right) &= \text{the $j^{th}$ original objective function} \nonumber\\,
-  T_j &= \text{the slack-adjusted target value}\nonumber\\,
+  p &= \text{the new objective function}\nonumber,\\
+  \displaybreak
+  x_k &= \text{the $k^{th}$ decision variable with a nonzero value in previous solutions}\nonumber,\\
+  f_j\left(\vec{x}\right) &= \text{the $j^{th}$ original objective function},\nonumber\\
+  T_j &= \text{the slack-adjusted target value},\nonumber\\
   X &= \text{the set of all feasible solutions}.\nonumber
 \end{align}
 This procedure results in a small set of maximally different solutions for
@@ -105,17 +107,18 @@ expediency or social acceptance.
 This example illustrates the influence of both structural and parametric uncertainties
 and how \gls{mga} probes decision space. I include this example to give an intuition
 for the results in presented in Chapter \ref{chapter:illinois} and Chapter
-\ref{chapter:uiuc}. As discussed in Section \ref{section:ceja},
+\ref{chapter:uiuc}. This example also motivates the need for \gls{esom} modeling
+when developing science-driven policy. As discussed in Section \ref{section:ceja},
 the \gls{ceja} bill promises to make Illinois' electric grid 100\% clean energy
 by 2030. According to the Illinois Clean Jobs Coalition, 6.3 GW of additional wind energy
 capacity and 17 GW of solar capacity should be enough to achieve this goal while
 meeting Illinois' electricity demand \cite{the_accelerate_group_clean_2019}. The
 Illinois Clean Jobs Coalition implicitly assumes the following:
 \begin{enumerate}
-  \item All of Illinois' existing nuclear fleet will be operating in 2030,
-  \item All fossil fuel plants will be replaced by wind or solar energy in 2030,
-  \item Stagnant electricity demand,
-  \item Zero electricity exports. Illinois currently exports approximately 24\%
+  \item all of Illinois' existing nuclear fleet will be operating in 2030,
+  \item all fossil fuel plants will be replaced by wind or solar energy in 2030,
+  \item stagnant electricity demand,
+  \item zero electricity exports. Illinois currently exports approximately 24\%
   of its total generation \cite{energy_information_administration_eia_nodate}.
 \end{enumerate}
 In 2019, the electricity demand of Illinois was 138 TWh, and 98.7 TWh generated from
@@ -159,10 +162,11 @@ Table \ref{tab:naive} summarizes the data for this toy problem.
 
 This linear problem only has two decision variables, solar and wind capacity,
 which makes it graphically solvable. Figure \ref{fig:mga-fig} shows the optimal
-solution and one \gls{mga} iteration. As well as the \gls{ceja} goals for reference.
+solution and one \gls{mga} iteration to illustrate the changes to decision space.
+I plot the \gls{ceja} goals for reference.
 Every point above the demand constraint represents a feasible solution since those
 combinations of solar and wind can meet annual electricity demand.
-Points above the ``demand constraint'' line, represent an excess of total capacity. 
+Points above the ``demand constraint'' line, represent an excess of total capacity.
 The \gls{ceja} goals are well within the feasible region but highly sub-optimal.
 This amount of capacity suggests the energy could be exported, curtailed, or stored,
 which are unmodeled, structural uncertainties, in this formulation.
@@ -221,7 +225,7 @@ tested \cite{yue_review_2018}.
 This example illustrates the \gls{mga} method and shows how the optimal space
 expands under parametric uncertainties.
 Although a useful demonstration, considering the optimal mixture of wind and solar
-to achieve Illinois' clean energy goals, in this manner, and comparing it to
+to achieve Illinois' clean energy goals in this manner and comparing it to
 current policy oversimplifies the problem.
 Many features of energy systems are not captured in this simple formulation,
 such as the availability of solar power, need for backup or energy storage when

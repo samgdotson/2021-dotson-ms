@@ -18,14 +18,15 @@ to support the work in Chapter \ref{chapter:illinois} and Chapter \ref{chapter:u
 It facilitates reproducible model creation for energy system modeling.
 I created \gls{pygen} to:
 \begin{enumerate}
-  \item Automatically generate \gls{temoa} \texttt{SQL} databases and configuration files,
-  \item Process time series.
-  \item Calculate future demand growth.
-  \item Facilitate sensitivity analysis using a templated approach.
-  \item Be executable from the command line, anywhere
+  \item automatically generate \gls{temoa} \texttt{SQL} databases and configuration files,
+  \item process time series,
+  \item calculate future demand growth,
+  \item facilitate sensitivity analysis using a templated approach, and
+  \item be executable from the command line, anywhere.
 \end{enumerate}
 \gls{pygen} allows users to interact with a few hundred lines of Python code rather
-than an \texttt{SQL} database with tens of thousands of rows.
+than an \texttt{SQL} database with tens of thousands of rows. Appendix \ref{app:pygen}
+shows how \gls{pygen} condenses a \texttt{SQL} database.
 Figure \ref{fig:pygen-flow} shows the flow of data through \gls{pygen}.
 A \gls{pygen} input file consists of three main components, simulation metadata,
 \texttt{Technology} objects, and \texttt{Commodity} objects. These objects
@@ -35,9 +36,10 @@ can directly interrogate model assumptions. For example, by plotting the demand
 growth over time, or the learning curves for each technology, with the \gls{pygen}
 input file.
 \gls{pygen} adds clarity and usability while preserving \gls{temoa}'s flexibility.
-A \gls{pygen} input file can be turned into a template using a liquid-text format
-to specify uncertain parameters, and then hundreds of input files can be
-populated with the \texttt{Jinja2} Python library \cite{noauthor_jinja_2022}.
+A \gls{pygen} input file can be turned into a template using a liquid-text (i.e.
+special placeholders) format to specify uncertain parameters, and then hundreds
+of input files can be populated with the open-source Python templating engine,
+\texttt{Jinja2} \cite{noauthor_jinja_2022}.
 
 \begin{figure}[H]
   \centering
@@ -76,7 +78,9 @@ percent. Calculating either ``demand'' or ``capacity factor'' uses a time series
 averaging approach where the average day of a particular time period is assumed
 to be representative for all other days in that period \cite{kotzur_impact_2018}.
 If the time series has multiple years of data, the data is further averaged
-across all years.
+across all years. In the following case study of Illinois, I use \gls{pygen}'
+time-series processing features to vary the model's temporal resolution and perturb
+the availability of wind and solar resources.
 
 \begin{figure}[H]
   \resizebox{\textwidth}{!}{\input{figures/steam_timeslice.pgf}}
@@ -92,15 +96,15 @@ sensitivity analysis over growth rate. Modelers can ask questions like
 constant?'' Figure \ref{fig:dem-growth} shows the change in electricity demand
 over time for various growth rates and growth curves. \gls{pygen} currently simulates
 exponential or linear curves. In the future, this will extend to logistic curves
-and user-defined curves.
+and user-defined curves. By making all model parameters explicit, such as growth
+rate, growth type, and resource availability, \gls{pygen} makes truly global sensitivity
+analysis possible. Indeed, the sensitivity analysis in Chapter \ref{chapter:illinois}
+is prohibitively labor-intensive without \gls{pygen}.
 
 \begin{figure}[H]
   \centering
   \resizebox{0.8\textwidth}{!}{\input{figures/demand_growth_example.pgf}}
-  \caption{Different electricity demand futures under various growth rates and curves.}
+  \caption{Demand growth forecasts under various growth rates and curves. Plotted
+  with \gls{pygen}.}
   \label{fig:dem-growth}
 \end{figure}
-
-By making all model parameters explicit, \gls{pygen} makes truly global sensitivity
-analysis possible. Indeed, the sensitivity analysis in Chapter \ref{chapter:illinois}
-is prohibitively labor-intensive without \gls{pygen}.

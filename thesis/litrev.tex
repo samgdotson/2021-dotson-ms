@@ -79,21 +79,21 @@ effects is a moral, political, and economic imperative.
 
 There are three primary policy strategies for climate change mitigation \cite{fawzy_strategies_2020}:
 conventional mitigation efforts, which include all policies centered around
-reducing carbon emissions; negative emissions technologies like direct air carbon-
-capture; and the final option, geoengineering, which reduces warming by increasing
-the Earth’s reflectivity. \gls{esom} studies generally focus on conventional mitigation
-strategies. These strategies include:
+reducing carbon emissions; negative emissions technologies like direct air
+carbon-capture; and the final option, geoengineering, which reduces warming by
+increasing the Earth’s reflectivity. \gls{esom} studies generally focus on
+conventional mitigation strategies. These strategies include:
 \begin{itemize}
-  \item Investing in clean energy resources, such as renewable energy and nuclear power
+  \item investing in clean energy resources, such as renewable energy and nuclear power
   \cite{fawzy_strategies_2020}. These strategies affect the topology of the energy
   system by influencing the types of energy production technologies.
-  \item Demand response policies involve reducing grid load when there is insufficient
+  \item demand response policies involve reducing grid load when there is insufficient
   supply forecasted or flattening the load profile throughout the day. These policies
   are critical for energy systems with high penetration of variable and intermittent
   energy sources like wind and solar power \cite{bouckaert_expanding_2014,
   kuzemko_policies_2017}. Demand response policies influence the temporal
   complexity of the energy system.
-  \item Carbon capture and storage (CCS) reduces the carbon footprint of coal and
+  \item carbon capture and storage (CCS) reduces the carbon footprint of coal and
   natural gas plants but are not considered negative emissions \cite{fawzy_strategies_2020}.
   These strategies affect grid topology by enabling the continued use of previously
   high carbon-emitting technologies.
@@ -162,7 +162,8 @@ carbon emissions \cite{institute_for_sustainability_energy_and_environment_illin
 \gls{uiuc}’s specific energy objectives include an energy
 efficiency target of 167,000 BTU/square foot by 2030, purchasing 140 GWh of clean
 electricity by 2025, and reducing building-level energy use
-\cite{institute_for_sustainability_energy_and_environment_illinois_2020}.
+\cite{institute_for_sustainability_energy_and_environment_illinois_2020}. Heating
+and cooling represent a major fraction of building energy use.
 The University heats virtually all of its buildings using steam produced by Abbott
 Power Plant (APP), which burns coal and natural gas. The iCAP objectives conspicuously
 lack a measurable target for clean thermal energy on campus, highlighting the
@@ -187,15 +188,15 @@ Handling future uncertainty is one of the most critical features of an \gls{esom
 
 \subsection{Structure and Assumptions}
 
-\gls{esom} tools are typically formulated using linear programming where the model
-will seek to minimize cost, the objective function, and address other policy
+\gls{esom} tools are typically formulated using linear programming where the models
+minimize cost, the objective function, and address other policy
 goals through constraints. The details of linear programming are discussed in
 chapter \ref{chapter:methods}. TIMES and MARKAL are two of the most mature
 \glspl{esom} in the the literature that use linear programming \cite{decarolis_case_2012}.
 However, these modeling frameworks do not have open source code, data, and is
-proprietary software. Other \glspl{esom} that use linear programming include
-OSeMOSYS, MESSAGE, GenX, PPSA, and \gls{temoa} to name a few
-\cite{decarolis_case_2012,yue_review_2018,jenkins_enhanced_2017}. These
+proprietary software \cite{decarolis_case_2012}. Other \glspl{esom} that use
+linear programming include OSeMOSYS, MESSAGE, GenX, PPSA, and \gls{temoa} to
+name a few \cite{decarolis_case_2012,yue_review_2018,jenkins_enhanced_2017}. These
 frameworks differ by code-openness, licensing, data sources, and some specific
 formulation of their objective functions, but they share multi-decadal
 time horizons and the assumption that every modeled year in the time
@@ -237,12 +238,14 @@ to make it more ``realistic'' or studied systematically using \gls{mga}
 \cite{hunter_modeling_2013,decarolis_modelling_2016, yue_review_2018}.
 The framework I used in this thesis, \gls{temoa}, developed at North Carolina
 State University, uses \gls{mga} to probe decision space efficiently
-\cite{decarolis_temoa_2010}.
+\cite{decarolis_temoa_2010}. The details of \gls{mga} are discussed in chapter
+\ref{chapter:methods}.
 
 
 \section{Survey of \gls{esom} Literature}
 
-\glspl{esom} provide valuable policy insights to decision-makers. Table \ref{tab:esom_lit}
+\glspl{esom} provide valuable insights to decision-makers and enable science-driven
+policy design. Table \ref{tab:esom_lit}
 summarizes all of the \gls{esom} studies in this literature review, as well as
 the model time horizon, number of time slices location, and the model used to
 perform the analysis.
@@ -280,7 +283,11 @@ seck_embedding_2020,yue_least_2020}. These models may use as few as four annual
 time slices \cite{decarolis_modelling_2016} or up to 288 annual time slices \cite{poncelet_impact_2016}.
 Here, the primary tradeoff is between temporal variations and topological complexity.
 Poncelet et al. 2016 recommend prioritizing temporal complexity over topological
-complexity due to the strong impact of resource variability on model results \cite{poncelet_impact_2016}
+complexity due to the strong impact of resource variability on model results
+\cite{poncelet_impact_2016}. The study from DeCarolis et al. 2016 is among the most
+topologically complex studies and used \gls{mga} to examine different policy futures.
+Due to the large number of modeled energy sectors and technology options, the temporal
+detail is reduced to two times-of-day and two seasons.
 
   \begin{table}
     \centering

@@ -148,21 +148,21 @@
 \schools{B.S., University of Illinois - Urbana Champaign, 2019}
 \msthesis
 \degreeyear{2022}
-\committee{Dr. Madicken Munk, Adviser \\ Professor Rizwan Uddin}
+\committee{Dr. Madicken Munk, Adviser \\ Professor James F. Stubbins}
 
 
 \begin{document}
-% \maketitle
+\maketitle
 %
-% \frontmatter
+\frontmatter
 % %% Create an abstract that can also be used for the ProQuest abstract.
 % %% Note that ProQuest truncates their abstracts at 350 words.
-% \begin{abstract}
-%
-% Abstract.
-%
-% \end{abstract}
-%
+\begin{abstract}
+
+Abstract.
+
+\end{abstract}
+
 % \chapter*{Acknowledgments}
 %
 % Kelsey Luo\\
@@ -180,9 +180,9 @@
 % %% List Symbols and/or Abbreviations
 % %% etc.
 %
-% \tableofcontents
-% \listoftables
-% \listoffigures
+\tableofcontents
+\listoftables
+\listoffigures
 %
 % %% Create a List of Abbreviations. The left column
 % %% is 1 inch wide and left-justified
@@ -191,33 +191,35 @@
 % %% Create a List of Symbols. The left column
 % %% is 0.7 inch wide and centered
 %
-% \pagebreak
-% \mainmatter
+\pagebreak
+\mainmatter
 %
 % \chapter{Introduction}
 % \input{introduction}
 %
-% \chapter{Literature Review}
-% \input{litrev}
-%
-% \chapter{Methods and Data}
-% \label{chapter:methods}
-% \input{methods/methods}
+\chapter{Literature Review}
+\input{litrev}
 
-% \chapter{Case Study I: Carbon Zero Electricity in Illinois by 2030}
-% \label{chapter:illinois}
-% \input{il_case_study/il_results}
-%
+\chapter{Methods and Data}
+\label{chapter:methods}
+\input{methods/methods}
+
+\chapter{Case Study I: Carbon Zero Electricity in Illinois by 2030}
+\label{chapter:illinois}
+\input{il_case_study/il_results}
+
  \chapter{Case Study II: Emissions-Free Microgrid at UIUC}
 \label{chapter:uiuc}
  \input{uiuc_case_study/uiuc_results}
 
-% \chapter{Conclusions}
-% \input{conclusion}
+\chapter{Conclusions}
+\input{conclusion}
 
 %
-% \chapter*{Appendix}
-% \input{appendix}
+\appendix
+\addcontentsline{toc}{chapter}{Appendix}
+\chapter*{Appendix}
+\input{appendix}
 %
 \backmatter
 

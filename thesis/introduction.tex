@@ -1,1 +1,63 @@
-% Introduction \cite{huff_extensions_2014}.
+Modern energy systems provide reliable, cheap, and abundant energy for the
+countries that have them. Access to this energy makes modern comforts possible. However,
+most of this energy comes from fossil fuel consumption in the forms of natural gas
+and coal --- whose carbon dioxide byproducts drive anthropogenic climate change
+\cite{eia_frequently_2022}. Although we understand the risks posed by climate
+change and that society needs to transition to cleaner forms of energy, the best
+pathway to achieving a decarbonized energy system is controversial. Further, the
+United States still lacks strong energy and climate policies at the federal level,
+so the transition must be driven by individual states and smaller institutions.
+Thus, decision makers at all levels face several policy challenges.
+\begin{enumerate}
+  \item What technologies can replace fossil fuels?
+  \item How much generating capacity is needed to preserve a reliable energy supply?
+  \item Which technologies keep energy prices down?
+\end{enumerate}
+
+\glspl{esom} are class of modeling tools designed to answer these questions. Indeed,
+the energy planning literature has many studies designed to address the transition
+to a clean energy economy \cite{fattahi_systemic_2020,yue_review_2018,aryanpur_review_2021}.
+However, many studies opt for greater technology options rather than temporal detail,
+which risks biasing these studies towards technologies that are cheap without
+considering operational challenges.
+
+Even though many technology options are considered, the role of nuclear energy
+remains particularly contentious \cite{lehtveer_how_2015,clemmer_nuclear_2018,
+petti_future_2018}.
+Nuclear power's role is disputed due to high capital costs, a lack of federally
+guided waste management policy and perceived environmental, health, and weapons
+proliferation risks \cite{clemmer_nuclear_2018,petti_future_2018}. Addressing
+the financial risk posed by nuclear power's high capital costs is especially
+important for continued operation and expansion of the United States nuclear fleet
+\cite{petti_future_2018, lehtveer_how_2015}.
+
+The objectives of this thesis were based on the need for greater senstivity
+analysis around temporal detail and variability. The objectives are listed below.
+
+\subsubsection{Demonstrate a tool that reduces the learning curve for \gls{esom}
+model development and facilitates external model inspection.} Since the scale
+of the systems that \glspl{esom} model prohibits complete verification, transparency
+and senstivity analyses must be used as proxies for model integrity. This thesis
+introduces the \gls{pygen} tool that enables rapid model development, senstivity
+analysis, and model interrogation. This tool is used in all experiments in this
+thesis.
+
+\subsubsection{Illustrate the importance of temporal detail in \gls{esom} models.}
+There is a tradeoff between model complexity and computational cost. One strategy
+to reduce computational cost is through dimensionality reduction by spatial
+and temporal aggregation. This thesis will show how much temporal aggregation is
+acceptable.
+
+\subsubsection{Show the influence of inter-annual resource variability on model
+results.} The transition to carbon-free energy systems will include highly intermittent
+and variable resources such as solar and wind power. The effect of these energy
+sources on system reliability and cost is influenced by temporal resolution, but
+also on the year-to-year changes. Current \glspl{esom} treat all modeled years
+as identical. This thesis addresses that gap by analyzing model sensitivity annual
+availability.
+
+\subsubsection{Recommend science-driven policies from case studies of two energy systems.}
+This thesis presents two case-studies for the State of Illinois and \gls{uiuc}.
+Models for these energy systems are built with the \gls{pygen} and the \gls{temoa}
+framework. This thesis provides policy recommendations based on these novel case
+studies.

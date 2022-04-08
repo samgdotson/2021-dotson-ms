@@ -23,37 +23,54 @@ costs or fuel prices. The influence of time resolution, part of an \gls{esom}'s
 structure, only recently became a feature of interest. How model results change
 due to annual weather variability is essentially absent from the literature.
 This thesis introduced the \gls{pygen} tool to facilitate temporal sensitivity
-analysis and fill this gap in the literature. The Illinois case study in this thesis
-demonstrated that capability by varying wind and solar energy capacity factors
+analysis and fill this gap in the literature.
+
+The Illinois case study in this thesis
+demonstrated \gls{pygen}' capabilities by varying wind and solar energy capacity factors
 as well as varying the model's time resolution. The sensitivity to time resolution
+in section \ref{section:time_res}
 showed that using too few time-slices does not capture enough of the true variability
 of solar and wind energy. At these coarse levels, wind energy's role is overstated,
 and the role of clean firm capacity is significantly understated. In the fully
 time-resolved scenarios, advanced nuclear reactors generate a significant fraction
 of Illinois' electricity, even when the capital cost for these new reactors doubled
-to simulate severe cost overruns. The sensitivity analysis over renewable resource
-availability demonstrated that energy systems that depend primarily on firm
+to simulate severe cost overruns as demonstrated by the \gls{XAN} scenario in section
+\ref{section:zan_xan}. The sensitivity analysis over renewable resource
+availability in section \ref{section:resource_sa} demonstrated that energy systems
+that depend primarily on firm
 capacity, such as advanced nuclear reactors, are the most robust to annual renewable
 resource variability. Conversely, energy systems with a high penetration of intermittent
 and variable energy sources are susceptible to significant uncertainties in both cost
-and reliability. Ultimately, the results of this case study showed that \gls{ceja}
-is insufficient for meeting Illinois' energy and climate goals.
+and reliability. Ultimately, the results of this case study showed that Illinois'
+energy policies could be improved by encouraging the continued operation of its
+existing nuclear fleet through "zero emissions credits," increasing energy storage
+targets, and expanding clean firm capacity through advanced nuclear projects.
 
 \gls{uiuc}'s \gls{icap} report committed the University to net-zero carbon emissions
 by 2050. That report identified a need for clean thermal energy but lacked any
-discussion on achieving that goal. The \gls{uiuc} case study presented
+discussion on achieving that goal which presented an opportunity to analyze scenarios
+that led to net-zero carbon emissions. The \gls{uiuc} case study presented
 in this thesis identifies nuclear energy as a solution to the campus' need for
 carbon-free thermal power.
 
 \section{Recommendations}
 
-All of the models studied in this work were developed with \gls{pygen}. This
-software leverages object-oriented programming to aid model creation, sensitivity
-analyses, and external verification. Since modelers can use \gls{pygen} to adjust
-the temporal resolution of their models for free, modelers should use a
-low time resolution during the development stage and then use the highest
-computationally-tractable time resolution for sensitivity analyses and final
-results.
+The results from the Illinois case study showed the strong influence of temporal
+resolution and resource availability on model results. To address the former issue,
+modelers should use a low time resolution during the development stage and then use the
+highest computationally-tractable time resolution for sensitivity analyses and final
+results. One way to do this is by using tools that allow modelers to tune space
+and time resolution, such as \gls{pygen}. The latter issue is due to the common
+assumption among \glspl{esom} that all modeled years are identical. The results
+from section \ref{section:resource_sa} show that this assumption is not a valid
+one for energy systems with highly intermittent and variable energy sources, such
+as solar and wind. A further reason this assumption should be reevaluated, that
+is not considered in the present work, is the coupling between energy demand and
+temperature which will surely be impacted by a changing climate on the multi-decadal
+timescales that \glspl{esom} operate. For these reasons, I recommend that modelers
+find ways to enable different distributions for energy demand and resource availability
+for each modeled year.
+
 
 \section{Suggested Future Work}
 
@@ -61,8 +78,10 @@ This thesis focused on the effects of intra- and inter-annual variability on mod
 results and performance. Only one temporal aggregation technique was applied (averaging),
 and there was no spatial resolution. Future work should investigate more efficient
 temporal aggregation methods, such as those proposed by Kotzur et a. 2018
-\cite{kotzur_impact_2018}. Additionally, future studies should examine the influence
+\cite{kotzur_impact_2018}. Using such methods could achieve results close to a reference
+case with less computational cost. Additionally, future studies should examine the influence
 of spatial resolution and different spatial aggregation techniques, as well as
-the tradeoffs between spatial and temporal complexity. \gls{pygen} should be used
-to create models in future work to support third-party verification and replication,
-two pillars of open science.
+the tradeoffs between spatial and temporal complexity. Increasing the spatial detail
+may reduce the impacts of intermittency from renewable resources such as solar and
+wind. Lastly, future work should be done on \gls{temoa}'s structure, and similar
+\glspl{esom}, to allow users to specify different distributions for each modeled year.

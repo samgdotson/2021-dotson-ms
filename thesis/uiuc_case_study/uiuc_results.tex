@@ -12,12 +12,13 @@ This section presents the lowest cost pathway to achieving \gls{uiuc}'s carbon
 neutrality goal.
 Figure \ref{fig:uiuc_elc_cap} shows the annual capacity expansion in the cost
 minimized solution. Notably, the capacity for all electric generating technologies
-grows throughout the model horizon. In particular, the \texttt{ABBOTT\_TB} capacity
+grows throughout the model horizon. In particular, the \texttt{ABBOTT\_TB}
+(Abbott steam turbine) capacity
 increases to just over 100 MW$_e$, even though Figure \ref{fig:uiuc_elc_gen}
 shows its electric generation dropping to zero by 2050. This behavior is likely due to
-the model using \texttt{ABBOTT\_TB} to meet the planning reserve margin, even
-though it does not generate electricity. Additionally, electric import capacity,
-\texttt{IMP\_ELC}, rises
+the model using \texttt{ABBOTT\_TB} to meet the planning
+reserve margin, even though it does not generate electricity. Additionally,
+electric import capacity, \texttt{IMP\_ELC} (imported electricity), rises
 to almost 120 MW and accounts for roughly 35\% of total electricity by 2050.
 This result is consistent with the recommendation from the Campus Master Plan
 \cite{affiliated_engineers_inc_utilities_2015} which recommends increased
@@ -75,9 +76,12 @@ Typical formulations of capacity expansion problems use linear programming to op
 an objective function, usually system cost. However, these models often miss
 other appealing options due to unmodeled, structural uncertainty. \gls{mga}
 works around this by relaxing the objective function according to a user-defined
-slack variable and searching for near-optimal solutions in decision-space. This
-section presents the results for \gls{uiuc} using \gls{mga} to explore alternative
-pathways to net-zero carbon emissions.
+slack variable and searching for near-optimal solutions in decision-space.
+The toy problem presented in section \ref{section:naive-example} shows the effect
+of this slack variable.
+This section presents the results for \gls{uiuc} using \gls{mga} to explore
+alternative pathways to net-zero carbon emissions where the slack variable ranges
+from 1\% to 20\%.
 
 Figure \ref{fig:uiuc_elc_mga} shows the \gls{mga} results for \gls{uiuc}'s electric
 sector. The first panel of Figure \ref{fig:uiuc_elc_mga} shows that a one percent
@@ -154,7 +158,7 @@ The cheapest pathway to net-zero for \gls{uiuc} identified in this analysis has 
 \item Replacing natural gas and coal with nuclear power.
 \end{enumerate}
 A significant limitation to the modeling of UIUC’s electricity system is that energy
-from wind power \glspl{ppa} must flow through the same infrastructure as generalized
+from wind \glspl{ppa} must flow through the same infrastructure as generalized
 electricity imports. In this case, the results show an increase in electricity
 imports up to 220 MW. If the wind capacity does not represent a greater investment
 in \glspl{ppa}, then the wind capacity must be interpreted as owned and operated
@@ -176,7 +180,7 @@ The reactor type is not specified, although it is assumed this would be a series
 of microreactors or small modular reactors. \gls{uiuc} is already pursuing a pilot
 program to build a small
 research reactor developed by \gls{usnc} \cite{noauthor_university_2021}. This reactor
-alone is not nearly enough to meet all campus energy demands. Therefore, subesquent
+alone is not nearly enough to meet all campus energy demands. Therefore, subsequent
 additions of nuclear capacity are necessary to meet demands. The dearth of
 technology options for steam production is genuine. However, the University may
 pursue other heating methods \textit{besides} steam, such as retrofitting all

@@ -11,7 +11,7 @@ unverifiable. By making the data and source code open,
 model integrity
 \cite{decarolis_case_2012}. To that end, along with open-source code and open data,
 \gls{temoa} models should be solvable
-with open-source linear programming solvers like \texttt{COIN-OR} \cite{noauthor_coin-or_nodate} or \texttt{GLPK} \cite{noauthor_glpk_nodate}. I used the
+with open-source linear programming solvers like \texttt{COIN-OR} \cite{noauthor_coin-or_nodate} or \texttt{GLPK} \cite{noauthor_glpk_nodate}. I used the common
 \texttt{CBC} solver from \texttt{COIN-OR} \cite{noauthor_cbc_2021} in this thesis.
 Another benefit of \gls{temoa} is its flexibility.
 The tool is technology agnostic and is designed to model flows and transformations
@@ -104,6 +104,7 @@ expediency or social acceptance.
 \subsection{Na\"{i}ve Pathway to 100\% Clean Energy: Linear Programming Example}
 \label{section:naive-example}
 
+In this subsection, I present the results of a simple example model.
 This example illustrates the influence of both structural and parametric uncertainties
 and how \gls{mga} probes decision space. I include this example to give an intuition
 for the results in presented in Chapter \ref{chapter:illinois} and Chapter
@@ -164,10 +165,12 @@ This linear problem only has two decision variables, solar and wind capacity,
 which makes it graphically solvable. Figure \ref{fig:mga-fig} shows the optimal
 solution and one \gls{mga} iteration to illustrate the changes to decision space.
 I plot the \gls{ceja} goals for reference.
-Every point above the demand constraint represents a feasible solution since those
+Every point above the demand constraint (the dotted blue line) represents a
+feasible solution since those
 combinations of solar and wind can meet annual electricity demand.
 Points above the ``demand constraint'' line, represent an excess of total capacity.
-The \gls{ceja} goals are well within the feasible region but highly sub-optimal.
+The \gls{ceja} goals are well within the feasible region but highly sub-optimal;
+building excess capacity.
 This amount of capacity suggests the energy could be exported, curtailed, or stored,
 which are unmodeled, structural uncertainties, in this formulation.
 The optimal solution minimizes the total cost and lies at the intersection
@@ -185,7 +188,7 @@ scenarios may account for either structural or parametric uncertainties
   \centering
   \resizebox{0.8\columnwidth}{!}{\input{figures/naive_mga.pgf}}
   \caption{The optimal solution lies at the intersection between the objective
-  function (orange line) and the demand constraint (dashed blue line). An \gls{mga}
+  function (orange line) and the demand constraint (dashed blue line). An MGA
   iteration is shown by adding a 10\% slack to the objective function (black line).
   The red dot shows the \gls{ceja} goals for renewable energy, for reference.}
   \label{fig:mga-fig}
@@ -196,11 +199,12 @@ uncertainty, quantifying parametric uncertainty is essential for creating robust
 for policy decisions. Figure \ref{fig:param-fig} shows the same decision space for
 the na\"{i}ve capacity expansion problem as before with upper and lower bounds for
 the demand constraint and objective function, with 10\% uncertainty applied to all
-parameters. The upper bound for the demand constraint represents a scenario where
+parameters. The upper bound for the demand constraint, illustrated in blue,
+represents a scenario where
 the capacity factors for wind and solar are both 10\% less than average, and electricity
-demand is 10\% higher. The upper and lower bounds on the objective function represent
-futures where solar and wind energy costs are 10\% higher or lower, respectively. The
-red dot in Figure \ref{fig:param-fig} represents the
+demand is 10\% higher. The upper and lower bounds on the objective function, in red,
+represent futures where solar and wind energy costs are 10\% higher or lower,
+respectively. The red dot in Figure \ref{fig:param-fig} represents the
 capacity goal set by CEJA. There are several methods to explore this optimal space and
 \gls{temoa} has some functionality for two: \gls{mca} \cite{yue_review_2018} and
 stochastic optimization \cite{decarolis_multi-stage_2012, bennett_extending_2021}.
@@ -232,6 +236,6 @@ such as the availability of solar power, need for backup or energy storage when
 the weather fails, and other clean technology options. Thus \glspl{esom} are necessary.
 
 In the following case studies, I apply \gls{mga} to explore near-optimal solutions
-for the \gls{uiuc} energy system in Chapter \ref{chapter:uiuc} and study the
+for the \gls{uiuc} energy system (Chapter \ref{chapter:uiuc}) and study the
 sensitivity of Illinois' grid to wind and solar capacity factor profiles and time
-resolution in Chapter \ref{chapter:illinois}.
+resolution (Chapter \ref{chapter:illinois}).

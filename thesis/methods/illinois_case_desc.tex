@@ -69,8 +69,9 @@ requires the retirement of all existing Illinois nuclear plants.
   \resizebox{\columnwidth}{!}{
   \begin{tabular}{lrrrrr}
     \toprule
-    Name & Abbreviation & Time Horizon & Zero Emissions Year& Linear Growth Rate & Nuclear
+    Name & Abbreviation & Time Horizon & Zero Emissions& Linear Growth & Nuclear
     Constraint\\
+    & & & Year&  Rate & \\
     \midrule
     Least Cost & LC & 2025-2050 & 2030& 1.0\% & All technology options available\\
     Zero Advanced Nuclear  &ZAN &2025-2050 & 2030& 1.0\% & Advanced nuclear is explicitly disallowed\\
@@ -93,7 +94,7 @@ technologically detailed \cite{de_queiroz_repurposing_2019}.
 Ramp rates limit the change in power output between time slices. For example,
 \texttt{NUCLEAR\_ADV} has a 25\% ramp rate and can increase or decrease
 its power output by 25\% per hour, allowing for modest load-following capability
-\cite{baseload_2017,lokhov_technical_2011}. ``Learning Curve'' indicates that a
+\cite{iaea_non-baseload_2017,lokhov_technical_2011}. ``Learning Curve'' indicates that a
 technology's cost uses learning curves from \gls{nrel}'s 2020 Annual Technology
 Baseline \cite{nrel_2020_2020}. Figure \ref{fig:capital_cost} and Figure
 \ref{fig:fix_costs} show the learning curves for fixed costs and capital costs,
@@ -121,7 +122,8 @@ I assumed that costs remained flat before and after those years.
 \begin{figure}[H]
     \centering
     \resizebox{0.61\columnwidth}{!}{\input{figures/fixed_cost_lc.pgf}}
-    \caption{Fixed cost learning curve \cite{nrel_2020_2020}.}
+    \caption{Fixed cost learning curve according to the \gls{nrel} Annual
+    Technology Baseline (ATB) \cite{nrel_2020_2020}.}
     \label{fig:fix_costs}
 \end{figure}
 
@@ -183,7 +185,8 @@ sensitivity to time resolution. Poncelet et al. 2016 examined the influence of
 the number of time slices, and how those time slices were chosen, on model results
 \cite{poncelet_impact_2016}.
 At most, they sliced time series into four seasons with three representative days (weekday,
-Saturday, Sunday) and 24 times-of-day. Thus, they modeled 288 time slices. This
+Saturday, Sunday) and 24 times-of-day. Thus, they modeled 288 time slices in their
+highest resolution. This
 method captures variability in energy demand within the week, but is not guaranteed
 to capture the variability of solar and wind -- which do not possess periodicity
 associated with the day of the week. I considered four time resolutions in this work,
@@ -223,7 +226,7 @@ operating regimes, described in Table \ref{tab:turbine} for a representative tur
 
 \begin{table}[H]
   \centering
-  \caption{Summary of Wind Turbine Data}
+  \caption{Summary of Wind Turbine Data from \cite{general_electric_15_2013}}
   \label{tab:turbine}
 
   \resizebox{\textwidth}{!}{  \begin{tabular}{lrrrrrr}
@@ -303,7 +306,8 @@ shown in Figure \ref{fig:solar-wind-corr}.
 Table \ref{tab:capfac} lists the average annual capacity factors for solar energy
 and a hypothetical wind farm at the site of \gls{uiuc}'s Solar Farm 1.0. The
 variability in mean capacity factors suggests a need for incorporating inter-year
-changes in resource availability.
+changes in resource availability. These data are considered representative of
+solar and wind over the entire state of Illinois.
 
 \begin{table}[H]
   \centering

@@ -1,6 +1,7 @@
 This chapter reviews the state of \gls{esom} tools
 and tools for evaluating nuclear hybrid energy systems (NHES). The role of \glspl{esom}
-in energy and environmental policymaking is also discussed.
+in energy and environmental policymaking is also discussed. This will be
+supplemented by a review of recent energy policies which frame this analysis.
 
 Energy systems are spatially, temporally, and topologically complex ‘machines’
 that operate cohesively to supply energy where it is needed at the exact moment
@@ -54,7 +55,7 @@ An ``affordable'' energy system can be loosely understood as one with a low rate
 of energy poverty \cite{brown_high_2020}. Households facing energy poverty, or
 energy burden, are often forced to choose among necessary services such as rent,
 water, food, and electricity. High energy costs have cascading adverse
-effects on every aspect of life and significantly impact low-income households
+effects on every aspect of life and disproportionately impact low-income households
 \cite{brown_high_2020}.
 Measures that lead to increased costs for energy producers, such as carbon taxes,
 almost always lead to higher consumer costs \cite{brown_high_2020,poelhekke_how_2019,khastar_how_2020}.
@@ -131,7 +132,9 @@ The Coalition funded a report to evaluate the economic impact of the CEJA bill,
 finding that Illinois’ renewable energy goals could drive 39 billion dollars in
 private investment to the state \cite{the_accelerate_group_clean_2019}.
 However, the creators of this report did not consider the impacts of these targets
-on grid operations, electricity cost, and energy reliability.
+on grid operations, electricity cost, and energy reliability. In Chapter
+\ref{chapter:illinois} I explore the effects of these technologies on cost and
+reliability.
 
 \subsection{Illinois Climate Action Plan at the University of Illinois}
 
@@ -145,26 +148,26 @@ the emissions from vehicles faculty and staff use to drive to work
 institute_for_sustainability_energy_and_environment_illinois_2020}. The
 iCAP reports established several themes and objectives for each. These themes are:
 \begin{itemize}
-  \item Energy
-  \item Transportation
-  \item Land and Water
-  \item Zero Waste
-  \item Resilience
-  \item Reporting Progress (accountability)
-  \item Engagement
-  \item Education
-  \item Research Opportunities
-  \item Funding
+  \item energy,
+  \item transportation,
+  \item land and water,
+  \item zero waste,
+  \item resilience,
+  \item reporting progress (accountability),
+  \item engagement,
+  \item education,
+  \item research opportunities,
+  \item funding.
 \end{itemize}
 The ``Energy'' theme presents most significant opportunity to reduce carbon emissions
-on the UIUC campus because energy production accounts for almost 90\% of the University's
+on the UIUC campus because energy production accounts for almost 90\% of the university's
 carbon emissions \cite{institute_for_sustainability_energy_and_environment_illinois_2015}.
 \gls{uiuc}’s specific energy objectives include an energy
 efficiency target of 167,000 BTU/square foot by 2030, purchasing 140 GWh of clean
 electricity by 2025, and reducing building-level energy use
 \cite{institute_for_sustainability_energy_and_environment_illinois_2020}. Heating
 and cooling represent a major fraction of building energy use.
-The University heats virtually all of its buildings using steam produced by Abbott
+The university heats virtually all of its buildings using steam produced by Abbott
 Power Plant (APP), which burns coal and natural gas. The iCAP objectives conspicuously
 lack a measurable target for clean thermal energy on campus, highlighting the
 challenge of replacing thermal energy.
@@ -176,7 +179,7 @@ future uncertainties are resolved \cite{hunter_modeling_2013}. In particular, \g
 related to the planning and expansion of energy generating capacity \cite{de_queiroz_repurposing_2019}.
 In order to achieve this goal, \glspl{esom} have to balance spatial, temporal, and topological
 complexities while accounting for profound future uncertainties \cite{martinez-gordon_review_2021}.
-\glspl{esom} typically use a “time-slice” approach where modelers use several
+\glspl{esom} typically use a “time slice” approach where modelers use several
 representative time slices to capture temporal variability \cite{fattahi_systemic_2020}.
 Some frameworks handle spatial complexity by modeling different regions. The most
 detailed among them incorporate geospatial data from geographical information
@@ -185,6 +188,8 @@ Lastly, most \glspl{esom} consider grid topology by grouping technology types
 (e.g. ‘coal power’ or ‘nuclear power’) \cite{fattahi_systemic_2020}, while some
 frameworks look at interactions among individual plants \cite{jenkins_enhanced_2017}.
 Handling future uncertainty is one of the most critical features of an \gls{esom}.
+Here I will discuss the various assumptions that often appear in \gls{esom} and
+conclude with ways these tools quantify uncertainty.
 
 \subsection{Structure and Assumptions}
 
@@ -193,7 +198,7 @@ minimize cost, the objective function, and address other policy
 goals through constraints. The details of linear programming are discussed in
 chapter \ref{chapter:methods}. TIMES and MARKAL are two of the most mature
 \glspl{esom} in the the literature that use linear programming \cite{decarolis_case_2012}.
-However, these modeling frameworks do not have open source code, data, and is
+However, these modeling frameworks do not have open source code, or data, and is
 proprietary software \cite{decarolis_case_2012}. Other \glspl{esom} that use
 linear programming include OSeMOSYS, MESSAGE, GenX, PPSA, and \gls{temoa} to
 name a few \cite{decarolis_case_2012,yue_review_2018,jenkins_enhanced_2017}. These
@@ -212,12 +217,13 @@ OpenModelica models technologies with much greater technical detail than traditi
 models. I include OpenModelica and
 \gls{raven} in this review because they are often used to study \glspl{nhes}
 \cite{baker_optimal_2018,garcia_dynamic_2016,epiney_economic_2020}.
-Research descriptions and model parameters are summarized in Table \ref{tab:esom_lit}.
+Research descriptions and model parameters of studies that use \glspl{esom} or
+dispatch models to examine relevant systems are summarized in Table \ref{tab:esom_lit}.
 
 \subsection{Uncertainty Quantification}
 
 Since perfect foresight is impossible, and policymakers often act then learn, handling
-uncertainty is critical to developing robust insights
+uncertainty is critical to developing robust insights and strong decisionmaking
 \cite{yue_review_2018, decarolis_modelling_2016}.
 The two broad categories of uncertainties are parametric uncertainty and structural
 uncertainty.
@@ -280,14 +286,17 @@ of time slices to model each year
 \cite{alzbutas_uncertainty_2012,barron_differential_2015,bennett_extending_2021,
 bouckaert_expanding_2014,decarolis_modelling_2016,li_open_2020,poncelet_impact_2016,
 seck_embedding_2020,yue_least_2020}. These models may use as few as four annual
-time slices \cite{decarolis_modelling_2016} or up to 288 annual time slices \cite{poncelet_impact_2016}.
-Here, the primary tradeoff is between temporal variations and topological complexity.
-Poncelet et al. 2016 recommend prioritizing temporal complexity over topological
-complexity due to the strong impact of resource variability on model results
-\cite{poncelet_impact_2016}. The study from DeCarolis et al. 2016 is among the most
-topologically complex studies and used \gls{mga} to examine different policy futures.
-Due to the large number of modeled energy sectors and technology options, the temporal
-detail is reduced to two times-of-day and two seasons.
+time slices \cite{decarolis_modelling_2016} or up to 288 annual time slices
+\cite{poncelet_impact_2016}.
+
+In this thesis, the primary tradeoff is between temporal variations and topological
+complexity. Poncelet et al. 2016 recommend prioritizing temporal complexity over
+topological complexity due to the strong impact of resource variability on model
+results \cite{poncelet_impact_2016}. The study from DeCarolis et al. 2016 is
+among the most topologically complex studies and used \gls{mga} to examine
+different policy futures. Due to the large number of modeled energy sectors and
+technology options, the temporal detail is reduced to two times-of-day and two
+seasons.
 
   \begin{table}
     \centering

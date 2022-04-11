@@ -2,7 +2,8 @@ The need for transparency, repeatability, and robust uncertainty quantification
 motivated \gls{temoa}'s development \cite{hunter_modeling_2013}.
 In particular, model interrogation by third parties is essential to this transparency
 goal. Nevertheless, complex models can be tens to hundreds of thousands of lines long.
-The \texttt{US\_Regional.sql} database maintained by the \gls{temoa} team exceeds
+The \texttt{US\_Regional.sql} database containing technology and model parameters
+maintained by the \gls{temoa} team exceeds
 150,000 lines \cite{model_databases_2021}. Even with an open-source
 database viewer like \texttt{DBeaver}, checking a large dataset's assumptions can be
 overwhelming \cite{noauthor_dbeaver_nodate}. Conversely, developing new datasets
@@ -99,12 +100,12 @@ exponential or linear curves. In the future, this will extend to logistic curves
 and user-defined curves. By making all model parameters explicit, such as growth
 rate, growth type, and resource availability, \gls{pygen} makes truly global sensitivity
 analysis possible. Indeed, the sensitivity analysis in Chapter \ref{chapter:illinois}
-is prohibitively labor-intensive without \gls{pygen}.
+is prohibitively labor-intensive without \gls{pygen}. In the following experiments,
+I use a 1\% linear growth-rate, shown in green, for all models.
 
 \begin{figure}[H]
   \centering
   \resizebox{0.8\textwidth}{!}{\input{figures/demand_growth_example.pgf}}
-  \caption{Demand growth forecasts under various growth rates and curves. Plotted
-  with \gls{pygen}.}
+  \caption{Demand growth forecasts under various growth rates and curves.}
   \label{fig:dem-growth}
 \end{figure}

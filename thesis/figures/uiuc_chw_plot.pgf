@@ -2227,7 +2227,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=5.950000in,y=4.850000in,,top]{\color{textcolor}\rmfamily\fontsize{24.000000}{28.800000}\selectfont UIUC Chiled Water Capacity in 2050}%
+\pgftext[x=5.950000in,y=4.850000in,,top]{\color{textcolor}\rmfamily\fontsize{24.000000}{28.800000}\selectfont UIUC Chilled Water Capacity in 2050}%
 \end{pgfscope}%
 \end{pgfpicture}%
 \makeatother%

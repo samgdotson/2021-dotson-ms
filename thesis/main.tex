@@ -142,8 +142,8 @@
 \tikzstyle{arrow} = [thick,->,>=stealth]
 
 
-\title{The Influence of Temporal Detail and Inter-annual Variability on Energy
-Planning Models}
+\title{The Influence of Temporal Detail and Inter-annual Resource Variability on
+Energy Planning Models}
 \author{Samuel G. Dotson}
 \department{Nuclear, Plasma, Radiological Engineering}
 \schools{B.S., University of Illinois - Urbana Champaign, 2019}
@@ -160,12 +160,72 @@ Planning Models}
 % %% Note that ProQuest truncates their abstracts at 350 words.
 \begin{abstract}
 
-Abstract.
+Decarbonizing the United States energy system is a challenging task. The situation
+is exacerbated by the lack of strong federal climate policy, leaving individual
+states and institutions to drive the energy sector towards net-zero carbon emissions.
+ESOM tools use linear programming to develop policy insights that may help achieve
+full decarbonization. However, there is a widely recognized tradeoff between model
+complexity and computational cost. Adding spatial, temporal, and technological
+details make these models more realistic, but may make them computationally
+intractable. Previously, most ESOM studies prioritize technology options over
+spatial or temporal detail. This choice emphasizes the role of technology costs,
+such as fuel and capital costs, on energy policy without considering operational
+challenges. This thesis uses the ESOM, \texttt{Temoa} to model Illinois' and
+the University of Illinois' energy systems and develops the \texttt{PyGenesys}
+tool to facilitate sensitivity analysis. The sensitivities considered in this work
+are temporal resolution and the annual capacity factors of wind and solar energy,
+or the inter-annual variability.
+
+The results of the time resolution study showed that any temporal aggregation
+above an hourly level may generate misleading results that minimizes the roles
+of firm clean power and energy storage. Additionally, the role of wind energy is
+overestimated in models with less temporal detail, and the roles of solar energy
+and advanced nuclear reactors are underestimated. The study of inter-annual variability
+showed that energy systems with majority variable intermittent renewables, such
+as solar and wind, that exclude clean firm power from nuclear power plants exhibit
+higher energy costs with nearly 63 times the variance of systems that use a
+majority of clean firm power. Additionally, the amount of capacity necessary to meet
+electricity demand is greater and more uncertain in systems with high renewable
+penetration.
+
+Finally, based on the results in each of the sensitivity analyses, this thesis
+recommends that Illinois continues supporting its existing nuclear fleet with
+``zero emissions credits'' and expand clean firm capacity with advanced nuclear
+reactors by lifting the moratorium on new nuclear builds.
+
 
 \end{abstract}
 
-% \chapter*{Acknowledgments}
-%
+\chapter*{Acknowledgments}
+
+This work would not have been possible without the support of my peers and
+advisors. In particular, I want to thank Dr. Kathryn Huff for giving me the
+opportunity to pursue graduate studies in nuclear engineering. Her mentorship and
+guidance have been a tremendous positive influence on my life and my work.
+
+My fellow ARFC groupmates, Mark Kamuda Roberto Fairhurst, Gwendolyn Chee,
+Sun Myung Park, Andrei Rykhlevskii, Oleksandr Yardas, Luke Seifert, Zo\"e Richter,
+Amanda Bachmann, Nathan Ryan, and Nataly Panczyk all offered useful feedback
+during group meeings. Special thanks to: Roberto Fairhurst for helping me with
+earliest iterations of this project and for being an excellent roommate; Gwendolyn
+Chee for always laughing at my jokes, even when they're not funny; Nathan Ryan
+and Nataly Panczyk for being excellent mentees, \texttt{PyGenesys} guinea pigs,
+and for being truly indispensable.
+I would also like to thank my friends Kelsey Luo and Jeremy Mettler for their
+helpful comments and for always being available to listen.
+
+Lastly, I thank my parents, Jennifer and David, for giving me space to grow
+into the person I am today. (Actual) lastly, I thank my cat, Ivy, who is a
+constant comfort in my life.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{figures/ivy}
+  \caption{Ivy}
+  \label{fig:ivy}
+\end{figure}
+
+
 % Kelsey Luo\\
 % Katy Huff
 %
@@ -219,16 +279,16 @@ Abstract.
 \chapter{Conclusions}
 \input{conclusion}
 
+\backmatter
+
+\bibliographystyle{abbrv}
+\bibliography{bibliography}
 %
 \appendix
 \addcontentsline{toc}{chapter}{Appendix}
 \chapter*{Appendix}
 \input{appendix}
 %
-\backmatter
-
-\bibliographystyle{abbrv}
-\bibliography{bibliography}
 
 \end{document}
 \endinput

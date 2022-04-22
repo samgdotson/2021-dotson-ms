@@ -5,17 +5,17 @@
 %% The original source files were:
 %%
 %% uiucthesis2014.dtx  (with options: `class')
-%% 
+%%
 %% IMPORTANT NOTICE:
-%% 
+%%
 %% For the copyright see the source file.
-%% 
+%%
 %% Any modified versions of this file must be renamed
 %% with new filenames distinct from uiucthesis2014.cls.
-%% 
+%%
 %% For distribution of the original source see the terms
 %% for copying and modification in the file uiucthesis2014.dtx.
-%% 
+%%
 %% This generated file may be distributed as long as the
 %% original source files, as listed above, are part of the
 %% same distribution. (The sources need not necessarily be
@@ -110,7 +110,7 @@
     \ClassError{uiucthesis2014}{A committee must be specified for e-deposit dissertations.}%
     {Use \protect\committee\space with members separated by \protect\\'s.}}
 \fi
-\def\copyrightnotice{\copyright~\@degreeyear~by \@author. All rights reserved.}
+\def\copyrightnotice{\copyright~\@degreeyear~by \@author.}
 \newif\if@thesiscrpage \@thesiscrpagetrue
 \let\nocopyrightpage\@thesiscrpagefalse
 \if@thesisdraft\nocopyrightpage\fi
@@ -189,7 +189,7 @@
         Submitted in partial fulfillment of the requirements\\
         for the degree of \@degree\ in \@dept\\
         in the \@college\ of the\\
-        University of Illinois at Urbana-Champaign, \@degreeyear\vfil}
+        University of Illinois Urbana-Champaign, \@degreeyear\vfil}
  \vskip -2ex
  \vbox to 0.35in{
  Urbana, Illinois}

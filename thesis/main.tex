@@ -90,6 +90,13 @@
 \usepackage{array}
 \usepackage{siunitx}
 \usepackage{rotating}
+
+\usepackage{chngcntr}
+
+\AtBeginDocument{%
+  \counterwithin{lstlisting}{section}
+}
+
 \sisetup{
     input-decimal-markers = .,input-ignore = {,},table-number-alignment = right,
     group-separator={,}, group-four-digits = true
@@ -149,7 +156,7 @@ Energy Planning Models}
 \schools{B.S., University of Illinois - Urbana Champaign, 2019}
 \msthesis
 \degreeyear{2022}
-\committee{Dr. Madicken Munk \\ Professor James F. Stubbins}
+\committee{Dr. Madicken Munk, Chair \\ Professor James F. Stubbins}
 
 \makeglossary
 \glspatchtabularx
@@ -225,7 +232,7 @@ constant comfort in my life.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{figures/ivy}
-  \caption{Ivy}
+  \caption*{Ivy}
   \label{fig:ivy}
 \end{figure}
 
@@ -276,7 +283,7 @@ constant comfort in my life.
 
  \chapter{Case Study II: Emissions-Free Microgrid at UIUC}
 \label{chapter:uiuc}
- \input{uiuc_case_study/uiuc_results}
+\input{uiuc_case_study/uiuc_results}
 
 \chapter{Conclusions}
 \input{conclusion}
@@ -287,8 +294,8 @@ constant comfort in my life.
 \bibliography{bibliography}
 %
 \appendix
-\addcontentsline{toc}{chapter}{Appendix}
-\chapter*{Appendix}
+\addcontentsline{toc}{chapter}{Appendix A: \gls{pygen} Example}
+\chapter*{Appendix A: \gls{pygen} Example}
 \input{appendix}
 %
 

@@ -11,8 +11,8 @@ unverifiable. By making the data and source code open,
 model integrity
 \cite{decarolis_case_2012}. To that end, along with open-source code and open data,
 \gls{temoa} models should be solvable
-with open-source linear programming solvers like \texttt{COIN-OR} \cite{noauthor_coin-or_nodate} or \texttt{GLPK} \cite{noauthor_glpk_nodate}. I used the common
-\texttt{CBC} solver from \texttt{COIN-OR} \cite{noauthor_cbc_2021} in this thesis.
+with open-source linear programming solvers like \texttt{COIN-OR} \cite{coin-or_foundation_coin-or_nodate} or \texttt{GLPK} \cite{free_software_foundation_glpk_nodate}. I used the common
+\texttt{CBC} solver from \texttt{COIN-OR} \cite{forrest_cbc_2021} in this thesis.
 Another benefit of \gls{temoa} is its flexibility.
 The tool is technology agnostic and is designed to model flows and transformations
 of commodities created by users.
@@ -22,7 +22,7 @@ time resolution, restricted only by data availability and computational resource
 \subsection{Mathematics of Temoa}
 \glspl{esom} like \gls{temoa} use linear programming to optimize an objective
 function, in most cases the objective function represents total system cost.
-A single \gls{temoa} run minimizes the following objective function \cite{noauthor_preface_nodate},
+A single \gls{temoa} run minimizes the following objective function \cite{decarolis_preface_nodate},
 
 \begin{align}
   C_{total} &= C_{loans} + C_{fixed} + C_{variable}
@@ -65,7 +65,7 @@ this thesis. This objective function is also subject to various constraints that
 guarantee energy demands are met at all times and, if specified, ensures respect
 of capacity and emissions limits. The details of these constraints and the
 mathematical expressions for the other cost terms are available online
-\cite{noauthor_preface_nodate}.
+\cite{decarolis_preface_nodate}.
 
 \subsubsection{Modeling-to-Generate-Alternatives}
 \gls{mga} enables systematic evaluation of structural uncertainty by probing

@@ -14,8 +14,9 @@ The tools I used were:
 In this thesis, I demonstrate the role of advanced nuclear reactors to meet future
 energy demands with two case studies: Illinois’ electric grid and the microgrid
 at the University of Illinois at Urbana-Champaign. Both case studies use \gls{temoa}
-to solve for the optimal least-cost solution. I developed \gls{pygen} to
-facilitate the creation of \gls{temoa} input files and sensitivity analyses.
+\cite{decarolis_temoa_2010} to solve for the optimal least-cost solution. I
+developed \gls{pygen} \cite{dotson_python_2021} to facilitate the creation of
+\gls{temoa} input files and sensitivity analyses.
 
 \section{Tools for Energy System Optimization and Analysis (Temoa)}
 \input{methods/temoa}
@@ -48,10 +49,10 @@ with a method similar to hydraulic fracturing \cite{geothermal_technologies_offi
 However, EGSs have high capital costs, more than twice an AP1000 Nuclear Reactor
 \cite{nrel_2020_2020}. \gls{uiuc} has a geothermal loop that supplies 135 tons of refrigeration
 and heating, up to 65\% of the energy use for one new (as of 2021) building on campus,
-the Campus Instructional Facility \cite{noauthor_geothermal_nodate}.
+the Campus Instructional Facility \cite{kim_geothermal_nodate}.
 This loop cost \gls{uiuc} nearly 2 million dollars which is 580\% more expensive
 than the existing chilled water capacity
-\cite{noauthor_geothermal_nodate,affiliated_engineers_inc_utilities_2015}. For these
+\cite{kim_geothermal_nodate,affiliated_engineers_inc_utilities_2015}. For these
 reasons, I did not model geothermal or hydropower for either \gls{uiuc} or Illinois.
 Dedicated biomass power plants are modeled for Illinois to offer an alternative
 firm capacity option. However, \gls{nrel} also modeled the technical potential for biopower

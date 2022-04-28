@@ -3,6 +3,7 @@
 
 
 \usepackage[acronym,toc]{glossaries}
+\setcounter{tocdepth}{2}
 \include{acros}
 
 
@@ -91,6 +92,8 @@
 \usepackage{siunitx}
 \usepackage{rotating}
 
+\usepackage[title]{appendix}
+
 \usepackage{chngcntr}
 
 \AtBeginDocument{%
@@ -154,7 +157,7 @@
 \title{The Influence of Temporal Detail and Inter-annual Resource Variability on
 Energy Planning Models}
 \author{Samuel G. Dotson}
-\department{Nuclear, Plasma, Radiological Engineering}
+\department{Nuclear, Plasma, and Radiological Engineering}
 \schools{B.S., University of Illinois - Urbana Champaign, 2019}
 \msthesis
 \degreeyear{2022}
@@ -294,11 +297,22 @@ constant comfort in my life.
 
 \bibliographystyle{myunsrt}
 \bibliography{bibliography}
-%
-\appendix
-\addcontentsline{toc}{chapter}{Appendix A: \gls{pygen} Example}
-\chapter*{Appendix A: \gls{pygen} Example}
-\input{appendix}
+
+%\appendix
+
+%\renewcommand{\thesection}{A.\arabic{chapter}}
+%\counterwithin{figure}{chapter}
+%\begin{appendix}
+%\chapter{\texttt{PyGenesys} Example}
+%\input{appendix}
+%\end{appendix}
+%\appendix
+%%\addcontentsline{toc}{chapter}{Appendix A: \texttt{PyGenesys} Example}
+%\counterwithin{figure}{section}
+%\addcontentsline{toc}{chapter}{Appendix A: \texttt{PyGenesys} Example}
+%\chapter{\texttt{PyGenesys} Example}
+%\chapter{}
+%\input{appendix}
 %
 
 \end{document}
